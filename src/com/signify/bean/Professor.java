@@ -4,11 +4,19 @@
 package com.signify.bean;
 
 
-public class ProfessorDetails {
+public class Professor {
 	private String designation;
 	private String professorName;
 	private String userId;
 	private String departmentName;
+	private String Password;
+
+	public String getPassword() {
+		return Password;
+	}
+	public void setPassword(String password) {
+		Password = password;
+	}
 	public String getDepartmentName() {
 		return departmentName;
 	}

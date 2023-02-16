@@ -1,24 +1,31 @@
 package com.signify.bean;
 
-public class courseDetails {
+public class Course {
 	private String courseName;
 	private String courseCode;
 	private String departmentName;
 	private String professorName;
 	private boolean isOffered;
 	private int enrolledStudent;
+	private int semester;
 	
 	
+	public int getSemester() {
+		return semester;
+	}
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
 	public String getCourseName() {
 		return courseName;
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public String getCourseId() {
+	public String getCourseCode() {
 		return courseCode;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseCode(String courseId) {
 		this.courseCode = courseId;
 	}
 	public String getDepartmentName() {
@@ -33,11 +40,11 @@ public class courseDetails {
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
 	}
-	public boolean isCourseOffered() {
+	public boolean isOffered() {
 		return isOffered;
 	}
-	public void setCourseOffered(boolean courseOffered) {
-		this.isOffered = courseOffered;
+	public void setIsOffered(boolean isOffered) {
+		this.isOffered = isOffered;
 	}
 	public int getEnrolledStudent() {
 		return enrolledStudent;

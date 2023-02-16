@@ -7,7 +7,7 @@ package com.signify.bean;
  * @author BHAVISH
  *
  */
-public class studentDetails {
+public class Student {
 
 	private String studentName;
 	private String address;
@@ -15,11 +15,38 @@ public class studentDetails {
 	private String branchName;
 	private boolean registered;
 	private boolean paymentdone;
+	private String Password;
+	private boolean scholarship;
+	private String scholarshipId;
 	
 	
+	public boolean isScholarship() {
+		return scholarship;
+	}
+	public void setScholarship(boolean scholarship) {
+		this.scholarship = scholarship;
+	}
+	public String getScholarshipId() {
+		return scholarshipId;
+	}
+	public void setScholarshipId(String scholarshipId) {
+		this.scholarshipId = scholarshipId;
+	}	
 	
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	private int phoneNumber;	
 	
-	
+	public String getPassword() {
+		return Password;
+	}
+	public void setPassword(String password) {
+		Password = password;
+	}
 	public boolean isRegistered() {
 		return registered;
 	}
@@ -45,7 +72,7 @@ public class studentDetails {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getUserId() {
+	public static  String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
