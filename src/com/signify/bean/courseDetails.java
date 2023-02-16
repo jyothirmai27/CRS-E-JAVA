@@ -2,10 +2,10 @@ package com.signify.bean;
 
 public class courseDetails {
 	private String courseName;
-	private String courseId;
+	private String courseCode;
 	private String departmentName;
 	private String professorName;
-	private boolean courseOffered;
+	private boolean isOffered;
 	private int enrolledStudent;
 	
 	
@@ -16,10 +16,10 @@ public class courseDetails {
 		this.courseName = courseName;
 	}
 	public String getCourseId() {
-		return courseId;
+		return courseCode;
 	}
 	public void setCourseId(String courseId) {
-		this.courseId = courseId;
+		this.courseCode = courseId;
 	}
 	public String getDepartmentName() {
 		return departmentName;
@@ -34,10 +34,10 @@ public class courseDetails {
 		this.professorName = professorName;
 	}
 	public boolean isCourseOffered() {
-		return courseOffered;
+		return isOffered;
 	}
 	public void setCourseOffered(boolean courseOffered) {
-		this.courseOffered = courseOffered;
+		this.isOffered = courseOffered;
 	}
 	public int getEnrolledStudent() {
 		return enrolledStudent;
