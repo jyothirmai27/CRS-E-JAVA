@@ -3,17 +3,17 @@ package com.signify.service;
 import java.util.Scanner;
 
 import com.signify.bean.Course;
-import com.signify.bean.Student;
+import com.signify.bean.Professor;
 
-public abstract class ProfessorService {
-	public static void changeGrade() {
-		
+public class ProfessorService implements ProfessorInterface {
+	public void changeGrade() {
+		System.out.println("grade added");
 	}
-	public static void viewEnrolledStudents() {
-		
+	public void viewEnrolledStudents() {
+		System.out.println("viewing enrolled students");
 	}
 	public void selectCourse() {
-		Scanner in = new Scanner (System.in);
+		/*Scanner in = new Scanner (System.in);
 		System.out.println("Enter Name : ");
 		String name = in.next();
         System.out.println("Enter Semester : ");
@@ -22,14 +22,26 @@ public abstract class ProfessorService {
         String code = in.next();
         Course course = new Course();
         course.setProfessorName(name);
+        course.setCourseCode(code);
+        course.setSemester(sem);
         //course catalog to add professor
-        in.close();
+        in.close();*/
+		
+		System.out.println("selecting course");
 	}
-	public static void editDetails() {
+	public void editDetails() {
 		///to be approved by admin
+		
+		System.out.println("editing Details");
 	}
 	public void viewDetails() {
+		System.out.println("viewing details");
+	}
+	@Override
+	public void addProfessor(Professor professor) {
+		// TODO Auto-generated method stub
 		
+		System.out.println("Professor added");
 	}
 	
 }

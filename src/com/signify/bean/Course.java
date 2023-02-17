@@ -1,14 +1,16 @@
 package com.signify.bean;
 
+import java.util.List;
+
 public class Course {
 	private String courseName;
 	private String courseCode;
 	private String departmentName;
 	private String professorName;
 	private boolean isOffered;
-	private int enrolledStudent;
 	private int semester;
-	
+	private List<String> enrolledStudents;
+	private int enrolledStudentCount;
 	
 	public int getSemester() {
 		return semester;
@@ -40,17 +42,21 @@ public class Course {
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
 	}
+	public List<String> getEnrolledStudents() {
+		return enrolledStudents;
+	}
+	public void setEnrolledStudents(List<String> enrolledStudents) {
+		this.enrolledStudents = enrolledStudents;
+	}
+
+	public int getEnrolledStudentCount() {
+		return enrolledStudentCount;
+	}
+	public void setEnrolledStudentCount(int enrolledStudentCount) {
+		this.enrolledStudentCount = enrolledStudentCount;
+	}
 	public boolean isOffered() {
 		return isOffered;
-	}
-	public void setIsOffered(boolean isOffered) {
-		this.isOffered = isOffered;
-	}
-	public int getEnrolledStudent() {
-		return enrolledStudent;
-	}
-	public void setEnrolledStudent(int enrolledStudent) {
-		this.enrolledStudent = enrolledStudent;
 	}
 	
 }

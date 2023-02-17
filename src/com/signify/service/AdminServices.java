@@ -3,34 +3,46 @@
  */
 package com.signify.service;
 
+import com.signify.bean.Admin;
+
 /**
  * @author BHAVISH
  *
  */
-public  class AdminServices {
-	public static void assignCourse(){
-		
+public  class AdminServices implements AdminInterface{
+	public void assignCourse(){
+		System.out.println("course assigned by admin");
 	}
-	public static void addCourse() {
-		
+	public void addCourse() {
+		System.out.println("Course added by admin");
 	}
-	public static void addAdmin() {
+	public void addAdmin(Admin admin) {
 		System.out.println("ADMIN ADDED");
 	}
-	public static void dropCourse(){
+	public void dropCourse(){
 		System.out.println("COURSE DROPPED");
 	}
-	public  static void generateReportCard(){
+	public  void generateReportCard(){
 		System.out.println("REPORT CARD GENERATED");
 		
 	}
-	public  static void approveStudent(){
-		
+	public  void approveStudent(){
+		System.out.println("student approved by admin");
 	}
-	public  static void addProfessor(){
-		
+	public  void addProfessor(){
+		System.out.println("Professor added by admin");		
 	}
-	public  static void courseDetails(){
-		
+	public  void courseDetails(){
+		System.out.println("viewing course details by admin");
+	}
+	@Override
+	public void viewEnrolledStudents() {
+		// TODO Auto-generated method stub
+		System.out.println("viewing enrolled students by admin");
+	}
+	@Override
+	public void removeAdmin(Admin admin) {
+		// TODO Auto-generated method stub
+		System.out.println("removed admin");
 	}
 }

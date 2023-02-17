@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import com.signify.bean.Professor;
+import com.signify.service.GradeCardInterface;
+import com.signify.service.GradeCardServices;
+import com.signify.service.ProfessorInterface;
+import com.signify.service.ProfessorService;
 import com.signify.service.SemesterRegistrationServices;
 
 public class CRSProfessorMenu {
@@ -11,27 +15,44 @@ public class CRSProfessorMenu {
 	
         System.out.println("\tWELCOME TO PROFESSOR PANEL");         
         System.out.println("--------------------------------------------------------------- ");  
+        
+        //Object creation
         Scanner in = new Scanner (System.in);
-        while(true) {
-        System.out.println("1. ADD GRADES\r\n"
-        		+ "2. VIEW STUDENTS\r\n"
-        		+ "3. UPDATE PASSWORD\r\n"
-        		+ "4. EXIT ");
+        ProfessorInterface professorService = new ProfessorService();
+        GradeCardInterface gradeCardServices = new GradeCardServices();
+        Professor professor = new Professor();
+        
+        
+        boolean exit = true;
+        while(exit) {
+        System.out.println("------------------------------------------------------");  
+        System.out.println("Press\n"
+        		+ "1. ADD GRADES\r\n"
+        		+ "2. VIEW ENROLLED STUDENTS\r\n"
+        		+ "3. APPLY AS INSTRUCTOR FOR COURSE\r\n"
+        		+ "4. ENTER DETAILS\r\n"
+        		+ "5. EDIT USER DETAILS\r\n"
+        		+ "6. EXIT PORTAL");
         String choice = in.next();
-        switch(choice){
-        case "1":  System.out.println("Course Graded");
+        switch(choice) {
+        case "1":gradeCardServices.addGrades();
         break;
-        case "2": System.out.println("List of Students");
+        case "2":professorService.viewEnrolledStudents();
         break;
-        case "3": Professor professor = new Professor();
-    	System.out.println("Enter new Password");
-    	String password = in.next();
-		professor.setPassword(password);
-		break;
-        case "4":CRSApplicationMenu.main(null);
-		default: System.out.println("Enter valid numeric input");
+        case "3":professorService.selectCourse();
+        break;
+        case "4"://input details here
+        	professorService.addProfessor(professor);
+        break;
+        case "5"://get details and pass professor object
+        	professorService.editDetails(); 
+        break;
+        case "6": exit = false;
+        	CRSApplicationMenu.main(null);
+        break;
+        default :System.out.println("Enter valid numeric input.");
         }
-        }
+      }
 	}
 }
 

@@ -9,4 +9,9 @@ package com.signify.service;
  */
 public interface PaymentNotificationInterface {
 
+	
+	public void generateNotificationId() ;
+	public void notificationMessage();
+	public void makeNotification();
+
 }

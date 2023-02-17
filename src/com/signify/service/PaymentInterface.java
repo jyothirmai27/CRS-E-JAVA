@@ -8,5 +8,8 @@ package com.signify.service;
  *
  */
 public interface PaymentInterface {
-
+	
+	public void calculateAmount();
+	public void makePayment();
+	public boolean paymentStatus();
 }

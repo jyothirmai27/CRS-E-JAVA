@@ -3,6 +3,8 @@
  */
 package com.signify.bean;
 
+import java.util.List;
+
 /**
  * @author BHAVISH
  *
@@ -11,7 +13,7 @@ public class Catalog {
 	private int totalCourses;
 	private int totalDepartments;
 	private String department;
-	private String courseCodes;
+	private List<String> courseCodes;
 	private String proffesor;
 	
 	public int getTotalCourses() {
@@ -32,10 +34,11 @@ public class Catalog {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	public String getCourseCodes() {
+
+	public List<String> getCourseCodes() {
 		return courseCodes;
 	}
-	public void setCourseCodes(String courseCodes) {
+	public void setCourseCodes(List<String> courseCodes) {
 		this.courseCodes = courseCodes;
 	}
 	public String getProffesor() {

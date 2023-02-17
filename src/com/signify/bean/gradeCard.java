@@ -3,7 +3,8 @@
  */
 package com.signify.bean;
 
-import java.util.List;
+//import java.util.List;
+import java.util.Map;
 
 /**
  * @author BHAVISH
@@ -12,11 +13,10 @@ import java.util.List;
 public class GradeCard {
 	
 	private int studentId;
-
 	private int semester;
 	private float cpi;
-	private List registeredCourses;
-	
+	private Map<String,String> grades;
+	private enum grade {A,B,C,D};
 	public int getStudentId() {
 		return studentId;
 	}
@@ -35,16 +35,11 @@ public class GradeCard {
 	public void setCpi(float cpi) {
 		this.cpi = cpi;
 	}
-	public List getRegisteredCourses() {
-		return registeredCourses;
+	public Map<String, String> getGrades() {
+		return grades;
 	}
-	public void setRegisteredCourses(List registeredCourses) {
-		this.registeredCourses = registeredCourses;
-	}
-	
-	public float calculateCpi() {
-		float cpi = 0.0f; //calculate cpi
-		return cpi;
+	public void setGrades(Map<String, String> grades) {
+		this.grades = grades;
 	}
 	
 

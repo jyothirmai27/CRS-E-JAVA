@@ -3,6 +3,8 @@
  */
 package com.signify.bean;
 
+import java.util.List;
+
 /**
  * @author BHAVISH
  *
@@ -11,14 +13,14 @@ public class Student {
 
 	private String studentName;
 	private String address;
-	private static String userId;
+	private String userId;
 	private String branchName;
 	private boolean registered;
 	private boolean paymentdone;
 	private String Password;
 	private boolean scholarship;
 	private String scholarshipId;
-	
+	private List<String> registeredCourses;
 	
 	public boolean isScholarship() {
 		return scholarship;
@@ -72,7 +74,7 @@ public class Student {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public static  String getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
@@ -83,6 +85,12 @@ public class Student {
 	}
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
+	}
+	public List<String> getRegisteredCourses() {
+		return registeredCourses;
+	}
+	public void setRegisteredCourses(List<String> registeredCourses) {
+		this.registeredCourses = registeredCourses;
 	}
 
 }
