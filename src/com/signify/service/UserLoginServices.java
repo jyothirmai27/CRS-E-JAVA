@@ -21,7 +21,7 @@ public  class UserLoginServices {
 		String userId = in.next();
 		System.out.println("Enter Password");
 		String password = in.next();
-		System.out.println("Enter 1 for Student/r/n Enter 2 for professor/r/n  Enter 3 for admin");
+		System.out.println("Enter 1 for Student\r\n Enter 2 for professor\r\n Enter 3 for admin");
 		String role = in.next();
 		switch(role) {
 		case "1": {Student student = new Student();

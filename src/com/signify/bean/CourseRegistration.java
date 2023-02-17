@@ -40,3 +40,4 @@ public class CourseRegistration {
 	public void setGrade(String grade) {
 		this.grade = grade;
 }
+}

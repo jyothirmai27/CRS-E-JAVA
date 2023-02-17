@@ -11,7 +11,7 @@ public class Student {
 
 	private String studentName;
 	private String address;
-	private String userId;
+	private static String userId;
 	private String branchName;
 	private boolean registered;
 	private boolean paymentdone;

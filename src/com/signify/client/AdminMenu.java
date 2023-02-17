@@ -15,18 +15,19 @@ import com.signify.service.StudentServices;
  */
 public class AdminMenu {
 	public void display() throws IOException {
-    System.out.println("WELCOME TO STUDENT PANEL");        
-    System.out.println("---------------------- ");  
+    System.out.println("\tWELCOME TO STUDENT PANEL");        
+    
     Scanner in = new Scanner (System.in);
     
 
     while(true) {
-    System.out.println( "1 to Approve Student\r\n"
-    		+ "2 to Add course\r\n"
-    		+ "3 to Add Professor\r\n"
-    		+ "4 to Add Admin\r\n"
-    		+ "5 to Generate Report Card\r\n"
-    		+ "16 to Exit");
+    	System.out.println("---------------------------------------------------------");  
+    System.out.println( "1. APPROVE STUDENT\r\n"
+    		+ "2. ADD COURSE\r\n"
+    		+ "3. ADD PROFESSOR\r\n"
+    		+ "4. ADD ADMIN\r\n"
+    		+ "5. GENERATE REPORT CARD\r\n"
+    		+ "6. EXIT");
     String choice = in.next();
     switch(choice){
     case "1": AdminServices.approveStudent();

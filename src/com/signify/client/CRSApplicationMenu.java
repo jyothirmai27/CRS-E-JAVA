@@ -26,17 +26,17 @@ public class CRSApplicationMenu {
 		// TODO Auto-generated method stub
 		
 	
-        System.out.println("WELCOME TO CRS APPLICATION");    
-        System.out.println("---------------------- ");  
+        System.out.println("\t WELCOME TO CRS APPLICATION");
         Scanner in = new Scanner (System.in);
         boolean exit = true;
         while(exit) {
-        System.out.println("Main Menu\r\n"
-        		+ "Press\r\n "
-        		+ "1. Login\r\n"
-        		+ "2. Registration of student\r\n"
-        		+ "3. Update password\r\n"
-        		+ "4. Exit");
+        System.out.println("------------------------------------------------------");  
+        System.out.println("\t \t MAIN MENU\n"
+        		+ "Press\n"
+        		+ "1. LOGIN USER\r\n"
+        		+ "2. STUDENT REGISTRATION\r\n"
+        		+ "3. UPDATE PASSWORD\r\n"
+        		+ "4. EXIT");
        
         String choice = in.next();
         switch(choice){
@@ -59,7 +59,7 @@ public class CRSApplicationMenu {
         	case "2": SemesterRegistrationServices register = new SemesterRegistrationServices();   
         	register.registration();
         	break;
-        	case "3":System.out.println("Enter 1 for Student \r\n Enter 2 for professor \r\n Enter 3 for admin");
+        	case "3":System.out.println("Enter 1 for Student\r\n Enter 2 for professor\r\n Enter 3 for admin");
     		        	String roles = in.next();
     		        	System.out.println("Enter new Password");
     		        	String password = in.next();
@@ -77,7 +77,7 @@ public class CRSApplicationMenu {
     		}
     		break;
         	case "4" :
-            	exit = false; System.out.println("Exiting!");
+            	exit = false; System.out.println("Exiting!");System.exit(0);
         	break;
         	default : System.out.println("Wrong entry! Please enter valid numeric input.");
         
