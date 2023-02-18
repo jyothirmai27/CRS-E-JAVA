@@ -4,13 +4,14 @@
 package com.signify.service;
 
 import com.signify.bean.Student;
+import com.signify.collection.StudentCollection;
 
 /**
  * @author BHAVISH
  *
  */
 public interface StudentInterface {
-	public void addStudent(Student student);
+	public boolean addStudent(Student student);
 	public void viewGrades() ;
 	public void viewCatelogs();
 	public void addCourse();

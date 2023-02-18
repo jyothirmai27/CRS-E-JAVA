@@ -17,19 +17,19 @@ import com.signify.bean.Course;
  */
 public class CatalogCollection {
 	
-	Map<String, String> catalogDataset = new HashMap<>();
-	Set<Course> courseDataset = new HashSet<>();
+	static Map<String, String> catalogDataset = new HashMap<>();
+	static Set<Course> courseDataset = new HashSet<>();
 	//Set<Integer> usersData = new HashSet<>();
-	public void assignCourse(String coursseCode,String professorId )
+	public static void assignCourse(String coursseCode,String professorId )
 	{
 		catalogDataset.put(coursseCode, professorId);
 		//usersData.add(user.getUserId());
 	}
-	public void addCourse(Course c)
+	public static void addCourse(Course c)
 	{
 		courseDataset.add(c);
 	}
-	public void printCourses()
+	public static void printCourses()
 	{
 		for(Course c: courseDataset)
 		{

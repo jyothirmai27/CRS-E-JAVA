@@ -13,12 +13,13 @@ import com.signify.bean.Admin;
  *
  */
 public class AdminCollection {
-	Set<Admin> AdminDataset = new HashSet<>();
-	public void add(Admin a)
+	static Set<Admin> AdminDataset = new HashSet<>();
+	public static void add(Admin a)
 	{
 		AdminDataset.add(a);
 	}
-	public void print()
+
+	public static void print()
 	{
 		for(Admin a: AdminDataset)
 		{

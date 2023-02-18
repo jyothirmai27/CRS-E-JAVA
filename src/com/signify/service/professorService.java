@@ -1,8 +1,5 @@
 package com.signify.service;
 
-import java.util.Scanner;
-
-import com.signify.bean.Course;
 import com.signify.bean.Professor;
 
 public class ProfessorService implements ProfessorInterface {

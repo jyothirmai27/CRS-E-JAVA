@@ -18,10 +18,14 @@ public class Student {
 	private boolean registered;
 	private boolean paymentdone;
 	private String Password;
-	private boolean scholarship;
 	private String scholarshipId;
 	private List<String> registeredCourses;
+	private String batch;
+	private boolean scholarship;
+	private String phoneNumber;
 	
+	
+
 	public boolean isScholarship() {
 		return scholarship;
 	}
@@ -35,13 +39,12 @@ public class Student {
 		this.scholarshipId = scholarshipId;
 	}	
 	
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	private int phoneNumber;	
 	
 	public String getPassword() {
 		return Password;
@@ -91,6 +94,13 @@ public class Student {
 	}
 	public void setRegisteredCourses(List<String> registeredCourses) {
 		this.registeredCourses = registeredCourses;
+	}
+
+	public String getBatch() {
+		return batch;
+	}
+	public void setBatch(String batch) {
+		this.batch = batch;
 	}
 
 }

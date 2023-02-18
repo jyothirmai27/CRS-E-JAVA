@@ -4,8 +4,8 @@
 package com.signify.collection;
 
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.signify.bean.Professor;
 
@@ -16,18 +16,24 @@ import com.signify.bean.Professor;
  */
 public class ProfessorCollection {
 
-	Set<Professor> professorDataset = new HashSet<>();
-	public void add(Professor cus) {
-		professorDataset.add(cus);
 	
-		
-		
+	static Map<String, Professor> professorDataset = new HashMap<>();
+	public static void add(Professor prof)
+	{
+		professorDataset.put(prof.getUserId(), prof);
 	}
-	public void print() {
-		for(Professor prof : professorDataset) {
-		System.out.println(prof.getProfessorName());
-		System.out.println(prof.getDesignation());
-		System.out.println(prof.getDepartmentName());
+	public static Professor get(String key) {
+		return professorDataset.getOrDefault(key, null);
+	}
+	public static void print()
+	{
+		for(Map.Entry map:professorDataset.entrySet()){  
+			     
+			Professor prof = (Professor) map.getValue();
+			System.out.println(map.getKey());
+			System.out.println(prof.getProfessorName());
+			System.out.println(prof.getDesignation());
+			System.out.println(prof.getDepartmentName());
 		}
 	}
 	

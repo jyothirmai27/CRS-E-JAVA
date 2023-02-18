@@ -30,9 +30,8 @@ public class CRSProfessorMenu {
         		+ "1. ADD GRADES\r\n"
         		+ "2. VIEW ENROLLED STUDENTS\r\n"
         		+ "3. APPLY AS INSTRUCTOR FOR COURSE\r\n"
-        		+ "4. ENTER DETAILS\r\n"
-        		+ "5. EDIT USER DETAILS\r\n"
-        		+ "6. EXIT PORTAL");
+        		+ "4. EDIT USER DETAILS\r\n"
+        		+ "5. EXIT PORTAL");
         String choice = in.next();
         switch(choice) {
         case "1":gradeCardServices.addGrades();
@@ -41,13 +40,10 @@ public class CRSProfessorMenu {
         break;
         case "3":professorService.selectCourse();
         break;
-        case "4"://input details here
-        	professorService.addProfessor(professor);
-        break;
-        case "5"://get details and pass professor object
+        case "4"://get details and pass professor object
         	professorService.editDetails(); 
         break;
-        case "6": exit = false;
+        case "5": exit = false;
         	CRSApplicationMenu.main(null);
         break;
         default :System.out.println("Enter valid numeric input.");

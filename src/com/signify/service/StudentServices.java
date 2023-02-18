@@ -3,10 +3,11 @@ package com.signify.service;
 //import java.util.Date;
 
 import com.signify.bean.Student;
+import com.signify.collection.StudentCollection;
 
 public  class StudentServices implements StudentInterface {
 	Student student = new Student();
-	
+	//StudentCollection studentDataset = new StudentCollection();
 	
 	public void viewGrades() {
 		System.out.println("viewing grades in student");
@@ -58,10 +59,16 @@ public  class StudentServices implements StudentInterface {
 		System.out.println("trying to make payent by student");
 	}
 	@Override
-	public void addStudent(Student student) {
+	public boolean addStudent(Student student) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Student added");
+		
+		
+		//System.out.println("Student name added = "+student.getStudentName());
+		
+		//System.out.println("Student added");
+		//studentDataset.print();
+		return StudentCollection.add(student.getUserId(), student);
 	}
 	
 }

@@ -4,6 +4,7 @@
 package com.signify.service;
 
 import com.signify.bean.Admin;
+import com.signify.collection.StudentCollection;
 
 /**
  * @author BHAVISH
@@ -38,7 +39,10 @@ public  class AdminServices implements AdminInterface{
 	@Override
 	public void viewEnrolledStudents() {
 		// TODO Auto-generated method stub
-		System.out.println("viewing enrolled students by admin");
+
+		System.out.println(" ===== VIEWING ENROLLED STUDENTS ====== ");
+		StudentCollection.print();
+		System.out.println(" ====================================== ");
 	}
 	@Override
 	public void removeAdmin(Admin admin) {

@@ -16,19 +16,26 @@ import com.signify.bean.User;
  */
 public class UserCollection {
 	
-	Map<Integer, String> authentication = new HashMap<>();
+	static Map<String, User> authentication = new HashMap<>();
 	//Set<Integer> usersData = new HashSet<>();
-	public void add(User user)
+	public static void add(User user)
 	{
-		authentication.put(user.getUserId(), user.getPassword());
+		authentication.put(user.getUserId(), user);
 		//usersData.add(user.getUserId());
 	}
-	public boolean Authenticate(User user)
+	public static String Authenticate(User user)
 	{
-		if(authentication.containsKey(user.getUserId())) 
-			if (authentication.get(user.getUserId())== user.getPassword())
-					return true;
-			return false;
+		User user1 = authentication.get(user.getUserId());
+		if(authentication.containsKey(user.getUserId()))  
+			if (user1.getPassword().equals(user.getPassword())) {
+				   // System.out.println(authentication.get(user.getUserId())+" -- "+user.getPassword());
+				     user.setName(user1.getName());
+					return user1.getRole();}
+			else {
+			    //System.out.println(authentication.get(user.getUserId())+" -- "+user.getPassword());
+				return "wrongPassword";}
+						
+			return "";
 	
 		
 	}

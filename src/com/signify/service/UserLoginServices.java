@@ -9,16 +9,23 @@ import java.io.IOException;
 import com.signify.bean.Admin;
 import com.signify.bean.Professor;
 import com.signify.bean.Student;
+import com.signify.bean.User;
 import com.signify.client.CRSAdminMenu;
 import com.signify.client.CRSProfessorMenu;
 import com.signify.client.CRSStudentMenu;
+import com.signify.collection.UserCollection;
 
 /**
  * @author BHAVISH
  *
  */
 public  class UserLoginServices implements UserLoginInterface{
-
+	
+	CRSAdminMenu amenu = new CRSAdminMenu();
+	CRSProfessorMenu pmenu = new CRSProfessorMenu();
+	CRSStudentMenu smenu = new CRSStudentMenu();
+	
+	
 	public String getDetails() {
 		/*Scanner in = new Scanner(System.in);
 		System.out.println("Enter user Id : ");
@@ -47,7 +54,7 @@ public  class UserLoginServices implements UserLoginInterface{
 		
 	}
 
-	public void login(	String userId, String password, String role) {
+	public void login(User user) {
 		// role to be removed from input 
 		// to be determined using user id
 		
@@ -55,22 +62,25 @@ public  class UserLoginServices implements UserLoginInterface{
 		//authenticate 
 		// if true  get role 
 
-		System.out.println("login successful!");
 		// direct to that roles menu
 		
 		try {
-			switch(role){
-			case "1": CRSStudentMenu smenu = new CRSStudentMenu();
-			smenu.display();
+			switch(UserCollection.Authenticate(user)){
+			case "Student": 
+				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
+				smenu.display(user.getUserId());
 			break;
-			case "2": CRSProfessorMenu pmenu = new CRSProfessorMenu();
-			pmenu.display();
+			case "Professor": 
+				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
+				pmenu.display();
 			break;
-			case "3": CRSAdminMenu amenu = new CRSAdminMenu();
+			case "Admin": 				
+				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
 				amenu.display();
 			break;
-			case "4": System.out.println("Exiting.");
-			default : System.out.println("wrong choice");	
+			case "wrongPassword": System.out.println("Password Incorrect.");
+			break;
+			default : System.out.println("User Doesnt Exist.");	
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -82,6 +92,7 @@ public  class UserLoginServices implements UserLoginInterface{
 		
 		
 	}
+
 	public void logout(	String userId, String password) {
 		// direct to main menu
 	}
