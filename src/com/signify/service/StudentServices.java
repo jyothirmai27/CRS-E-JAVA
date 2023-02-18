@@ -3,6 +3,7 @@ package com.signify.service;
 //import java.util.Date;
 
 import com.signify.bean.Student;
+import com.signify.collection.CatalogCollection;
 import com.signify.collection.StudentCollection;
 
 public  class StudentServices implements StudentInterface {
@@ -13,7 +14,7 @@ public  class StudentServices implements StudentInterface {
 		System.out.println("viewing grades in student");
 	}
 	public void viewCatelogs() {
-		System.out.println("viewing catalog in student");
+		CatalogCollection.printCourses();
 	}
 	public void addCourse() {
 
@@ -44,16 +45,38 @@ public  class StudentServices implements StudentInterface {
 	public void registerToCourse() {
 		
 	}
-	public void editDetails(){
-		///to be approved by admin
-		/*Scanner in = new Scanner (System.in);
-		 Student student = new Student();
-	    	System.out.println("Enter new Password");
-	    	String password = in.next();
-			student.setPassword(password);
-			in.close();
-			System.out.println("Password changed!");*/
-		System.out.println("student details edited");
+	public void editDetails(String userId, String field, String correction){
+		
+		
+		Student student = new Student();
+		student = StudentCollection.get(userId);
+		//System.out.println(student.getStudentName());
+		switch(field) {
+		case "1": student.setStudentName(correction);
+			System.out.println("Name Updated.");
+		break;
+		case "2":student.setAddress(correction);
+			System.out.println("Adress Upadated.");
+		break;
+		case "3":student.setBranchName(correction);
+			System.out.println("Branch Updated.");
+		break;
+		case "4":student.setPassword(correction);
+			System.out.println("Password changed.");
+		break;
+		case "5":student.setBatch(correction);
+			System.out.println("Batch Updated.");
+		break;
+		case "6":student.setPhoneNumber(correction);
+			System.out.println("Phone Number Updated.");
+		break;
+		case "7":UserLoginServices.showMenu("Student", userId);
+			//return;
+		default : System.out.println("Enter valid numeric input.");
+		}
+		StudentCollection.update(userId, student);
+		//StudentCollection.print();
+		//System.out.println("student details edited");
 	}
 	public void makePayment() {
 		System.out.println("trying to make payent by student");

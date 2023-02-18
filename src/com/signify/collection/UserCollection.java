@@ -23,6 +23,9 @@ public class UserCollection {
 		authentication.put(user.getUserId(), user);
 		//usersData.add(user.getUserId());
 	}
+	public static boolean exists(String userId) {
+		return authentication.containsKey(userId);
+	}
 	public static String Authenticate(User user)
 	{
 		User user1 = authentication.get(user.getUserId());

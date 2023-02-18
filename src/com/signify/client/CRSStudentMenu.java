@@ -20,7 +20,6 @@ public class CRSStudentMenu {
 
 
     StudentInterface studentServices = new StudentServices();
-    Student student = new Student();
     //StudentCollection studentDataset = new StudentCollection();
 	
 	public void display(String userId) throws IOException {
@@ -43,35 +42,44 @@ public class CRSStudentMenu {
         		+ "8. EXIT PORTAL");
         String choice = in.next();
         switch(choice) {
-        case "1":studentServices.registerToCourse();
+        case "1":studentServices.registerToCourse(); //todo
         break;
-        case "2":studentServices.addCourse();
+        case "2":studentServices.addCourse(); //todo
         break;
-        case "3":studentServices.dropCourse();
+        case "3":studentServices.dropCourse(); //todo
         break;
         case "4":studentServices.viewCatelogs();
         break;
-        case "5":studentServices.viewGrades();
+        case "5":studentServices.viewGrades(); //todo
         break;
         case "6":studentServices.makePayment();
         break;
         case "7":
-        	String address;
-        	String branchName;
+            Student student = new Student();
         	student = StudentCollection.get(userId);
         	if(student == null) {
-        		System.out.println("Some error occoured. Please retry after creating user.");
+        		System.out.println("Some error occoured. Please retry.");
             	CRSApplicationMenu.main(null);}
-        	System.out.println("Hi, "+student.getStudentName());
-        	System.out.println("Enter Address : ");
-        	address = in.next();
-        	System.out.println("Enter Branch Name : ");
-        	branchName = in.next(); 
-        	student.setAddress(address);
-        	student.setBranchName(branchName);
-        	studentServices.addStudent(student);
-        	studentServices.editDetails();
-        break;
+        	System.out.println("Hi, "+student.getStudentName()+"\n");
+             while(true) {
+             System.out.println("------------------------------------------------------");
+        	System.out.println("Press\n"
+            		+ "1. EDIT NAME\r\n"
+            		+ "2. EDIT ADDRESS\r\n"
+            		+ "3. EDIT BRANCH NAME\r\n"
+            		+ "4. CHANGE PASSWORD\r\n"
+            		+ "5. EDIT BATCH\r\n"
+            		+ "6. EDIT PHONE NUMBER\r\n"
+            		+ "7. EXIT PORTAL");
+        	String field = in.next();
+        	if(field.equals("7")) 
+            	studentServices.editDetails(userId, field, "");
+        	else{
+            	System.out.println("Enter correction : ");
+            	String correction = in.next();
+            	studentServices.editDetails(userId, field, correction);}
+        		
+             }
         case "8": exit = false;
         	CRSApplicationMenu.main(null);
         break;

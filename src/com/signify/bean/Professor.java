@@ -10,7 +10,22 @@ public class Professor {
 	private String userId;
 	private String departmentName;
 	private String Password;
+	private String phoneNumber;
+	private String assignedCourse;
 
+
+	public String getAssignedCourse() {
+		return assignedCourse;
+	}
+	public void setAssignedCourse(String assignedCourse) {
+		this.assignedCourse = assignedCourse;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 	public String getPassword() {
 		return Password;
 	}

@@ -13,6 +13,7 @@ public interface SemesterRegistrationInterface {
 	public void registerCourses(String studentId, int Semester, Date dateOfJoining);
 	public void addCourse(String studentId, int Semester, String courseCode);
 	public void dropCourse(String studentId, int Semester, String courseCode);
+	public void viewCourseDetails();
 	public void optCourse();
 	public void registration();
 	public void payfees();

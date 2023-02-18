@@ -21,10 +21,30 @@ import com.signify.collection.UserCollection;
  */
 public  class UserLoginServices implements UserLoginInterface{
 	
-	CRSAdminMenu amenu = new CRSAdminMenu();
-	CRSProfessorMenu pmenu = new CRSProfessorMenu();
-	CRSStudentMenu smenu = new CRSStudentMenu();
+	static CRSAdminMenu amenu = new CRSAdminMenu();
+	static CRSProfessorMenu pmenu = new CRSProfessorMenu();
+	static CRSStudentMenu smenu = new CRSStudentMenu();
 	
+	public static void showMenu(String role, String userId) {
+		
+	try {
+		switch(role){
+		case "Student": 
+			smenu.display(userId);
+		break;
+		case "Professor": 
+			pmenu.display(userId);
+		break;
+		case "Admin": 
+			amenu.display();
+		break;
+		default : System.out.println("There was some error.");	
+		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public String getDetails() {
 		/*Scanner in = new Scanner(System.in);
@@ -72,7 +92,7 @@ public  class UserLoginServices implements UserLoginInterface{
 			break;
 			case "Professor": 
 				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
-				pmenu.display();
+				pmenu.display(user.getUserId());
 			break;
 			case "Admin": 				
 				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");

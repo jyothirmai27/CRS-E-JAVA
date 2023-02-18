@@ -17,10 +17,13 @@ public class StudentCollection {
 	
 		static Map<String, Student> studentDataset = new HashMap<>();
 		//Map<String, String> demo = new HashMap<>();
+		public static void update(String userId, Student stu) {
+			studentDataset.put(userId, stu);
+		}
 		public static boolean add(String userId, Student stu)
 		{
 			//System.out.println("in add function ------>"+stu.getUserId());
-			if(studentDataset.containsKey(userId))
+			if(UserCollection.exists(userId))
 				return false;
 			studentDataset.put(userId, stu);
 			User user = new User();

@@ -10,6 +10,8 @@ import com.signify.bean.Admin;
 import com.signify.bean.Professor;
 import com.signify.bean.Student;
 import com.signify.bean.User;
+import com.signify.collection.AdminCollection;
+import com.signify.collection.CatalogCollection;
 import com.signify.collection.StudentCollection;
 import com.signify.service.AdminInterface;
 import com.signify.service.AdminServices;
@@ -53,6 +55,10 @@ public class CRSApplicationMenu {
     	CRSStudentMenu smenu = new CRSStudentMenu();
     	//StudentCollection studentDataset = new StudentCollection();
         
+    	admin.setAdminId("admin123");
+    	admin.setPassword("admin@123");
+    	admin.setAdminName("Admin");
+    	AdminCollection.add(admin);
         
         boolean exit = true;
         while(exit) {
@@ -80,7 +86,8 @@ public class CRSApplicationMenu {
 				
         break;
         case "2": // code to view course catalog
-        	System.out.println("Course Catalog will be displayed");
+        	register.viewCourseDetails();
+        	//System.out.println("Course Catalog will be displayed");
         break;
         case "3":
         	Student student = new Student();
@@ -121,53 +128,3 @@ public class CRSApplicationMenu {
 	}
 
 }
-
-/*
-case "1"://get input here 
-	
-	String address;
-	String branchName;
-	student = studentDataset.get(userId);
-	if(student == null) {
-		System.out.println("Some error occoured. Please retry after creating user.");
-    	CRSApplicationMenu.main(null);}
-	System.out.println("Hi, "+student.getStudentName());
-	System.out.println("Enter Address : ");
-	address = in.next();
-	System.out.println("Enter Branch Name : ");
-	branchName = in.next(); 
-	studentServices.addStudent(student, studentDataset);
-break;
-
-case "1":
-	System.out.println("Enter user Id : ");
-	String userId = in.next();
-	System.out.println("Enter Name : ");
-	String name = in.next();
-	System.out.println("Enter Password : ");
-	String password = in.next();
-	System.out.println("Enter \n 1. FOR STUDENT\r\n 2. FOR PROFESSOR\r\n 3. FOR ADMIN\r\n ");
-	String role = in.next();
-	switch(role) {
-	case "1":
-		student.setUserId(userId);
-		student.setPassword(password);
-		student.setStudentName(name);
-		studentServices.addStudent(student, studentDataset);
-	break;
-	case "2": 
-			professor.setUserId(userId);
-			professor.setPassword(password);
-			professor.setProfessorName(name);
-			professorServices.addProfessor(professor);
-	break;
-	case "3": 
-		admin.setAdminId(userId);
-		admin.setPassword(password);
-		admin.setAdminName(name);
-		adminServices.addAdmin(admin);
-	break;
-	default : System.out.println("Enter valid numeric input");
-	}
-break;
-*/

@@ -17,7 +17,7 @@ public interface StudentInterface {
 	public void addCourse();
 	public void dropCourse();
 	public void registerToCourse();
-	public void editDetails();
+	public void editDetails(String userId, String field, String correction);
 	public void makePayment();
 
 }

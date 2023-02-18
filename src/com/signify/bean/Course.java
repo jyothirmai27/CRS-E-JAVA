@@ -8,14 +8,14 @@ public class Course {
 	private String departmentName;
 	private String professorName;
 	private boolean isOffered;
-	private int semester;
+	private String semester;
 	private List<String> enrolledStudents;
 	private int enrolledStudentCount;
 	
-	public int getSemester() {
+	public String getSemester() {
 		return semester;
 	}
-	public void setSemester(int semester) {
+	public void setSemester(String semester) {
 		this.semester = semester;
 	}
 	public String getCourseName() {
