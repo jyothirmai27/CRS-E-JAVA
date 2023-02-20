@@ -100,7 +100,7 @@ public  class UserLoginServices implements UserLoginInterface{
 			break;
 			case "wrongPassword": System.out.println("Password Incorrect.");
 			break;
-			default : System.out.println("User Doesnt Exist.");	
+			default : System.out.println("Invalid Details.");	
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

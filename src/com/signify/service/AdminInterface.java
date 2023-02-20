@@ -26,8 +26,9 @@ public interface AdminInterface {
 	public void addProfessor(String userId, Professor professor);
 	public void viewProfesssors();
 	
-	public void approveStudent();
+	public void approveStudent(String userId);
 	public void viewEnrolledStudents();
+	public void approveAllStudents();
 	
 
 }

@@ -15,17 +15,28 @@ import com.signify.bean.User;
  */
 public class StudentCollection {
 	
+		static Map<String, Student> unapprovedStudentDataset = new HashMap<>();
 		static Map<String, Student> studentDataset = new HashMap<>();
 		//Map<String, String> demo = new HashMap<>();
 		public static void update(String userId, Student stu) {
 			studentDataset.put(userId, stu);
 		}
-		public static boolean add(String userId, Student stu)
+		public static Map<String, Student> getUnapproved(){
+			return unapprovedStudentDataset;
+		}
+		public static boolean add(String userId, Student stu) {
+			if(UserCollection.exists(userId))
+				return false;
+			unapprovedStudentDataset.put(userId, stu);
+			return true;
+		}
+		public static boolean addApproved(String userId, Student stu)
 		{
 			//System.out.println("in add function ------>"+stu.getUserId());
 			if(UserCollection.exists(userId))
 				return false;
 			studentDataset.put(userId, stu);
+			unapprovedStudentDataset.remove(userId);
 			User user = new User();
 			user.setName(stu.getStudentName());
 			user.setRole("Student");
@@ -38,6 +49,9 @@ public class StudentCollection {
 		public static Student get(String key) {
 			return studentDataset.getOrDefault(key, null);
 		}
+		public static Student getUnapproved(String key) {
+			return unapprovedStudentDataset.getOrDefault(key, null);
+		}
 		public static void print()
 		{
 			 for (String key: studentDataset.keySet()) {  
@@ -49,6 +63,19 @@ public class StudentCollection {
 			}
 			
 			//System.out.println(studentDataset);
+		}
+		public static void printUnapproved() {
+			
+			if(unapprovedStudentDataset.isEmpty())
+				System.out.println("No Student left for approval!");
+			for (String key: studentDataset.keySet()) {  
+			     
+				Student stud = studentDataset.getOrDefault(key, null);
+				System.out.println("Sr No. \t\t Name \t\t Address \t\t Branch   ");
+				System.out.println(stud.getUserId() +" \t\t "+stud.getStudentName()+" \t\t "+stud.getAddress()+" \t\t "+stud.getBranchName());
+				//System.out.println(demo.getOrDefault(key,"not working"));
+			}
+			
 		}
 
 }

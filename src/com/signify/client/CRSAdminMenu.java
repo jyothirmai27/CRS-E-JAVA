@@ -10,6 +10,7 @@ import com.signify.bean.Admin;
 import com.signify.bean.Course;
 import com.signify.bean.Professor;
 import com.signify.collection.AdminCollection;
+import com.signify.collection.StudentCollection;
 import com.signify.service.AdminInterface;
 import com.signify.service.AdminServices;
 import com.signify.service.StudentServices;
@@ -49,7 +50,33 @@ public class CRSAdminMenu {
     	    		+ "3. EXIT PORTAL");
     	    String choice1 = in.next();
     	    switch(choice1) {
-    	    case "1": adminServices.approveStudent(); //todo
+    	    case "1":
+    			StudentCollection.printUnapproved();
+    			System.out.println("\n1.TO APPROVE ALL STUDENTS\n"+"2.APPROVE ONE STUDENT\n"+"3.EXIT\n");
+    			 
+    			String approve=in.next();
+    			switch(approve)
+    			{
+    			case "1":
+    				//System.out.println("To approve all the  Students");
+    				adminServices.approveAllStudents();
+    			break;
+    			case "2":
+    				System.out.println("Enter User id.");
+    				
+    				//System.out.println("Approve one Student. Enter User id.");
+					String user= in.next();
+					if(StudentCollection.getUnapproved(user)==null)
+						System.out.println("Enter valid id.");
+					else
+						adminServices.approveStudent(user);	
+    			break;
+    			case "3": System.out.println("Exiting.\n");
+        	    	//amenu.display(); 
+    			break;
+    			default:
+    		      	System.out.println("Invalid Input");
+    			}
     	    break;
     	    case "2":adminServices.viewEnrolledStudents();
     	    break;

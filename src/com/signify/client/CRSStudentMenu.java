@@ -87,7 +87,7 @@ public class CRSStudentMenu {
         break;
         case "4":studentServices.viewCatelogs();
         break;
-        case "5":studentServices.viewGrades(); //todo
+        case "5":studentServices.viewGrades(userId); //todo
         break;
         case "6":studentServices.makePayment();
         break;

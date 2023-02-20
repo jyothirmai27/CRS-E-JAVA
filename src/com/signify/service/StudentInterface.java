@@ -12,7 +12,7 @@ import com.signify.collection.StudentCollection;
  */
 public interface StudentInterface {
 	public boolean addStudent(Student student);
-	public void viewGrades() ;
+	public void viewGrades(String userid) ;
 	public void viewCatelogs();
 	public void addCourse(String userId, String course);
 	public void dropCourse(String userId, String course);

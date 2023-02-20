@@ -83,5 +83,8 @@ public class CatalogCollection {
 				System.out.println(course.getCourseCode() +" \t\t "+course.getCourseName() +" \t\t "+course.getDepartmentName() +" \t\t "+course.getProfessorName());
 			}
 	}
+	public static Map<String, Course> getCourseDetails(){
+		return courseDataset;
+	}
 
 }

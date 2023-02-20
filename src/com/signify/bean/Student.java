@@ -23,9 +23,16 @@ public class Student {
 	private String batch;
 	private boolean scholarship;
 	private String phoneNumber;
+	private boolean seeGrades;
 	
 	
 
+	public boolean isSeeGrades() {
+		return seeGrades;
+	}
+	public void setSeeGrades(boolean seeGrades) {
+		this.seeGrades = seeGrades;
+	}
 	public boolean isScholarship() {
 		return scholarship;
 	}

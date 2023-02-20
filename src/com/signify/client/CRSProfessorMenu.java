@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.signify.bean.Professor;
 import com.signify.bean.Student;
+import com.signify.collection.CatalogCollection;
 import com.signify.collection.ProfessorCollection;
 import com.signify.collection.StudentCollection;
 import com.signify.service.GradeCardInterface;
@@ -37,11 +38,20 @@ public class CRSProfessorMenu {
         		+ "5. EXIT PORTAL");
         String choice = in.next();
         switch(choice) {
-        case "1":gradeCardServices.addGrades(); //todo
+        case "1":professorService.changeGrade(userId);
+
+		gradeCardServices.addGrades(); //todo
         break;
         case "2":professorService.viewEnrolledStudents();
         break;
-        case "3":professorService.selectCourse(); //todo
+        case "3":
+        	CatalogCollection.printCourses();
+        	System.out.println("Enter course code to be assigned");
+        	String code = in.next();
+        	if(CatalogCollection.get(code)== null)
+        	System.out.println("Enter valid course code");
+        	else
+        	professorService.selectCourse(); //todo
         break;
         case "4":
         	Professor professor = new Professor();

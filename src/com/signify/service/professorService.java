@@ -1,11 +1,31 @@
 package com.signify.service;
 
+import java.util.List;
+
+import com.signify.bean.Course;
 import com.signify.bean.Professor;
+import com.signify.bean.Student;
+import com.signify.collection.CatalogCollection;
 import com.signify.collection.ProfessorCollection;
 import com.signify.collection.StudentCollection;
 
 public class ProfessorService implements ProfessorInterface {
-	public void changeGrade() {
+	public void changeGrade(String userId) {
+		Professor professor= ProfessorCollection.get(userId);
+		String code  = professor.getAssignedCourse();
+		if(code == null)
+			System.out.println("Course is not assigned yet");
+		Course course = CatalogCollection.get(code);
+			//System.out.println(course.getCourseCode() +" \t\t "+course.getCourseName() +" \t\t "+course.getDepartmentName() +" \t\t "+course.getProfessorName());
+			List<String> students = course.getEnrolledStudents();
+			Student student = new Student();
+		for (String studentId : students) {
+			student = StudentCollection.get(studentId);
+			//student.setSeeGrades(true);
+			//set grade of student
+			StudentCollection.update(student.getUserId(), student);
+		
+		}
 		System.out.println("grade added");
 	}
 	public void viewEnrolledStudents() {

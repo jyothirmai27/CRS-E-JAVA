@@ -3,6 +3,8 @@ package com.signify.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.signify.bean.Course;
+
 //import java.util.Date;
 
 import com.signify.bean.Student;
@@ -13,8 +15,13 @@ public  class StudentServices implements StudentInterface {
 	Student student = new Student();
 	//StudentCollection studentDataset = new StudentCollection();
 	
-	public void viewGrades() {
-		System.out.println("viewing grades in student");
+	public void viewGrades(String userId) {
+		
+		student = StudentCollection.get(userId);
+		if(student.isSeeGrades())
+			System.out.println("viewing grades in student");
+		else
+			System.out.println("Waiting for admin to approve grades.");
 	}
 	public void viewCatelogs() {
 		CatalogCollection.printCourses();
@@ -36,6 +43,9 @@ public  class StudentServices implements StudentInterface {
 		selected = student.getRegisteredCourses();
 			if(selected.size()<6) {
 				selected.add(course);
+				Course c = CatalogCollection.get(course);
+				List<String> newList = c.getEnrolledStudents();
+				
 			}
 			else
 				System.out.println("You already have 6 courses registered.");
@@ -66,6 +76,7 @@ public  class StudentServices implements StudentInterface {
 		System.out.println("course dropped by student");
 	}
 	public void registerToCourse() {
+		System.out.println("Registering to course. Waiting for admin approval.");
 		
 	}
 	public void editDetails(String userId, String field, String correction){
@@ -102,6 +113,7 @@ public  class StudentServices implements StudentInterface {
 		//System.out.println("student details edited");
 	}
 	public void makePayment() {
+		// adding student to course
 		System.out.println("trying to make payent by student");
 	}
 	@Override
@@ -120,6 +132,7 @@ public  class StudentServices implements StudentInterface {
 		student.setRegistered(false);
 		student.setScholarship(false);
 		student.setScholarshipId("");
+		student.setSeeGrades(false);
 		return StudentCollection.add(student.getUserId(), student);
 	}
 	
