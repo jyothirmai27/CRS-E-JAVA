@@ -33,10 +33,10 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			   			   
 			  // Class.forName("com.mysql.jdbc.Driver");
 			   
-			      System.out.println("Connecting to database...");
+			      //System.out.println("Connecting to database...");
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 			   
-			      System.out.println("Creating statement...");
+			      //System.out.println("Creating statement...");
 			      String sql="insert into student values(?,?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
@@ -69,7 +69,7 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			         se.printStackTrace();
 			      }//end finally try
 			   }//end try
-			   System.out.println("Goodbye!");
+			  // System.out.println("Goodbye!");
 	}
 
 	@Override
@@ -79,9 +79,9 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 		   PreparedStatement stmt = null;	
 		   try{
 			   
-			   Class.forName("com.mysql.jdbc.Driver");
+			   //Class.forName("com.mysql.jdbc.Driver");
 			   
-		      System.out.println("Connecting to database...");
+		      //System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		      String sql="delete from student where userid=?";
 		      stmt = conn.prepareStatement(sql);
@@ -111,7 +111,7 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 		         se.printStackTrace();
 		      }//end finally try
 		   }//end try
-		   System.out.println("Goodbye!");
+		   //System.out.println("Student Removed!");
 	}
 
 	@Override

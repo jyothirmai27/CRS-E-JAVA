@@ -113,7 +113,7 @@ public  class StudentServices implements StudentInterface {
 		//System.out.println("student details edited");
 	}
 	public void makePayment() {
-		// adding student to course
+		// adding student to course if payment successful
 		System.out.println("trying to make payent by student");
 	}
 	@Override

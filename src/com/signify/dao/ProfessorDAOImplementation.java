@@ -38,12 +38,12 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		   PreparedStatement stmt = null;
 		   try{
 			   			   
-			   Class.forName("com.mysql.jdbc.Driver");
+			   //Class.forName("com.mysql.jdbc.Driver");
 			   
-			      System.out.println("Connecting to database...");
+			    //  System.out.println("Connecting to database...");
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 			   
-			      System.out.println("Creating statement...");
+			      //System.out.println("Creating statement...");
 			      String sql="insert into professor values(?,?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
@@ -76,7 +76,7 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			         se.printStackTrace();
 			      }//end finally try
 			   }//end try
-			   System.out.println("Goodbye!");
+			  // System.out.println("Goodbye!");
 	}
 
 	@Override
@@ -87,9 +87,9 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		   PreparedStatement stmt = null;	
 		   try{
 			   
-			   Class.forName("com.mysql.jdbc.Driver");
+			   //Class.forName("com.mysql.jdbc.Driver");
 			   
-		      System.out.println("Connecting to database...");
+		      //System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		      String sql="delete from professor where userid=?";
 		      stmt = conn.prepareStatement(sql);
@@ -119,7 +119,7 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		         se.printStackTrace();
 		      }//end finally try
 		   }//end try
-		   System.out.println("Goodbye!");
+		   //System.out.println("Goodbye!");
 		
 	}
 

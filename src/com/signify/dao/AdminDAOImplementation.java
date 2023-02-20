@@ -15,7 +15,7 @@ import com.signify.bean.Admin;
  *
  */
 
-public class AdminADAOImplementation implements AdminDAOInterface{
+public class AdminDAOImplementation implements AdminDAOInterface{
 
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -39,10 +39,10 @@ public class AdminADAOImplementation implements AdminDAOInterface{
 			   			   
 			  // Class.forName("com.mysql.jdbc.Driver");
 			   
-			      System.out.println("Connecting to database...");
+			      //System.out.println("Connecting to database...");
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 			   
-			      System.out.println("Creating statement...");
+			      //System.out.println("Creating statement...");
 			      String sql="insert into admin values(?,?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
@@ -75,7 +75,7 @@ public class AdminADAOImplementation implements AdminDAOInterface{
 			         se.printStackTrace();
 			      }//end finally try
 			   }//end try
-			   System.out.println("Goodbye!");
+			   System.out.println("Admin Added!");
 	}
 
 	@Override
@@ -85,9 +85,9 @@ public class AdminADAOImplementation implements AdminDAOInterface{
 		   PreparedStatement stmt = null;	
 		   try{
 			   
-			   Class.forName("com.mysql.jdbc.Driver");
+			   //Class.forName("com.mysql.jdbc.Driver");
 			   
-		      System.out.println("Connecting to database...");
+		      //System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		      String sql="delete from admin where userid=?";
 		      stmt = conn.prepareStatement(sql);
@@ -117,7 +117,7 @@ public class AdminADAOImplementation implements AdminDAOInterface{
 		         se.printStackTrace();
 		      }//end finally try
 		   }//end try
-		   System.out.println("Goodbye!");
+		   System.out.println("Admin Removed!");
 	}
 
 	@Override

@@ -16,6 +16,8 @@ import com.signify.collection.AdminCollection;
 import com.signify.collection.CatalogCollection;
 import com.signify.collection.ProfessorCollection;
 import com.signify.collection.StudentCollection;
+import com.signify.dao.AdminDAOImplementation;
+import com.signify.dao.AdminDAOInterface;
 import com.signify.dao.ProfessorDAOImplementation;
 import com.signify.dao.ProfessorDAOInterface;
 
@@ -26,7 +28,7 @@ import com.signify.dao.ProfessorDAOInterface;
 public  class AdminServices implements AdminInterface{
 	
 	ProfessorDAOInterface professorDataset = new ProfessorDAOImplementation();
-	
+	AdminDAOInterface adminDataset = new AdminDAOImplementation();
 	
 	public void assignCourse(String courseCode, String professorId){
 		if(CatalogCollection.assignCourse(courseCode, professorId))
@@ -47,6 +49,7 @@ public  class AdminServices implements AdminInterface{
 	
 	
 	public boolean addAdmin(Admin admin) {
+		adminDataset.add(admin);
 		return AdminCollection.add(admin);
 			
 	}
