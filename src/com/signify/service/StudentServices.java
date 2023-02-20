@@ -1,5 +1,8 @@
 package com.signify.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //import java.util.Date;
 
 import com.signify.bean.Student;
@@ -16,7 +19,7 @@ public  class StudentServices implements StudentInterface {
 	public void viewCatelogs() {
 		CatalogCollection.printCourses();
 	}
-	public void addCourse() {
+	public void addCourse(String userId,String course) {
 
        /* Scanner in = new Scanner (System.in);
 		SemesterRegistrationInterface add = new SemesterRegistrationServices();
@@ -27,9 +30,20 @@ public  class StudentServices implements StudentInterface {
         add.addCourse(student.getUserId(), sem, code);
         in.close();*/
 		
-		System.out.println("course added by student");
+		student = StudentCollection.get(userId);
+		
+		List<String> selected = new ArrayList<String>();
+		selected = student.getRegisteredCourses();
+			if(selected.size()<6) {
+				selected.add(course);
+			}
+			else
+				System.out.println("You already have 6 courses registered.");
+			System.out.println("course added by student");
+			student.setRegisteredCourses(selected);
+			StudentCollection.update(student.getUserId(), student);
 	}
-	public void dropCourse() {
+	public void dropCourse(String userId, String course) {
 		
 		/*Scanner in = new Scanner (System.in);
 		SemesterRegistrationInterface drop = new SemesterRegistrationServices();
@@ -40,6 +54,15 @@ public  class StudentServices implements StudentInterface {
         drop.dropCourse(student.getUserId(), sem, code);
         in.close();*/
 		
+		student = StudentCollection.get(userId);
+		
+		List<String> selected = new ArrayList<String>();
+		selected = student.getRegisteredCourses();
+		
+		selected.remove(course);
+		
+		student.setRegisteredCourses(selected);
+		StudentCollection.update(userId, student);
 		System.out.println("course dropped by student");
 	}
 	public void registerToCourse() {
@@ -91,6 +114,12 @@ public  class StudentServices implements StudentInterface {
 		
 		//System.out.println("Student added");
 		//studentDataset.print();
+		List<String> courses = new ArrayList<>();
+		student.setRegisteredCourses(courses);
+		student.setPaymentdone(false);
+		student.setRegistered(false);
+		student.setScholarship(false);
+		student.setScholarshipId("");
 		return StudentCollection.add(student.getUserId(), student);
 	}
 	

@@ -4,9 +4,13 @@
 package com.signify.client;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import com.signify.bean.Course;
 import com.signify.bean.Student;
+import com.signify.collection.CatalogCollection;
 import com.signify.collection.StudentCollection;
 import com.signify.service.SemesterRegistrationServices;
 import com.signify.service.StudentInterface;
@@ -44,9 +48,42 @@ public class CRSStudentMenu {
         switch(choice) {
         case "1":studentServices.registerToCourse(); //todo
         break;
-        case "2":studentServices.addCourse(); //todo
+        case "2":
+
+			if(CatalogCollection.isEmpty())
+				System.out.println("No courses yet. Please wait for course allocation.");
+			else {
+				CatalogCollection.printCourses();
+				System.out.println("Enter course code you want to add.");
+				String code = in.next();
+				if(CatalogCollection.get(code)== null)
+					System.out.println("Enter valid course code");
+	        	studentServices.addCourse(userId,code);
+			}
+			 //todo
         break;
-        case "3":studentServices.dropCourse(); //todo
+        case "3":
+        	Student student2 = new Student();
+        	student2 = StudentCollection.get(userId);
+    		
+    		List<String> selected = new ArrayList<String>();
+    		selected = student2.getRegisteredCourses();
+        	if(selected.isEmpty())
+				System.out.println("No courses yet. Please add course first.");
+			else {
+
+				Course c = new Course();
+				for (String code : selected) {
+					c = CatalogCollection.get(code);
+					System.out.println("Course Code : "+c.getCourseCode()+"\t"+"Course Name : "+c.getCourseName());
+				}
+				System.out.println("Enter course code you want to remove.");
+				String code = in.next();
+				//if(CatalogCollection.get(code)== null)
+				//	System.out.println("Enter valid course code");
+				studentServices.dropCourse(userId, code);
+			}
+        	 //todo
         break;
         case "4":studentServices.viewCatelogs();
         break;

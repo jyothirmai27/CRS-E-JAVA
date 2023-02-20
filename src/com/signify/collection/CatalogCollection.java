@@ -69,6 +69,9 @@ public class CatalogCollection {
 	public static int totalCourses() {
 		return courseDataset.size();
 	}
+	public static boolean isEmpty() {
+		return (courseDataset.isEmpty());
+	}
 	public static void printCourses()
 	{
 		if(courseDataset.isEmpty())
