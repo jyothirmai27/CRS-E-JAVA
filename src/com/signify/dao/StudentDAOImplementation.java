@@ -17,12 +17,12 @@ import com.signify.helper.*;
  */
 public class StudentDAOImplementation implements StudentDAOInterface{
 
-	
+	Connection conn = null;
+	PreparedStatement stmt = null;
 	@Override
-	public void add(Student student) {
+	public void add(int id, Student student) {
 		// TODO Auto-generated method stub
-		Connection conn = null;
-		   PreparedStatement stmt = null;
+	
 		   try{
 			   			   
 			  // Class.forName("com.mysql.jdbc.Driver");
@@ -33,20 +33,15 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			      //System.out.println("Creating statement...");
 			      String sql="insert into student values(?,?,?,?,?,?,?,?,?)";
 			      stmt = conn.prepareStatement(sql);
-			   
-			      int userid=Integer.parseInt(student.getUserId());
 			      String name=student.getStudentName();
-			      String password=student.getPassword();
-			      
-			      stmt.setInt(1, userid); 
+			      stmt.setInt(1, id); 
 			      stmt.setString(2,name);
-			      stmt.setString(5, password);
 			      stmt.setString(3, student.getAddress());
 			      stmt.setString(4, student.getBranchName());
-			      stmt.setString(6, student.getScholarshipId());
-			      stmt.setString(7, student.getBatch());
-			      stmt.setString(8, student.getPhoneNumber());
-			      stmt.setInt(9, 0);
+			      stmt.setString(5, student.getScholarshipId());
+			      stmt.setString(6, student.getBatch());
+			      stmt.setString(7, student.getPhoneNumber());
+			      stmt.setInt(8, 0);
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
@@ -75,15 +70,14 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 	@Override
 	public void delete(String studentId) {
 		// TODO Auto-generated method stub
-		Connection conn = null;
-		   PreparedStatement stmt = null;	
+			
 		   try{
 			   
 			   //Class.forName("com.mysql.jdbc.Driver");
 			   
 		      //System.out.println("Connecting to database...");
 			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-		      String sql="delete from student where userid=?";
+		      String sql="delete from student where userId=?";
 		      stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, Integer.parseInt(studentId));
 	            // execute the delete statement
@@ -124,6 +118,92 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 	public void view(String query) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+
+	@Override
+	public void approveAll() {
+		// TODO Auto-generated method stub
+		try{
+			   
+			   //Class.forName("com.mysql.jdbc.Driver");
+			   
+			    //  System.out.println("Connecting to database...");
+			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
+			   
+			      //System.out.println("Creating statement...");
+			      String sql = "update student set approved = 1 where studentId = (SELECT studentId FROM student WHERE approved = 0)";
+
+			      stmt = conn.prepareStatement(sql);
+			      if(stmt.execute())
+			    	  System.out.println("approved");
+			      else
+			    	  System.out.println("There was some error.");
+				      stmt.close();
+				      conn.close();
+				      
+			     
+			      
+			   }catch(SQLException se){		//Handle errors for JDBC
+			      se.printStackTrace();
+			   }catch(Exception e){ 	      //Handle errors for Class.forName
+			      e.printStackTrace();
+			   }finally{  			      //finally block used to close resources
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }//end finally try
+			   }//end try
+	}
+
+	@Override
+	public void approve(String id) {
+		// TODO Auto-generated method stub
+		try{
+			   
+			   //Class.forName("com.mysql.jdbc.Driver");
+			   
+			    //  System.out.println("Connecting to database...");
+			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
+			   
+			      //System.out.println("Creating statement...");
+			      String sql = "update student set approved = 1 where studentId = "+id;
+
+			      stmt = conn.prepareStatement(sql);
+			      if(stmt.execute())
+			    	  System.out.println("approved");
+			      else
+			    	  System.out.println("There was some error.");
+				      stmt.close();
+				      conn.close();
+				      
+			     
+			      
+			   }catch(SQLException se){		//Handle errors for JDBC
+			      se.printStackTrace();
+			   }catch(Exception e){ 	      //Handle errors for Class.forName
+			      e.printStackTrace();
+			   }finally{  			      //finally block used to close resources
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }//end finally try
+			   }//end try
 	}
 
 }

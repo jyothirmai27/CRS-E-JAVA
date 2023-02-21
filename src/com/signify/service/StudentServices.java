@@ -138,8 +138,8 @@ public  class StudentServices implements StudentInterface {
 		student.setRegistered(false);
 		student.setScholarship(false);
 		student.setSeeGrades(false);
-		studentDataset.add(student);
-		userDataset.add(user, 4);
+		int id = userDataset.add(user, 4);
+		studentDataset.add(id, student);
 		return StudentCollection.add(student.getUserId(), student);
 	}
 	

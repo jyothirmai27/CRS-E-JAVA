@@ -91,9 +91,9 @@ public class CRSApplicationMenu {
         break;
         case "3":
         	Student student = new Student();
-        	System.out.println("Enter user Id : ");
+        	//System.out.println("Enter user Id : ");
     		//String userId = in.next();
-			student.setUserId(in.next());
+			//student.setUserId(in.next());
     		System.out.println("Enter Name : ");
     		//String name = in.next();
     		student.setStudentName(in.next());

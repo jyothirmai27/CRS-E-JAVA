@@ -11,8 +11,8 @@ import com.signify.bean.Professor;
  */
 public interface ProfessorDAOInterface {
 	
-	public void update(String query);
-	public void insert(Professor professor);
+	public void update(String update, String id, String field);
+	public void insert(int id, Professor professor);
 	public void delete(String profeessorId);
 	public void view(String query);
 	

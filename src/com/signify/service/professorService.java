@@ -8,8 +8,13 @@ import com.signify.bean.Student;
 import com.signify.collection.CatalogCollection;
 import com.signify.collection.ProfessorCollection;
 import com.signify.collection.StudentCollection;
+import com.signify.dao.ProfessorDAOImplementation;
+import com.signify.dao.ProfessorDAOInterface;
 
 public class ProfessorService implements ProfessorInterface {
+	
+	ProfessorDAOInterface professordataset = new ProfessorDAOImplementation();
+	
 	public void changeGrade(String userId) {
 		Professor professor= ProfessorCollection.get(userId);
 		String code  = professor.getAssignedCourse();
@@ -51,30 +56,13 @@ public class ProfessorService implements ProfessorInterface {
 	public void editDetails(String userId, String field, String correction) {
 		///to be approved by admin
 		
-		Professor professor = new Professor();
-		professor = ProfessorCollection.get(userId);
-		//System.out.println(student.getStudentName());
-		switch(field) {
-		case "1": professor.setProfessorName(correction);
-			System.out.println("Name Updated.");
-		break;
-		case "2":professor.setDesignation(correction);
-			System.out.println("Designation Upadated.");
-		break;
-		case "3": professor.setDepartmentName(correction);
-			System.out.println("Department Updated.");
-		break;
-		case "4":professor.setPassword(correction);
-			System.out.println("Password changed.");
-		break;
-		case "5":professor.setPhoneNumber(correction);
-			System.out.println("Phone Number Updated.");
-		break;
-		case "6":UserLoginServices.showMenu("Proffessor", userId);
-			//return;
-		default : System.out.println("Enter valid numeric input.");
-		}
-		ProfessorCollection.update(userId, professor);
+		if(field == "6")
+			UserLoginServices.showMenu("Proffessor", userId);
+		else if(field == "5"||field =="4" || field =="3"|| field =="2" || field =="1")
+			professordataset.update(correction, userId, field);
+		else
+			System.out.println("Enter valid numeric input.");
+		
 		
 		//System.out.println("editing Details");
 	}

@@ -77,21 +77,23 @@ public  class UserLoginServices implements UserLoginInterface{
 		return "";
 		
 	}
+	public String authenticate(User user) {
+		switch(userDataset.authenticate(user.getPassword(),user.getUserId())){
+		case 1: return "Admin";
+		case 2: return "Student";
+		case 3: return "Professor";
+		case 4: return "unapproved";
+		default :return "wrongPassword";
+		}
+			
+	}
 
 	public void login(User user) {
-		// role to be removed from input 
-		// to be determined using user id
-		
-		
-		//authenticate 
-		// if true  get role 
-
-		// direct to that roles menu
 		
 		try {
 
-			userDataset.getPassword(user.getUserId());
-			switch(UserCollection.Authenticate(user)){
+			 
+			switch(authenticate(user)){
 			case "Student": 
 				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
 				smenu.display(user.getUserId());
@@ -103,6 +105,8 @@ public  class UserLoginServices implements UserLoginInterface{
 			case "Admin": 				
 				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
 				amenu.display();
+			break;
+			case "unapproved" : System.out.println("Waiting for admin's approval.");
 			break;
 			case "wrongPassword": System.out.println("Password Incorrect.");
 			break;

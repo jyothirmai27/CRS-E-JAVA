@@ -54,7 +54,7 @@ public class CRSAdminMenu {
     	    String choice1 = in.next();
     	    switch(choice1) {
     	    case "1":
-    			StudentCollection.printUnapproved();
+    			//StudentCollection.printUnapproved();
     			userDataset.getUnapproved();
     			System.out.println("\n1.TO APPROVE ALL STUDENTS\n"+"2.APPROVE ONE STUDENT\n"+"3.EXIT\n");
     			 
@@ -102,8 +102,6 @@ public class CRSAdminMenu {
  	    String choice2 = in.next();
  	    switch(choice2) {
  	    case "1":Professor professor = new Professor();
- 	    	System.out.println("Enter Professor Id : ");
- 	    	professor.setUserId(in.next());
  	    	System.out.println("Enter Professor Name : ");
  	    	professor.setProfessorName(in.next());
  	    	System.out.println("Enter Password :");
@@ -119,7 +117,7 @@ public class CRSAdminMenu {
  	    	adminServices.addProfessor(professor.getUserId(), professor); 
  	    break;
  	    case "2":
- 	    	System.out.println("ENter the course code : ");
+ 	    	System.out.println("Enter the course code : ");
  	    	String courseCode = in.next();
  	    	System.out.println("Enter the professor id : ");
  	    	String professorId = in.next();

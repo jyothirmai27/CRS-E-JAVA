@@ -21,6 +21,8 @@ import com.signify.dao.AdminDAOImplementation;
 import com.signify.dao.AdminDAOInterface;
 import com.signify.dao.ProfessorDAOImplementation;
 import com.signify.dao.ProfessorDAOInterface;
+import com.signify.dao.StudentDAOImplementation;
+import com.signify.dao.StudentDAOInterface;
 import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
 
@@ -33,7 +35,8 @@ public  class AdminServices implements AdminInterface{
 	ProfessorDAOInterface professorDataset = new ProfessorDAOImplementation();
 	AdminDAOInterface adminDataset = new AdminDAOImplementation();
 	UserDAOInterface userDataset = new UserDAOImplementation();
-	
+	StudentDAOInterface studentDataset = new StudentDAOImplementation();
+	static int countProfessor = 0;
 	public void assignCourse(String courseCode, String professorId){
 		if(CatalogCollection.assignCourse(courseCode, professorId))
 			System.out.println("Course Assigned succesfully.");
@@ -55,8 +58,8 @@ public  class AdminServices implements AdminInterface{
 	
 	public boolean addAdmin(Admin admin, User user) {
 		
-		userDataset.add(user, 1);
-		adminDataset.add(admin);
+		int id = userDataset.add(user, 1);
+		adminDataset.add(id,admin);
 		return AdminCollection.add(admin);
 			
 	}
@@ -82,6 +85,7 @@ public  class AdminServices implements AdminInterface{
 			student = StudentCollection.get(studentId);
 			student.setSeeGrades(true);
 			StudentCollection.update(student.getUserId(), student);
+			
 		
 		}
 		System.out.println("REPORT CARD GENERATED");
@@ -90,20 +94,20 @@ public  class AdminServices implements AdminInterface{
 	
 	
 	public  void approveStudent(String userId){
-		Student student= StudentCollection.get(userId);
-		student.setRegistered(true);
-		StudentCollection.addApproved(student.getUserId(),student);
-		System.out.println("student approved by admin");
+		studentDataset.approve(userId);
+		userDataset.updateStudent(Integer.parseInt(userId));
 	}
 	
 	
-	public  void addProfessor(String userId, Professor profesor){
-		if(ProfessorCollection.add(userId, profesor))
-		System.out.println("Professor has been added succesfully.");
-		else
-		System.out.println("This user Id already exists.");	
+	public  void addProfessor(String userId, Professor prof){
 		
-		professorDataset.insert(profesor);
+		User user = new User();
+		user.setName(prof.getProfessorName());
+		user.setRole("Professor");
+		user.setUserId(prof.getUserId());
+		user.setPassword(prof.getPassword());
+		int id = userDataset.add(user, countProfessor);
+		professorDataset.insert(id, prof);
 		
 	}
 	
@@ -121,7 +125,8 @@ public  class AdminServices implements AdminInterface{
 		// TODO Auto-generated method stub
 
 		System.out.println(" ===== VIEWING ENROLLED STUDENTS ====== ");
-		StudentCollection.print();
+		//StudentCollection.print();
+		userDataset.getUnapproved();
 		System.out.println(" ====================================== ");
 	}
 	
@@ -129,11 +134,6 @@ public  class AdminServices implements AdminInterface{
 	@Override
 	public void removeAdmin(Admin admin) {
 		// TODO Auto-generated method stub
-		if(AdminCollection.remove(admin))
-			System.out.println("Admin Removed.");
-		else
-			System.out.println("There was some error.");
-		
 		
 		adminDataset.remove(admin.getAdminId());
 	}
@@ -162,16 +162,8 @@ public  class AdminServices implements AdminInterface{
 	@Override
 	public void approveAllStudents() {
 		// TODO Auto-generated method stub
-		Map<String, Student>unApproved =StudentCollection.getUnapproved();
-		for(String key: unApproved.keySet()){
-		Student student=unApproved.getOrDefault(key, null);
-		if (student == null)
-			System.out.println("There was some error");
-		else {
-		student.setRegistered(true);
-		StudentCollection.addApproved(student.getUserId(), student);}
-		
-		}
+		studentDataset.approveAll();
+		userDataset.approveAll();
 		
 	}
 }

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import com.signify.bean.Professor;
 import com.signify.helper.IDs;
+import com.signify.service.UserLoginServices;
 
 /**
  * @author BHAVISH
@@ -17,20 +18,14 @@ import com.signify.helper.IDs;
  */
 public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 	
-	 
-	@Override
-	
-	public void update(String query) {
-		// TODO Auto-generated method stub
-		
-	}
 
+	   Connection conn = null;
+	   PreparedStatement stmt = null;
+	
 	@Override
-	public void insert(Professor professor) {
+	public void insert(int id, Professor professor) {
 		// TODO Auto-generated method stub
 		 
-		   Connection conn = null;
-		   PreparedStatement stmt = null;
 		   try{
 			   			   
 			   //Class.forName("com.mysql.jdbc.Driver");
@@ -39,16 +34,14 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql="insert into professor values(?,?,?)";
+			      String sql="insert into professor values(?,?,?,?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
-			      int userid=Integer.parseInt(professor.getUserId());
-			      String name=professor.getProfessorName();
-			      String password=professor.getPassword();
-			      
-			      stmt.setInt(1, userid); 
-			      stmt.setString(2,name);
-			      stmt.setString(3, password);
+			      stmt.setInt(1, id); 
+			      stmt.setString(2,professor.getDesignation());
+			      stmt.setString(3, professor.getProfessorName());
+			      stmt.setString(4, professor.getDepartmentName());
+			      stmt.setString(5, professor.getPhoneNumber());
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
@@ -86,7 +79,7 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			   
 		      //System.out.println("Connecting to database...");
 			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-		      String sql="delete from professor where userid=?";
+		      String sql="delete from professor where profId=?";
 		      stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, Integer.parseInt(professorId));
 	            // execute the delete statement
@@ -123,6 +116,58 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void update(String update, String id, String field) {
+		// TODO Auto-generated method stub
+		try{
+			   
+			   //Class.forName("com.mysql.jdbc.Driver");
+			   
+			    //  System.out.println("Connecting to database...");
+			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
+			      String sql="update user set ";
+			      switch(field) {
+			      
+					case "1": sql+="professorName = "+update;
+						System.out.println("Name Updated.");
+					break;
+					case "2":sql+="designation = "+update;
+						System.out.println("Designation Upadated.");
+					break;
+					case "3": sql+="departmentName = "+update;
+						System.out.println("Department Updated.");
+					break;
+					case "5":sql+="phoneNumber = "+update;
+						System.out.println("Phone Number Updated.");
+					break;
+					default : System.out.println("Enter valid numeric input.");
+					}
+			      sql+="where profId = "+id;
+			      stmt = conn.prepareStatement(sql);
+			      stmt.executeUpdate();
+			      stmt.close();
+			      conn.close();
+			      
+			   }catch(SQLException se){		//Handle errors for JDBC
+			      se.printStackTrace();
+			   }catch(Exception e){ 	      //Handle errors for Class.forName
+			      e.printStackTrace();
+			   }finally{  			      //finally block used to close resources
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }//end finally try
+			   }
+	}
+
 	
 	
 

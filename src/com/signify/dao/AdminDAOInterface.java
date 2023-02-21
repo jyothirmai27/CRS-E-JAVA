@@ -12,7 +12,7 @@ import com.signify.bean.Admin;
 public interface AdminDAOInterface {
 	
 	public void update(String query);
-	public void add(Admin admin);
+	public void add(int id, Admin admin);
 	public void remove(String adminId);
 	public void view(String query);
 
