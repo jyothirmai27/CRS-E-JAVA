@@ -10,8 +10,8 @@ import com.signify.bean.Admin;
 import com.signify.bean.Course;
 import com.signify.bean.Professor;
 import com.signify.bean.User;
-import com.signify.collection.AdminCollection;
-import com.signify.collection.StudentCollection;
+import com.signify.dao.CourseDAOImplementation;
+import com.signify.dao.CourseDAOInterface;
 import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
 import com.signify.service.AdminInterface;
@@ -31,7 +31,8 @@ public class CRSAdminMenu {
     CRSAdminMenu amenu = new CRSAdminMenu();
     Admin admin = new Admin();
 	UserDAOInterface userDataset = new UserDAOImplementation();
-
+	CourseDAOInterface courseDataset = new CourseDAOImplementation();
+	
     boolean exit = true;
     while(exit) {
     System.out.println("------------------------------------------------------");  
@@ -67,19 +68,13 @@ public class CRSAdminMenu {
     			break;
     			case "2":
     				System.out.println("Enter User id.");
-    				
-    				//System.out.println("Approve one Student. Enter User id.");
-					String user= in.next();
-					if(StudentCollection.getUnapproved(user)==null)
-						System.out.println("Enter valid id.");
-					else
-						adminServices.approveStudent(user);	
+						adminServices.approveStudent(in.next());	
     			break;
     			case "3": System.out.println("Exiting.\n");
         	    	//amenu.display(); 
     			break;
     			default:
-    		      	System.out.println("Invalid Input");
+    		      	System.out.println("Please enter valid numeric input.");
     			}
     	    break;
     	    case "2":adminServices.viewEnrolledStudents();
@@ -98,7 +93,8 @@ public class CRSAdminMenu {
  	    		+ "1. ADD NEW PROFESSOR\r\n"
  	    		+ "2. ASSIGN COURSE TO PROFESSOR\r\n"
  	    		+ "3. VIEW PROFESSORS\r\n"
- 	    		+ "4. EXIT PORTAL");
+ 	    		+ "4. REMOVE PROFESSOR\r\n" 	    		
+ 	    		+ "5. EXIT PORTAL");
  	    String choice2 = in.next();
  	    switch(choice2) {
  	    case "1":Professor professor = new Professor();
@@ -112,11 +108,12 @@ public class CRSAdminMenu {
  	    	professor.setDepartmentName(in.next());
  	    	System.out.println("Enter Phone number : ");
  	    	professor.setPhoneNumber(in.next());
- 	    	System.out.println("Enter Course code assigned :");
- 	    	professor.setAssignedCourse(in.next());
+ 	    	//System.out.println("Enter Course code assigned :");
+ 	    	//professor.setAssignedCourse(in.next());
  	    	adminServices.addProfessor(professor.getUserId(), professor); 
  	    break;
  	    case "2":
+ 	    	courseDataset.view();
  	    	System.out.println("Enter the course code : ");
  	    	String courseCode = in.next();
  	    	System.out.println("Enter the professor id : ");
@@ -125,9 +122,14 @@ public class CRSAdminMenu {
  	    break;
  	    case "3": adminServices.viewProfesssors();
     	break;
- 	    case "4": exit2 = false;
- 	    	amenu.display();
+ 	    case "4":
+ 	    	adminServices.viewProfesssors();
+ 	    	System.out.println("Enter Professor id : ");
+ 	    	adminServices.removeProfessor(in.next());
  	    break;
+ 	    case "5": exit2 = false;
+	    	amenu.display();
+	    break;
  	    default :System.out.println("Enter valid numeric input.");
  	    }}
     break;
@@ -199,7 +201,7 @@ public class CRSAdminMenu {
 	    		System.out.println("Admin added.");
 	    	else
 	    		System.out.println("This user Id already exists.");
-	    	AdminCollection.print();
+	    	
   	    break;
   	    case "2":
   	    	Admin admin2 = new Admin();

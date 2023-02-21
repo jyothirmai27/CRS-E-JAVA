@@ -5,7 +5,6 @@ package com.signify.service;
 
 import com.signify.bean.Student;
 import com.signify.bean.User;
-import com.signify.collection.StudentCollection;
 
 /**
  * @author BHAVISH
@@ -19,6 +18,6 @@ public interface StudentInterface {
 	public void dropCourse(String userId, String course);
 	public void registerToCourse();
 	public void editDetails(String userId, String field, String correction);
-	public void makePayment();
+	public void makePayment(String userId);
 
 }

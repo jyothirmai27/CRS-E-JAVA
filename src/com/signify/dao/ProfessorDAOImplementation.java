@@ -27,10 +27,6 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		// TODO Auto-generated method stub
 		 
 		   try{
-			   			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-			    //  System.out.println("Connecting to database...");
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
@@ -79,9 +75,8 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			   
 		      //System.out.println("Connecting to database...");
 			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-		      String sql="delete from professor where profId=?";
+		      String sql="delete from professor where profId = "+professorId;
 		      stmt = conn.prepareStatement(sql);
-		      stmt.setInt(1, Integer.parseInt(professorId));
 	            // execute the delete statement
 	           stmt.executeUpdate();
 		     
@@ -126,26 +121,24 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			   
 			    //  System.out.println("Connecting to database...");
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			      String sql="update user set ";
+			      String sql="update professor set ";
 			      switch(field) {
-			      
 					case "1": sql+="professorName = "+update;
-						System.out.println("Name Updated.");
 					break;
 					case "2":sql+="designation = "+update;
-						System.out.println("Designation Upadated.");
 					break;
 					case "3": sql+="departmentName = "+update;
-						System.out.println("Department Updated.");
 					break;
 					case "5":sql+="phoneNumber = "+update;
-						System.out.println("Phone Number Updated.");
 					break;
 					default : System.out.println("Enter valid numeric input.");
 					}
 			      sql+="where profId = "+id;
 			      stmt = conn.prepareStatement(sql);
-			      stmt.executeUpdate();
+			      if(stmt.execute())
+			    	  System.out.println("There was some error.");
+			      else
+			    	  System.out.println("Updated!");
 			      stmt.close();
 			      conn.close();
 			      

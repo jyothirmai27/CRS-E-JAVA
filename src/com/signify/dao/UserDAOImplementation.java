@@ -93,21 +93,24 @@ public class UserDAOImplementation implements UserDAOInterface{
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql = "select password from user where userId = " + Integer.parseInt(userId) ;
+			      String sql = "select name,password from user where userId = " + Integer.parseInt(userId) ;
 			      
 			      stmt = conn.prepareStatement(sql);
 			      //stmt.setInt(1, Integer.parseInt(userId)); 
 			      ResultSet rs = stmt.executeQuery(sql);
 			      String password;
+			      String name;
 			      int role = 0;
 			      if (rs.next()) {
 		                 password = rs.getString("password");
-		                 if(passwordUser.equals(password))
+		                 if(passwordUser.equals(password)) {
 		                	 role = getRole(userId);
+		                	 name = rs.getString("name");
+		                	 System.out.print("\n      Hi "+name);
+		                 }
 		                 else 
 		                	 role = 99999;
 			      }
-			      System.out.println("=================================");
 			      stmt.close();
 			      conn.close();
 			      return role;
@@ -145,18 +148,19 @@ public class UserDAOImplementation implements UserDAOInterface{
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql = "SELECT name, studentId FROM user WHERE role_id = 4";
+			      String sql = "SELECT name, userId FROM user WHERE role_id = 4";
 
 			      stmt = conn.prepareStatement(sql);
 			      ResultSet rs = stmt.executeQuery(sql);
+			      System.out.println("Id \t\t Name ");
 
 			      while(rs.next()){
 				         //Retrieve by column name
 				       
 				         String name1 = rs.getString("name");
-				         int studentid = rs.getInt("studentId");
+				         int studentid = rs.getInt("userId");
 				         //Display values
-				         System.out.println("Id : "+Integer.toString(studentid)+" Name : " + name1);
+				         System.out.println(Integer.toString(studentid)+"\t\t" + name1);
 				      }
 			      stmt.close();
 			      conn.close();
@@ -189,13 +193,13 @@ public class UserDAOImplementation implements UserDAOInterface{
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql = "update user set role = 2 where userId = (SELECT userId FROM user WHERE role_id = 4)";
+			      String sql = "UPDATE user set role_id = 2 where userId = (SELECT studentId FROM student WHERE approved = 0)";
 
 			      stmt = conn.prepareStatement(sql);
 			      if(stmt.execute())
-			    	  System.out.println("approved");
-			      else
 			    	  System.out.println("There was some error.");
+			      else
+			    	  System.out.print("Students have been ");
 				      stmt.close();
 				      conn.close();
 				      
@@ -283,7 +287,6 @@ public class UserDAOImplementation implements UserDAOInterface{
 			      String sql = "select role_id from user where userId = " + Integer.parseInt(userId) ;
 			      
 			      stmt = conn.prepareStatement(sql);
-			      System.out.println(Integer.parseInt(userId));
 			      //stmt.setInt(1, Integer.parseInt(userId)); 
 			      ResultSet rs = stmt.executeQuery(sql);
 			      
@@ -332,7 +335,10 @@ public class UserDAOImplementation implements UserDAOInterface{
 
 			      stmt = conn.prepareStatement(sql);
 			       ResultSet rs = stmt.executeQuery(sql);
-			       countId = rs.getInt("total");
+			       if(rs.next())
+			    	   countId = rs.getInt("total");
+			       else
+			    	   System.out.println("There was some error.");
 			      stmt.close();
 			      conn.close();
 			     
@@ -362,19 +368,57 @@ public class UserDAOImplementation implements UserDAOInterface{
 	public void updateStudent(int userID) {
 		// TODO Auto-generated method stub'
 		  try{
-  			   
+			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
+			   
+			      //System.out.println("Creating statement...");
+			      String sql="update user set role = 2 where userId = "+Integer.toString(userID);
+			      stmt = conn.prepareStatement(sql);
+			      if(stmt.execute())
+			    	  System.out.println("There was some error.");
+			      else
+			    	  System.out.println("approved.");
+			      //stmt.executeUpdate();
+			      stmt.close();
+			      conn.close();
+			      
+			   }catch(SQLException se){		//Handle errors for JDBC
+			      se.printStackTrace();
+			   }catch(Exception e){ 	      //Handle errors for Class.forName
+			      e.printStackTrace();
+			   }finally{  			      //finally block used to close resources
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }//end finally try
+			   }//end try
+		
+	}
+
+	@Override
+	public void updatePassword(String userId, String password) {
+		// TODO Auto-generated method stub
+		try{
+			   
 			   //Class.forName("com.mysql.jdbc.Driver");
 			   
 			    //  System.out.println("Connecting to database...");
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql="update user set role = 2 where studentId = "+Integer.toString(userID);
+			      String sql="update user set password = \""+ password +"\" where userId = "+userId;
+			      System.out.println(sql);
 			      stmt = conn.prepareStatement(sql);
 			      if(stmt.execute())
-			    	  System.out.println("approved");
-			      else
 			    	  System.out.println("There was some error.");
+			      else
+			    	  System.out.println("Password updated.");
 			      //stmt.executeUpdate();
 			      stmt.close();
 			      conn.close();

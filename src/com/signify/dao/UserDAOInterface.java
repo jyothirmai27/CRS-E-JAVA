@@ -6,6 +6,7 @@ public interface UserDAOInterface {
 	
 	public int add(User user, int role);
 	public void update(String quer);
+	public void updatePassword(String userId, String password);
 	public void delete(String userId);
 	public int authenticate(String password,String userId);
 	public void getUnapproved();

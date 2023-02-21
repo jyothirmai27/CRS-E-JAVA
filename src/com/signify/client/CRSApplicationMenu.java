@@ -10,9 +10,8 @@ import com.signify.bean.Admin;
 import com.signify.bean.Professor;
 import com.signify.bean.Student;
 import com.signify.bean.User;
-import com.signify.collection.AdminCollection;
-import com.signify.collection.CatalogCollection;
-import com.signify.collection.StudentCollection;
+import com.signify.dao.CourseDAOImplementation;
+import com.signify.dao.CourseDAOInterface;
 import com.signify.service.AdminInterface;
 import com.signify.service.AdminServices;
 import com.signify.service.ProfessorInterface;
@@ -53,12 +52,10 @@ public class CRSApplicationMenu {
         UserLoginInterface userLoginService = new UserLoginServices();
         SemesterRegistrationInterface register = new SemesterRegistrationServices();  
     	CRSStudentMenu smenu = new CRSStudentMenu();
+    	
+    	
     	//StudentCollection studentDataset = new StudentCollection();
-        
-    	admin.setAdminId("1");
-    	admin.setPassword("admin");
-    	admin.setAdminName("admin");
-    	AdminCollection.add(admin);
+      
         
         boolean exit = true;
         while(exit) {
@@ -68,7 +65,8 @@ public class CRSApplicationMenu {
         		+ "1. USER LOGIN\r\n"
         		+ "2. VIEW COURSE CATALOG\r\n"
         		+ "3. STUDENT REGISTRATION\r\n"
-        		+ "4. EXIT PORTAL");
+        		+ "4. UPDATE PASSWORD\r\n"
+        		+ "5. EXIT PORTAL");
        
         String choice = in.next();
         switch(choice) {
@@ -85,8 +83,9 @@ public class CRSApplicationMenu {
 				userLoginService.login(user);
 				
         break;
-        case "2": // code to view course catalog
-        	register.viewCourseDetails();
+        case "2": 
+        	CourseDAOInterface courseDataset = new CourseDAOImplementation();
+        	courseDataset.view();
         	//System.out.println("Course Catalog will be displayed");
         break;
         case "3":
@@ -117,7 +116,15 @@ public class CRSApplicationMenu {
     		//studentServices.addStudent(student, studentDataset);
         	//register.registration();
         break;
-        case "4": exit = false;
+        case "4": System.out.println("Enter user id : ");
+         	String userId = in.next();
+         	System.out.println("Enter old password : ");
+         	String old = in.next();
+         	System.out.println("Enter new password : ");
+         	String password = in.next();
+         	userLoginService.updatePassword(userId,old,password);
+    	break;
+        case "5": exit = false;
         	System.out.println("Exiting!");
         	System.exit(0);
         break;

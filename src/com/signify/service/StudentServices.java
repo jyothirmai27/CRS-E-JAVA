@@ -9,8 +9,13 @@ import com.signify.bean.Course;
 
 import com.signify.bean.Student;
 import com.signify.bean.User;
-import com.signify.collection.CatalogCollection;
-import com.signify.collection.StudentCollection;
+
+import com.signify.dao.CourseDAOImplementation;
+import com.signify.dao.CourseDAOInterface;
+import com.signify.dao.CourseRegistrationDAOImplementation;
+import com.signify.dao.CourseRegistrationDAOInterface;
+import com.signify.dao.GradeCardDAOImplementation;
+import com.signify.dao.GradeCardDAOInterface;
 import com.signify.dao.StudentDAOImplementation;
 import com.signify.dao.StudentDAOInterface;
 import com.signify.dao.UserDAOImplementation;
@@ -20,66 +25,24 @@ public  class StudentServices implements StudentInterface {
 	Student student = new Student();
 	StudentDAOInterface studentDataset = new StudentDAOImplementation();
 	UserDAOInterface userDataset = new UserDAOImplementation();
-	
+	CourseRegistrationDAOInterface coursesDataset = new CourseRegistrationDAOImplementation();
+	CourseDAOInterface courseDataset = new CourseDAOImplementation();
 	public void viewGrades(String userId) {
-		
-		student = StudentCollection.get(userId);
-		if(student.isSeeGrades())
-			System.out.println("viewing grades in student");
-		else
-			System.out.println("Waiting for admin to approve grades.");
+		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
+		gradecard.view(userId);
 	}
 	public void viewCatelogs() {
-		CatalogCollection.printCourses();
+		courseDataset.view();
 	}
 	public void addCourse(String userId,String course) {
+		
+		coursesDataset.addCourse(userId, course);
 
-       /* Scanner in = new Scanner (System.in);
-		SemesterRegistrationInterface add = new SemesterRegistrationServices();
-        System.out.println("Enter Semester");
-        int sem = in.nextInt();
-        System.out.println("Enter course code");
-        String code = in.next();
-        add.addCourse(student.getUserId(), sem, code);
-        in.close();*/
-		
-		student = StudentCollection.get(userId);
-		
-		List<String> selected = new ArrayList<String>();
-		selected = student.getRegisteredCourses();
-			if(selected.size()<6) {
-				selected.add(course);
-				Course c = CatalogCollection.get(course);
-				List<String> newList = c.getEnrolledStudents();
-				
-			}
-			else
-				System.out.println("You already have 6 courses registered.");
-			System.out.println("course added by student");
-			student.setRegisteredCourses(selected);
-			StudentCollection.update(student.getUserId(), student);
 	}
 	public void dropCourse(String userId, String course) {
 		
-		/*Scanner in = new Scanner (System.in);
-		SemesterRegistrationInterface drop = new SemesterRegistrationServices();
-        System.out.println("Enter Semester");
-        int sem = in.nextInt();
-        System.out.println("Enter course code");
-        String code = in.next();
-        drop.dropCourse(student.getUserId(), sem, code);
-        in.close();*/
+		coursesDataset.dropCourse(userId, course);
 		
-		student = StudentCollection.get(userId);
-		
-		List<String> selected = new ArrayList<String>();
-		selected = student.getRegisteredCourses();
-		
-		selected.remove(course);
-		
-		student.setRegisteredCourses(selected);
-		StudentCollection.update(userId, student);
-		System.out.println("course dropped by student");
 	}
 	public void registerToCourse() {
 		System.out.println("Registering to course. Waiting for admin approval.");
@@ -89,38 +52,40 @@ public  class StudentServices implements StudentInterface {
 		
 		
 		Student student = new Student();
-		student = StudentCollection.get(userId);
+		 String query ="";
 		//System.out.println(student.getStudentName());
 		switch(field) {
-		case "1": student.setStudentName(correction);
+		case "1":query = "name = \""+correction+"\" WHERE studentId = "+userId;
+			studentDataset.update(query);
 			System.out.println("Name Updated.");
 		break;
-		case "2":student.setAddress(correction);
-			System.out.println("Adress Upadated.");
+		case "2":query = "address = \""+correction+"\" WHERE studentId = "+userId;
+			studentDataset.update(query);
+			System.out.println("Address Upadated.");
 		break;
-		case "3":student.setBranchName(correction);
+		case "3":query = "branchName = \""+correction+"\" WHERE studentId = "+userId;
+			studentDataset.update(query);
 			System.out.println("Branch Updated.");
 		break;
-		case "4":student.setPassword(correction);
-			System.out.println("Password changed.");
-		break;
-		case "5":student.setBatch(correction);
+		case "4":query = "batch = \""+correction+"\" WHERE studentId = "+userId;
+		studentDataset.update(query);
 			System.out.println("Batch Updated.");
 		break;
-		case "6":student.setPhoneNumber(correction);
+		case "5":query = "phone_number = \""+correction+"\" WHERE studentId = "+userId;
+			studentDataset.update(query);
 			System.out.println("Phone Number Updated.");
 		break;
-		case "7":UserLoginServices.showMenu("Student", userId);
+		case "6":UserLoginServices.showMenu("Student", userId);
 			//return;
 		default : System.out.println("Enter valid numeric input.");
 		}
-		StudentCollection.update(userId, student);
 		//StudentCollection.print();
 		//System.out.println("student details edited");
 	}
-	public void makePayment() {
+	public void makePayment(String userId) {
 		// adding student to course if payment successful
-		System.out.println("trying to make payent by student");
+		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
+		gradecard.update(userId);
 	}
 	@Override
 	public boolean addStudent(Student student, User user) {
@@ -140,7 +105,7 @@ public  class StudentServices implements StudentInterface {
 		student.setSeeGrades(false);
 		int id = userDataset.add(user, 4);
 		studentDataset.add(id, student);
-		return StudentCollection.add(student.getUserId(), student);
+		return true;
 	}
 	
 }

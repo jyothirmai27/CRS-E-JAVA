@@ -13,7 +13,6 @@ import com.signify.bean.User;
 import com.signify.client.CRSAdminMenu;
 import com.signify.client.CRSProfessorMenu;
 import com.signify.client.CRSStudentMenu;
-import com.signify.collection.UserCollection;
 import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
 
@@ -95,15 +94,15 @@ public  class UserLoginServices implements UserLoginInterface{
 			 
 			switch(authenticate(user)){
 			case "Student": 
-				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
+				System.out.println("! Login successful! \n");
 				smenu.display(user.getUserId());
 			break;
 			case "Professor": 
-				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
+				System.out.println("! Login successful! \n");
 				pmenu.display(user.getUserId());
 			break;
 			case "Admin": 				
-				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");
+				System.out.println("! Login successful! \n");
 				amenu.display();
 			break;
 			case "unapproved" : System.out.println("Waiting for admin's approval.");
@@ -125,5 +124,18 @@ public  class UserLoginServices implements UserLoginInterface{
 
 	public void logout(	String userId, String password) {
 		// direct to main menu
+	}
+
+	@Override
+	public void updatePassword(String userId, String old, String password) {
+		// TODO Auto-generated method stub
+		User user = new User();
+		user.setUserId(userId);
+		user.setPassword(old);
+		String role = authenticate(user);
+		if(role.equals("wrongPassword"))
+			System.out.println("You have entered wrong credentials.");
+		else
+			userDataset.updatePassword(userId,password);
 	}
 }

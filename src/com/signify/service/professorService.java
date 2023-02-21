@@ -5,36 +5,26 @@ import java.util.List;
 import com.signify.bean.Course;
 import com.signify.bean.Professor;
 import com.signify.bean.Student;
-import com.signify.collection.CatalogCollection;
-import com.signify.collection.ProfessorCollection;
-import com.signify.collection.StudentCollection;
+import com.signify.dao.CourseRegistrationDAOImplementation;
+import com.signify.dao.CourseRegistrationDAOInterface;
 import com.signify.dao.ProfessorDAOImplementation;
 import com.signify.dao.ProfessorDAOInterface;
+import com.signify.dao.StudentDAOImplementation;
+import com.signify.dao.StudentDAOInterface;
 
 public class ProfessorService implements ProfessorInterface {
 	
+	StudentDAOInterface studentDataset = new StudentDAOImplementation();
 	ProfessorDAOInterface professordataset = new ProfessorDAOImplementation();
+	CourseRegistrationDAOInterface coursesDataset = new CourseRegistrationDAOImplementation();
 	
-	public void changeGrade(String userId) {
-		Professor professor= ProfessorCollection.get(userId);
-		String code  = professor.getAssignedCourse();
-		if(code == null)
-			System.out.println("Course is not assigned yet");
-		Course course = CatalogCollection.get(code);
-			//System.out.println(course.getCourseCode() +" \t\t "+course.getCourseName() +" \t\t "+course.getDepartmentName() +" \t\t "+course.getProfessorName());
-			List<String> students = course.getEnrolledStudents();
-			Student student = new Student();
-		for (String studentId : students) {
-			student = StudentCollection.get(studentId);
-			//student.setSeeGrades(true);
-			//set grade of student
-			StudentCollection.update(student.getUserId(), student);
+	public void changeGrade(String courseCode) {
 		
-		}
-		System.out.println("grade added");
+		coursesDataset.viewStudents(courseCode);
+		
 	}
 	public void viewEnrolledStudents() {
-		StudentCollection.print();
+		studentDataset.view();
 	}
 	public void selectCourse() {
 		/*Scanner in = new Scanner (System.in);
@@ -56,9 +46,9 @@ public class ProfessorService implements ProfessorInterface {
 	public void editDetails(String userId, String field, String correction) {
 		///to be approved by admin
 		
-		if(field == "6")
+		if(field == "5")
 			UserLoginServices.showMenu("Proffessor", userId);
-		else if(field == "5"||field =="4" || field =="3"|| field =="2" || field =="1")
+		else if(field =="4" || field =="3"|| field =="2" || field =="1")
 			professordataset.update(correction, userId, field);
 		else
 			System.out.println("Enter valid numeric input.");

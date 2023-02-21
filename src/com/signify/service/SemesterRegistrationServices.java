@@ -5,7 +5,6 @@ package com.signify.service;
 
 import java.util.Date;
 
-import com.signify.collection.CatalogCollection;
 
 /**
  * @author BHAVISH
@@ -45,7 +44,6 @@ public  class SemesterRegistrationServices implements SemesterRegistrationInterf
 	public void viewCourseDetails() {
 		// TODO Auto-generated method stub
 		
-		CatalogCollection.printCourses();
 		
 	}
 }

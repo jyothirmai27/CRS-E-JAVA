@@ -18,6 +18,10 @@ import com.signify.helper.IDs;
 
 public class AdminDAOImplementation implements AdminDAOInterface{
 
+
+	Connection conn = null;
+	   PreparedStatement stmt = null;
+	
 	@Override
 	public void update(String query) {
 		// TODO Auto-generated method stub
@@ -27,8 +31,6 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 	@Override
 	public void add(int id, Admin admin) {
 		// TODO Auto-generated method stub
-		Connection conn = null;
-		   PreparedStatement stmt = null;
 		   try{
 			   			   
 			  // Class.forName("com.mysql.jdbc.Driver");
@@ -37,16 +39,15 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql="insert into admin values(?,?,?)";
+			      String sql="insert into admin values(?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
 			      //int userid=Integer.parseInt(admin.getAdminId());
 			      String name=admin.getAdminName();
-			      String password=admin.getPassword();
+			      //String password=admin.getPassword();
 			      
 			      stmt.setInt(1, id); 
 			      stmt.setString(2,name);
-			      stmt.setString(3, password);
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
@@ -75,9 +76,7 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 	@Override
 	public void remove(String adminId) {
 		// TODO Auto-generated method stub
-		Connection conn = null;
-		   PreparedStatement stmt = null;	
-		   try{
+		 try{
 			   
 			   //Class.forName("com.mysql.jdbc.Driver");
 			   
