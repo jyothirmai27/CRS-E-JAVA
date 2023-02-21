@@ -9,8 +9,11 @@ import java.util.Scanner;
 import com.signify.bean.Admin;
 import com.signify.bean.Course;
 import com.signify.bean.Professor;
+import com.signify.bean.User;
 import com.signify.collection.AdminCollection;
 import com.signify.collection.StudentCollection;
+import com.signify.dao.UserDAOImplementation;
+import com.signify.dao.UserDAOInterface;
 import com.signify.service.AdminInterface;
 import com.signify.service.AdminServices;
 import com.signify.service.StudentServices;
@@ -27,7 +30,7 @@ public class CRSAdminMenu {
     AdminInterface adminServices = new AdminServices();
     CRSAdminMenu amenu = new CRSAdminMenu();
     Admin admin = new Admin();
-	
+	UserDAOInterface userDataset = new UserDAOImplementation();
 
     boolean exit = true;
     while(exit) {
@@ -52,6 +55,7 @@ public class CRSAdminMenu {
     	    switch(choice1) {
     	    case "1":
     			StudentCollection.printUnapproved();
+    			userDataset.getUnapproved();
     			System.out.println("\n1.TO APPROVE ALL STUDENTS\n"+"2.APPROVE ONE STUDENT\n"+"3.EXIT\n");
     			 
     			String approve=in.next();
@@ -179,14 +183,21 @@ public class CRSAdminMenu {
   	    		+ "4. EXIT PORTAL");
   	    String choice4 = in.next();
   	    switch(choice4) {
-  	    case "1": Admin admin1 = new Admin();
+  	    case "1":
+  	    	User user1 = new User();
+  	    	Admin admin1 = new Admin();
 	    	System.out.println("Enter Name : ");
 	    	admin1.setAdminName(in.next());
 	    	System.out.println("Enter Admin Id : ");
 	    	admin1.setAdminId(in.next());
 	    	System.out.println("Enter Password : ");
 	    	admin1.setPassword(in.next());
-	    	if(adminServices.addAdmin(admin1))
+	    	User user = new User();
+			user.setName(admin1.getAdminName());
+			user.setRole("Admin");
+			user.setUserId(admin1.getAdminId());
+			user.setPassword(admin1.getPassword());
+	    	if(adminServices.addAdmin(admin1, user1))
 	    		System.out.println("Admin added.");
 	    	else
 	    		System.out.println("This user Id already exists.");

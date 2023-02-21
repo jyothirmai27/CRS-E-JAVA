@@ -12,6 +12,7 @@ import com.signify.bean.Admin;
 import com.signify.bean.Course;
 import com.signify.bean.Professor;
 import com.signify.bean.Student;
+import com.signify.bean.User;
 import com.signify.collection.AdminCollection;
 import com.signify.collection.CatalogCollection;
 import com.signify.collection.ProfessorCollection;
@@ -20,6 +21,8 @@ import com.signify.dao.AdminDAOImplementation;
 import com.signify.dao.AdminDAOInterface;
 import com.signify.dao.ProfessorDAOImplementation;
 import com.signify.dao.ProfessorDAOInterface;
+import com.signify.dao.UserDAOImplementation;
+import com.signify.dao.UserDAOInterface;
 
 /**
  * @author BHAVISH
@@ -29,6 +32,7 @@ public  class AdminServices implements AdminInterface{
 	
 	ProfessorDAOInterface professorDataset = new ProfessorDAOImplementation();
 	AdminDAOInterface adminDataset = new AdminDAOImplementation();
+	UserDAOInterface userDataset = new UserDAOImplementation();
 	
 	public void assignCourse(String courseCode, String professorId){
 		if(CatalogCollection.assignCourse(courseCode, professorId))
@@ -39,6 +43,7 @@ public  class AdminServices implements AdminInterface{
 	
 	
 	public void addCourse(Course course) {
+		userDataset.getUnapproved();
 		List<String > students = new ArrayList<>();
 		course.setEnrolledStudents(students);
 		if(CatalogCollection.addCourse(course))
@@ -48,7 +53,9 @@ public  class AdminServices implements AdminInterface{
 	}
 	
 	
-	public boolean addAdmin(Admin admin) {
+	public boolean addAdmin(Admin admin, User user) {
+		
+		userDataset.add(user, 1);
 		adminDataset.add(admin);
 		return AdminCollection.add(admin);
 			
@@ -126,6 +133,9 @@ public  class AdminServices implements AdminInterface{
 			System.out.println("Admin Removed.");
 		else
 			System.out.println("There was some error.");
+		
+		
+		adminDataset.remove(admin.getAdminId());
 	}
 	
 	
@@ -136,13 +146,16 @@ public  class AdminServices implements AdminInterface{
 			System.out.println("Admin updated.");
 			else
 			System.out.println("Wrong details.");
+		
+		adminDataset.update(admin.getAdminId());;
 	}
 	
 	
 	@Override
 	public void viewProfesssors() {
 		// TODO Auto-generated method stub
-		ProfessorCollection.print();		
+		userDataset.printProfessors();
+	ProfessorCollection.print();		
 	}
 	
 	

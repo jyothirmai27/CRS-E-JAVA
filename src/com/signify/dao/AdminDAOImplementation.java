@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.signify.bean.Admin;
+import com.signify.helper.IDs;
 
 /**
  * @author BHAVISH
@@ -17,13 +18,6 @@ import com.signify.bean.Admin;
 
 public class AdminDAOImplementation implements AdminDAOInterface{
 
-	// JDBC driver name and database URL
-	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost/crs_e";
-
-	  //  Database credentials
-	   static final String USER = "root";
-	   static final String PASS = "Password@1";
 	@Override
 	public void update(String query) {
 		// TODO Auto-generated method stub
@@ -40,7 +34,7 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 			  // Class.forName("com.mysql.jdbc.Driver");
 			   
 			      //System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
 			      String sql="insert into admin values(?,?,?)";
@@ -88,7 +82,7 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 			   //Class.forName("com.mysql.jdbc.Driver");
 			   
 		      //System.out.println("Connecting to database...");
-		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 		      String sql="delete from admin where userid=?";
 		      stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, Integer.parseInt(adminId));

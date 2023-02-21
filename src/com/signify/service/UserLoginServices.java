@@ -14,6 +14,8 @@ import com.signify.client.CRSAdminMenu;
 import com.signify.client.CRSProfessorMenu;
 import com.signify.client.CRSStudentMenu;
 import com.signify.collection.UserCollection;
+import com.signify.dao.UserDAOImplementation;
+import com.signify.dao.UserDAOInterface;
 
 /**
  * @author BHAVISH
@@ -24,6 +26,8 @@ public  class UserLoginServices implements UserLoginInterface{
 	static CRSAdminMenu amenu = new CRSAdminMenu();
 	static CRSProfessorMenu pmenu = new CRSProfessorMenu();
 	static CRSStudentMenu smenu = new CRSStudentMenu();
+	
+	UserDAOInterface userDataset = new UserDAOImplementation();
 	
 	public static void showMenu(String role, String userId) {
 		
@@ -85,6 +89,8 @@ public  class UserLoginServices implements UserLoginInterface{
 		// direct to that roles menu
 		
 		try {
+
+			userDataset.getPassword(user.getUserId());
 			switch(UserCollection.Authenticate(user)){
 			case "Student": 
 				System.out.println("\n     Hi "+user.getName()+"! Login successful! \n");

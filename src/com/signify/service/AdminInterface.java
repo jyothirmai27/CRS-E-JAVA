@@ -6,6 +6,7 @@ package com.signify.service;
 import com.signify.bean.Admin;
 import com.signify.bean.Course;
 import com.signify.bean.Professor;
+import com.signify.bean.User;
 
 /**
  * @author BHAVISH
@@ -19,7 +20,7 @@ public interface AdminInterface {
 	public void generateReportCard();
 	public void courseDetails();
 	
-	public boolean addAdmin(Admin admin);
+	public boolean addAdmin(Admin admin, User user);
 	public void removeAdmin(Admin admin);
 	public void editAdminDetails(Admin old, Admin admin);
 	

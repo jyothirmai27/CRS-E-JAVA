@@ -8,12 +8,18 @@ import com.signify.bean.Course;
 //import java.util.Date;
 
 import com.signify.bean.Student;
+import com.signify.bean.User;
 import com.signify.collection.CatalogCollection;
 import com.signify.collection.StudentCollection;
+import com.signify.dao.StudentDAOImplementation;
+import com.signify.dao.StudentDAOInterface;
+import com.signify.dao.UserDAOImplementation;
+import com.signify.dao.UserDAOInterface;
 
 public  class StudentServices implements StudentInterface {
 	Student student = new Student();
-	//StudentCollection studentDataset = new StudentCollection();
+	StudentDAOInterface studentDataset = new StudentDAOImplementation();
+	UserDAOInterface userDataset = new UserDAOImplementation();
 	
 	public void viewGrades(String userId) {
 		
@@ -117,7 +123,7 @@ public  class StudentServices implements StudentInterface {
 		System.out.println("trying to make payent by student");
 	}
 	@Override
-	public boolean addStudent(Student student) {
+	public boolean addStudent(Student student, User user) {
 		// TODO Auto-generated method stub
 		
 		
@@ -131,8 +137,9 @@ public  class StudentServices implements StudentInterface {
 		student.setPaymentdone(false);
 		student.setRegistered(false);
 		student.setScholarship(false);
-		student.setScholarshipId("");
 		student.setSeeGrades(false);
+		studentDataset.add(student);
+		userDataset.add(user, 4);
 		return StudentCollection.add(student.getUserId(), student);
 	}
 	

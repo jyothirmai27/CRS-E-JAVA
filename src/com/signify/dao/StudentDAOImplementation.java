@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.signify.bean.Student;
+import com.signify.helper.*;
 
 /**
  * @author BHAVISH
@@ -16,13 +17,6 @@ import com.signify.bean.Student;
  */
 public class StudentDAOImplementation implements StudentDAOInterface{
 
-	// JDBC driver name and database URL
-	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost/crs_e";
-
-	  //  Database credentials
-	   static final String USER = "root";
-	   static final String PASS = "Password@1";
 	
 	@Override
 	public void add(Student student) {
@@ -34,10 +28,10 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			  // Class.forName("com.mysql.jdbc.Driver");
 			   
 			      //System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 			   
 			      //System.out.println("Creating statement...");
-			      String sql="insert into student values(?,?,?)";
+			      String sql="insert into student values(?,?,?,?,?,?,?,?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
 			      int userid=Integer.parseInt(student.getUserId());
@@ -46,7 +40,13 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			      
 			      stmt.setInt(1, userid); 
 			      stmt.setString(2,name);
-			      stmt.setString(3, password);
+			      stmt.setString(5, password);
+			      stmt.setString(3, student.getAddress());
+			      stmt.setString(4, student.getBranchName());
+			      stmt.setString(6, student.getScholarshipId());
+			      stmt.setString(7, student.getBatch());
+			      stmt.setString(8, student.getPhoneNumber());
+			      stmt.setInt(9, 0);
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
@@ -82,7 +82,7 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			   //Class.forName("com.mysql.jdbc.Driver");
 			   
 		      //System.out.println("Connecting to database...");
-		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
 		      String sql="delete from student where userid=?";
 		      stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, Integer.parseInt(studentId));

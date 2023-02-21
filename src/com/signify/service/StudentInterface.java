@@ -4,6 +4,7 @@
 package com.signify.service;
 
 import com.signify.bean.Student;
+import com.signify.bean.User;
 import com.signify.collection.StudentCollection;
 
 /**
@@ -11,7 +12,7 @@ import com.signify.collection.StudentCollection;
  *
  */
 public interface StudentInterface {
-	public boolean addStudent(Student student);
+	public boolean addStudent(Student student, User user);
 	public void viewGrades(String userid) ;
 	public void viewCatelogs();
 	public void addCourse(String userId, String course);

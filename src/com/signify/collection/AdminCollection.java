@@ -34,8 +34,8 @@ public class AdminCollection {
 	}
 	public static boolean add( Admin admin)
 	{
-		if(UserCollection.exists(admin.getAdminId()))
-			return false;
+		//if(UserCollection.exists(admin.getAdminId()))
+			//return false;
 		adminDataset.put(admin.getAdminId(), admin);
 		User user = new User();
 		user.setName(admin.getAdminName());

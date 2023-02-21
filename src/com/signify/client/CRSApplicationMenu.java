@@ -55,9 +55,9 @@ public class CRSApplicationMenu {
     	CRSStudentMenu smenu = new CRSStudentMenu();
     	//StudentCollection studentDataset = new StudentCollection();
         
-    	admin.setAdminId("admin123");
-    	admin.setPassword("admin@123");
-    	admin.setAdminName("Admin");
+    	admin.setAdminId("1");
+    	admin.setPassword("admin");
+    	admin.setAdminName("admin");
     	AdminCollection.add(admin);
         
         boolean exit = true;
@@ -65,7 +65,7 @@ public class CRSApplicationMenu {
         System.out.println("------------------------------------------------------");  
         System.out.println("\t \t MAIN MENU\n"
         		+ "Press\n"
-        		+ "1. EXISTING USER LOGIN\r\n"
+        		+ "1. USER LOGIN\r\n"
         		+ "2. VIEW COURSE CATALOG\r\n"
         		+ "3. STUDENT REGISTRATION\r\n"
         		+ "4. EXIT PORTAL");
@@ -108,8 +108,12 @@ public class CRSApplicationMenu {
     		student.setBatch(in.next());
     		System.out.println(" Enter phone number");
     		student.setPhoneNumber(in.next());
-    		
-    		smenu.register(student);
+    		User user2 = new User();
+			user2.setName(student.getStudentName());
+			user2.setRole("Student");
+			user2.setUserId(student.getUserId());
+			user2.setPassword(student.getPassword());
+    		smenu.register(student, user2);
     		//studentServices.addStudent(student, studentDataset);
         	//register.registration();
         break;

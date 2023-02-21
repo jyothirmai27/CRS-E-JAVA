@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import com.signify.bean.Course;
 import com.signify.bean.Student;
+import com.signify.bean.User;
 import com.signify.collection.CatalogCollection;
 import com.signify.collection.StudentCollection;
 import com.signify.service.SemesterRegistrationServices;
@@ -126,8 +127,8 @@ public class CRSStudentMenu {
         
 	}
 	
-	public void register(Student student) {
-		if(studentServices.addStudent(student))
+	public void register(Student student, User user) {
+		if(studentServices.addStudent(student, user))
 			System.out.println("Regitration Succesful. Waiting for Approval.");
 		else
 			System.out.println("This user Id already exists.");
