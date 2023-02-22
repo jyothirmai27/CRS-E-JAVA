@@ -21,7 +21,7 @@ public class Payment {
 	private int cardNumber;
 	private String cardType;
 	private String bankName;
-	private int chequeNumber;
+	private String chequeNumber;
 	private int cvv;
 
 	public String getStudentId() {
@@ -91,10 +91,10 @@ public class Payment {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
-	public int getChequeNumber() {
+	public String getChequeNumber() {
 		return chequeNumber;
 	}
-	public void setChequeNumber(int chequeNumber) {
+	public void setChequeNumber(String chequeNumber) {
 		this.chequeNumber = chequeNumber;
 	}
 	public int getCvv() {

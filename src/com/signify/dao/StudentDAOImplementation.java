@@ -10,7 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.signify.bean.Student;
-import com.signify.helper.*;
+import com.signify.constants.SQLConstants;
+import com.signify.exception.NoApprovedStudentsException;
+import com.signify.exception.StudentNotApprovedException;
+import com.signify.exception.StudentNotFoundForApprovalException;
+import com.signify.utils.DBUtils;
 
 /**
  * @author BHAVISH
@@ -25,15 +29,8 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 		// TODO Auto-generated method stub
 	
 		   try{
-			   			   
-			  // Class.forName("com.mysql.jdbc.Driver");
-			   
-			      //System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			   
-			      //System.out.println("Creating statement...");
-			      String sql="insert into student values(?,?,?,?,?,?,?,?)";
-			      stmt = conn.prepareStatement(sql);
+			      conn = DBUtils.getConnection();
+			      stmt = conn.prepareStatement(SQLConstants.REGISTER_STUDENT);
 			      String name=student.getStudentName();
 			      stmt.setInt(1, id); 
 			      stmt.setString(2,name);
@@ -73,15 +70,8 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 		// TODO Auto-generated method stub
 			
 		   try{
-			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-		      //System.out.println("Connecting to database...");
-			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-		      String sql="delete from student where userId = "+studentId;
-		      stmt = conn.prepareStatement(sql);
-		      //stmt.setInt(1, Integer.parseInt(studentId));
-	            // execute the delete statement
+			   conn = DBUtils.getConnection();
+		      stmt = conn.prepareStatement(SQLConstants.DELETE_STUDENT + studentId);
 	           stmt.executeUpdate();
 		     
 		      stmt.close();
@@ -113,13 +103,8 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 	public void update(String query) {
 		// TODO Auto-generated method stub
 		try{
-			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-			    //  System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			      String sql="update student set "+query;
-			      stmt = conn.prepareStatement(sql);
+			conn = DBUtils.getConnection();
+			      stmt = conn.prepareStatement(SQLConstants.UPDATE_STUDENT_DETAILS+ query);
 			      stmt.executeUpdate();
 			      stmt.close();
 			      conn.close();
@@ -145,25 +130,24 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 	}
 
 	@Override
-	public void view() {
+	public void view() throws NoApprovedStudentsException {
 		// TODO Auto-generated method stub
 		 try{
-			 conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			   
-			      //System.out.println("Creating statement...");
-			      String sql = "SELECT studentId, studentName, branchName FROM student WHERE approved = 1";
+			 conn = DBUtils.getConnection();
 
-			      stmt = conn.prepareStatement(sql);
-			      ResultSet rs = stmt.executeQuery(sql);
-			      System.out.println("Id \t\t Name \t\t Branch ");
-			      while(rs.next()){
-				         //Retrieve by column name
-				       	int studentId = rs.getInt("studentId");
-				         String name1 = rs.getString("studentName");
-				         String branch = rs.getString("branchName");
-				         //Display values
-				         System.out.println( Integer.toString(studentId)+"\t\t" + name1+"\t\t" + branch);
-				      }
+			      stmt = conn.prepareStatement(SQLConstants.VIEW_ENROLLED_STUDENTS);
+			      ResultSet rs = stmt.executeQuery(SQLConstants.VIEW_ENROLLED_STUDENTS);
+			      if(rs.next()) {
+			    	  System.out.println("Id \t\t Name \t\t Branch ");
+				      while(rs.next()){
+					       	int studentId = rs.getInt("studentId");
+					         String name1 = rs.getString("studentName");
+					         String branch = rs.getString("branchName");
+					         System.out.println( Integer.toString(studentId)+"\t\t" + name1+"\t\t" + branch);
+					      }
+			      }
+			      else
+			    	  throw new NoApprovedStudentsException();
 			      stmt.close();
 			      conn.close();
 			      
@@ -189,23 +173,13 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 	
 
 	@Override
-	public void approveAll() {
+	public void approveAll() throws StudentNotFoundForApprovalException{
 		// TODO Auto-generated method stub
 		try{
-			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-			    //  System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			   
-			      //System.out.println("Creating statement...");
-			      String sql = "UPDATE student SET approved = 1";
-
-			      stmt = conn.prepareStatement(sql);
+				conn = DBUtils.getConnection();
+			      stmt = conn.prepareStatement(SQLConstants.UPDATE_ALL_STUDENTS);
 			      if(stmt.execute())
-			    	  System.out.println("approved");
-			      else
-			    	  System.out.println("There was some error.");
+			    	  	throw new StudentNotFoundForApprovalException();
 				      stmt.close();
 				      conn.close();
 				      
@@ -231,23 +205,15 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 	}
 
 	@Override
-	public void approve(String id) {
+	public void approve(String id) throws StudentNotFoundForApprovalException{
 		// TODO Auto-generated method stub
 		try{
 			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-			    //  System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			   
-			      //System.out.println("Creating statement...");
-			      String sql = "update student set approved = 1 where studentId = "+id;
+			conn = DBUtils.getConnection();
 
-			      stmt = conn.prepareStatement(sql);
+			      stmt = conn.prepareStatement(SQLConstants.UPDATE_STUDENT + id);
 			      if(stmt.execute())
-			    	  System.out.println("There was some error.");
-			      else
-			    	  System.out.println(" approved.");
+			    	  throw new StudentNotFoundForApprovalException();
 				      stmt.close();
 				      conn.close();
 				      

@@ -19,5 +19,5 @@ public interface UserLoginInterface {
 	public void logout(String userId, String password);
 	public String getDetails();
 	public void updatePassword(String userId, String old, String password);
-
+	public boolean isNumeric(String userId);
 }

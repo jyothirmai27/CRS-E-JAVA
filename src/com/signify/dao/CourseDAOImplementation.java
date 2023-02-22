@@ -4,13 +4,17 @@
 package com.signify.dao;
 
 import com.signify.bean.Course;
+import com.signify.constants.SQLConstants;
+import com.signify.exception.CourseNotFoundException;
+import com.signify.exception.NoCourseException;
+import com.signify.utils.DBUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.signify.helper.*;
 /**
  * @author BHAVISH
  *
@@ -26,9 +30,8 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 		// TODO Auto-generated method stub
 		try
 		{
-			conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			String sql="insert into course values(?,?,?,?)";
-			stmt=conn.prepareStatement(sql);
+			conn = DBUtils.getConnection();
+			stmt=conn.prepareStatement(SQLConstants.ADD_COURSE);
 			stmt.setString(1, course.getCourseCode());
 			stmt.setString(2,course.getCourseName());
 			stmt.setString(3, course.getDepartmentName());
@@ -73,16 +76,17 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 	}
 
 	@Override
-	public void remove(String courseCode) {
+	public void remove(String courseCode) throws CourseNotFoundException{
 		// TODO Auto-generated method stub
 		try
 		{
-			  conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-		      String sql="delete from course where courseCode="+courseCode;
-		      stmt = conn.prepareStatement(sql);
+			  conn = DBUtils.getConnection();
+		      
+		      stmt = conn.prepareStatement(SQLConstants.DELETE_COURSE);
+		      stmt.setString(1, courseCode);
 	            // execute the delete statement
 	           if(stmt.execute())
-	        	   System.out.println("There was some error.");
+	        	   throw new CourseNotFoundException(courseCode);
 	           else
 	        	   System.out.println("Course Deleted.");
 		     
@@ -117,26 +121,26 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 	}
 
 	@Override
-	public void view() {
+	public void view() throws NoCourseException{
 		// TODO Auto-generated method stub
 		 try{
-			 conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			   
-			      //System.out.println("Creating statement...");
-			      String sql = "SELECT * FROM course";
-
-			      stmt = conn.prepareStatement(sql);
-			      ResultSet rs = stmt.executeQuery(sql);
+			 	  conn = DBUtils.getConnection();
+			      ResultSet rs = stmt.executeQuery(SQLConstants.VIEW_COURSES);
 			      System.out.println("Course code \t Course Name \t Department \t Semester ");
-			      while(rs.next()){
-				         //Retrieve by column name
-				       	 String courseCode = rs.getString("courseCode");
-				         String courseName = rs.getString("courseName");
-				         String branch = rs.getString("departmentname");
-				         String sem = rs.getString("semester");
-				         //Display values
-				         System.out.println(courseCode+"\t\t" + courseName+"\t\t" + branch+"\t\t" +sem);
-				      }
+			      if(rs.next()) {
+
+				      while(rs.next()){
+					         //Retrieve by column name
+					       	 String courseCode = rs.getString("courseCode");
+					         String courseName = rs.getString("courseName");
+					         String branch = rs.getString("departmentname");
+					         String sem = rs.getString("semester");
+					         //Display values
+					         System.out.println(courseCode+"\t\t" + courseName+"\t\t" + branch+"\t\t" +sem);
+					      }
+			      }
+			      else
+			    	  throw new NoCourseException();
 			      stmt.close();
 			      conn.close();
 			      

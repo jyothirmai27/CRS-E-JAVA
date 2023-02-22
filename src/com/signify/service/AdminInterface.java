@@ -32,5 +32,7 @@ public interface AdminInterface {
 	public void viewEnrolledStudents();
 	public void approveAllStudents();
 	
+	public boolean isNumeric(String strNum) ;
+	
 
 }

@@ -9,8 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.signify.bean.Professor;
-import com.signify.helper.IDs;
+import com.signify.exception.ProfessorNotFoundException;
 import com.signify.service.UserLoginServices;
+import com.signify.utils.DBUtils;
 
 /**
  * @author BHAVISH
@@ -21,15 +22,46 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 
 	   Connection conn = null;
 	   PreparedStatement stmt = null;
-	
+	public boolean getProfessor(String userId) throws ProfessorNotFoundException {
+
+		   try{
+			   conn = DBUtils.getConnection();
+		      String sql="select * from professor where profId = "+userId;
+		      stmt = conn.prepareStatement(sql);
+	          if(stmt.execute())
+	        	  throw new ProfessorNotFoundException(userId);
+		     
+		      stmt.close();
+		      conn.close();
+		   }catch(SQLException se){
+		      //Handle errors for JDBC
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      //Handle errors for Class.forName
+		      e.printStackTrace();
+		   }finally{
+		      //finally block used to close resources
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }// nothing we can do
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }//end finally try
+		   }//end try
+		   
+		   return true;
+	}
 	@Override
 	public void insert(int id, Professor professor) {
 		// TODO Auto-generated method stub
 		 
 		   try{
-			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			   
-			      //System.out.println("Creating statement...");
+			   conn = DBUtils.getConnection();
 			      String sql="insert into professor values(?,?,?,?,?)";
 			      stmt = conn.prepareStatement(sql);
 			   
@@ -67,14 +99,8 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 	public void delete(String professorId) {
 		// TODO Auto-generated method stub
 		
-		Connection conn = null;
-		   PreparedStatement stmt = null;	
 		   try{
-			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-		      //System.out.println("Connecting to database...");
-			   conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
+			   conn = DBUtils.getConnection();
 		      String sql="delete from professor where profId = "+professorId;
 		      stmt = conn.prepareStatement(sql);
 	            // execute the delete statement
@@ -116,11 +142,8 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 	public void update(String update, String id, String field) {
 		// TODO Auto-generated method stub
 		try{
-			   
-			   //Class.forName("com.mysql.jdbc.Driver");
-			   
-			    //  System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
+
+			conn = DBUtils.getConnection();
 			      String sql="update professor set ";
 			      switch(field) {
 					case "1": sql+="professorName = "+update;

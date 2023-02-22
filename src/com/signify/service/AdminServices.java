@@ -27,6 +27,7 @@ import com.signify.dao.StudentDAOImplementation;
 import com.signify.dao.StudentDAOInterface;
 import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
+import com.signify.exception.*;
 
 /**
  * @author BHAVISH
@@ -41,8 +42,24 @@ public  class AdminServices implements AdminInterface{
 	CourseDAOInterface courseDataset = new CourseDAOImplementation();
 	CatelogDAOInterface catelog = new CatelogDAOImplementation();
 	//static int countProfessor = 0;
-	public void assignCourse(String courseCode, String professorId){
-		catelog.add(professorId, courseCode);
+	public void assignCourse(String courseCode, String professorId) {
+		try {
+			
+			if(isNumeric(professorId))
+				if(professorDataset.getProfessor(professorId))
+					catelog.add(professorId, courseCode);
+				else 
+					throw new ProfessorNotFoundException(professorId);
+					
+			else
+				throw new UserNotFoundException(professorId);
+			
+		}catch(UserNotFoundException e) {
+			
+		}catch(ProfessorNotFoundException ex) {
+			
+		}catch(CourseNotFoundException ce) {
+		}
 	}
 	
 	
@@ -61,7 +78,11 @@ public  class AdminServices implements AdminInterface{
 	
 	
 	public void dropCourse(String courseCode){
-		courseDataset.remove(courseCode);
+		try {
+			courseDataset.remove(courseCode);
+		}catch(CourseNotFoundException e) {
+			
+		}
 	}
 	
 	
@@ -72,29 +93,57 @@ public  class AdminServices implements AdminInterface{
 	
 	
 	public  void approveStudent(String userId){
-		studentDataset.approve(userId);
-		userDataset.updateStudent(Integer.parseInt(userId));
+		try {
+			if(isNumeric(userId)) {
+				studentDataset.approve(userId);
+				userDataset.updateStudent(Integer.parseInt(userId));}
+				else 
+					throw new UserNotFoundException(userId);
+			
+		}catch(UserNotFoundException e) {
+			
+
+		} catch (StudentNotFoundForApprovalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
 	public  void addProfessor(String userId, Professor prof){
 		
-		User user = new User();
-		user.setName(prof.getProfessorName());
-		user.setRole("Professor");
-		user.setUserId(prof.getUserId());
-		user.setPassword(prof.getPassword());
-		int id = userDataset.add(user, 3);
-		professorDataset.insert(id, prof);
+		try {
+			User user = new User();
+			if(isNumeric(userId)) {
+
+				user.setName(prof.getProfessorName());
+				user.setRole("Professor");
+				user.setUserId(prof.getUserId());
+				user.setPassword(prof.getPassword());
+				int id = userDataset.add(user, 3);
+				professorDataset.insert(id, prof);
+			}
+			else
+				throw new UserNotFoundException(userId);
+			
+		}catch(UserNotFoundException e) {
+			
+		}
 		
 	}
 	
 	
 	public  void courseDetails(){
+		try {
 
-		System.out.println(" ===== VIEWING COURSE CATALOG ====== ");
-		courseDataset.view();
-		System.out.println(" ====================================== ");
+			System.out.println(" ===== VIEWING COURSE CATALOG ====== ");
+			courseDataset.view();
+			System.out.println(" ====================================== ");
+			
+		}catch(NoCourseException e) {
+			
+		}
+
 	}
 	
 	
@@ -102,18 +151,32 @@ public  class AdminServices implements AdminInterface{
 	public void viewEnrolledStudents() {
 		// TODO Auto-generated method stub
 
-		System.out.println(" ===== VIEWING ENROLLED STUDENTS ====== ");
-		//StudentCollection.print();
-		studentDataset.view();
-		System.out.println(" ====================================== ");
+		
+		try {
+			System.out.println(" ===== VIEWING ENROLLED STUDENTS ====== ");
+			studentDataset.view();
+			System.out.println(" ====================================== ");
+			
+		} catch (NoApprovedStudentsException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+		
 	}
 	
 	
 	@Override
 	public void removeAdmin(Admin admin) {
 		// TODO Auto-generated method stub
-		
-		adminDataset.remove(admin.getAdminId());
+		try {
+			if (isNumeric(admin.getAdminId()))
+				adminDataset.remove(admin.getAdminId());
+			else
+				throw new AdminDoesntExistException();
+			
+		}catch(AdminDoesntExistException e) {
+			
+		}
 	}
 	
 	
@@ -127,6 +190,7 @@ public  class AdminServices implements AdminInterface{
 	@Override
 	public void viewProfesssors() {
 		// TODO Auto-generated method stub
+		
 		userDataset.printProfessors();
 	}
 	
@@ -135,9 +199,13 @@ public  class AdminServices implements AdminInterface{
 	@Override
 	public void approveAllStudents() {
 		// TODO Auto-generated method stub
-		
-		userDataset.approveAll();
-		studentDataset.approveAll();
+		try {
+			userDataset.approveAll();
+			studentDataset.approveAll();
+		} catch (StudentNotFoundForApprovalException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 		
 	}
 
@@ -145,6 +213,28 @@ public  class AdminServices implements AdminInterface{
 	@Override
 	public void removeProfessor(String userId) {
 		// TODO Auto-generated method stub
-		professorDataset.delete(userId);
+		try {
+			if(isNumeric(userId))
+				professorDataset.delete(userId);
+			else 
+				throw new ProfessorNotFoundException(userId);
+			
+		}catch(ProfessorNotFoundException e) {
+			
+		}
+		
+	}
+	
+	public boolean isNumeric(String strNum) {
+		if (strNum == null) {
+			return false;
+		}
+		try {
+			int a = Integer.parseInt(strNum);
+		} catch (NumberFormatException nfe) {
+			return false;
+			// throws invalid user exception
+		}
+		return true;
 	}
   }

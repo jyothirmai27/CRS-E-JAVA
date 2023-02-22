@@ -6,9 +6,14 @@ package com.signify.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.signify.helper.IDs;
+import com.signify.constants.SQLConstants;
+import com.signify.exception.CourseNotAssignedToProfessorException;
+import com.signify.exception.CourseNotFoundException;
+import com.signify.exception.NoCourseException;
+import com.signify.utils.DBUtils;
 
 /**
  * @author BHAVISH
@@ -20,19 +25,16 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 	PreparedStatement stmt=null;
 	
 	@Override
-	public void add(String profid, String courseCode) {
+	public void add(String profid, String courseCode) throws CourseNotFoundException{
 		// TODO Auto-generated method stub
 		try
 		{
-			conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-			String sql="insert into catelog(course_code, professorId) values(?,?)";
-			stmt=conn.prepareStatement(sql);
+			conn = DBUtils.getConnection();
+			stmt=conn.prepareStatement(SQLConstants.ADD_CP_IN_CATELOG);
 			stmt.setString(1, courseCode);
 			stmt.setString(2,profid);
 			if(stmt.execute())
-				System.out.println("There was some error.");
-			else
-				System.out.println("Course assigned.");
+				throw new CourseNotFoundException(courseCode);
 			stmt.close();
 			conn.close();
 		}
@@ -68,16 +70,15 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 	}
 
 	@Override
-	public void remove(String courseCode) {
+	public void remove(String courseCode) throws CourseNotFoundException {
 		// TODO Auto-generated method stub
 		try
 		{
-			  conn = DriverManager.getConnection(IDs.DB_URL,IDs.USER,IDs.PASS);
-		      String sql="delete from catelog where course_code="+courseCode;
-		      stmt = conn.prepareStatement(sql);
-	            // execute the delete statement
+			conn = DBUtils.getConnection();
+		     
+		      stmt = conn.prepareStatement(SQLConstants.DELETE_CP_IN_CATELOG+courseCode);
 	           if(stmt.execute())
-	        	   System.out.println("There was some error.");
+	        	   throw new CourseNotFoundException(courseCode);
 	           else
 	        	   System.out.println("Course Deleted.");
 		     
@@ -103,6 +104,47 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 		         se.printStackTrace();
 		      }//end finally try
 		   }
+	}
+
+	@Override
+	public String getCourse(String prof)throws CourseNotAssignedToProfessorException {
+		// TODO Auto-generated method stub
+		 String course = "";
+		try{
+			conn = DBUtils.getConnection();
+			      
+			      ResultSet rs = stmt.executeQuery(SQLConstants.GET_COURSE+prof);
+			     
+			      if (rs.next()) 
+			    	  throw new CourseNotAssignedToProfessorException();
+		          else 
+		               course = rs.getString("course_code");
+		                	 
+			      
+			      stmt.close();
+			      conn.close();
+			      
+			   }catch(SQLException se){		//Handle errors for JDBC
+			      se.printStackTrace();
+			   }catch(Exception e){ 	      //Handle errors for Class.forName
+			      e.printStackTrace();
+			   }finally{  			      //finally block used to close resources
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }//end finally try
+			   }
+		
+		
+		
+		return course;
 	}
 
 }

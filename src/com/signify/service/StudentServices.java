@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.signify.bean.Course;
+import com.signify.bean.Payment;
 
 //import java.util.Date;
 
@@ -16,10 +17,13 @@ import com.signify.dao.CourseRegistrationDAOImplementation;
 import com.signify.dao.CourseRegistrationDAOInterface;
 import com.signify.dao.GradeCardDAOImplementation;
 import com.signify.dao.GradeCardDAOInterface;
+import com.signify.dao.PaymentDAOImplementation;
+import com.signify.dao.PaymentDAOInterface;
 import com.signify.dao.StudentDAOImplementation;
 import com.signify.dao.StudentDAOInterface;
 import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
+import com.signify.exception.NoCourseException;
 
 public  class StudentServices implements StudentInterface {
 	Student student = new Student();
@@ -27,12 +31,21 @@ public  class StudentServices implements StudentInterface {
 	UserDAOInterface userDataset = new UserDAOImplementation();
 	CourseRegistrationDAOInterface coursesDataset = new CourseRegistrationDAOImplementation();
 	CourseDAOInterface courseDataset = new CourseDAOImplementation();
+    PaymentDAOInterface paymentDataset = new PaymentDAOImplementation();
+    Payment payment = new Payment();
+    
+    
 	public void viewGrades(String userId) {
 		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
 		gradecard.view(userId);
 	}
 	public void viewCatelogs() {
-		courseDataset.view();
+		try {
+			courseDataset.view();
+		} catch (NoCourseException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	public void addCourse(String userId,String course) {
 		
@@ -44,9 +57,8 @@ public  class StudentServices implements StudentInterface {
 		coursesDataset.dropCourse(userId, course);
 		
 	}
-	public void registerToCourse() {
-		System.out.println("Registering to course. Waiting for admin approval.");
-		
+	public void registerToCourse(String userId) {
+		System.out.println("Registered. Proceed to payment to avail courses.");
 	}
 	public void editDetails(String userId, String field, String correction){
 		
@@ -82,10 +94,11 @@ public  class StudentServices implements StudentInterface {
 		//StudentCollection.print();
 		//System.out.println("student details edited");
 	}
-	public void makePayment(String userId) {
+	public void makePayment(String userId, Payment payment) {
 		// adding student to course if payment successful
 		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
 		gradecard.update(userId);
+		paymentDataset.add(userId, payment);
 	}
 	@Override
 	public boolean addStudent(Student student, User user) {

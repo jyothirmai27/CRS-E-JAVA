@@ -3,6 +3,7 @@
  */
 package com.signify.service;
 
+import com.signify.bean.Payment;
 import com.signify.bean.Student;
 import com.signify.bean.User;
 
@@ -16,8 +17,8 @@ public interface StudentInterface {
 	public void viewCatelogs();
 	public void addCourse(String userId, String course);
 	public void dropCourse(String userId, String course);
-	public void registerToCourse();
+	public void registerToCourse(String userId);
 	public void editDetails(String userId, String field, String correction);
-	public void makePayment(String userId);
+	public void makePayment(String userId, Payment payment);
 
 }
