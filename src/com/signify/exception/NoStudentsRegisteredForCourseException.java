@@ -14,6 +14,7 @@ public class NoStudentsRegisteredForCourseException extends Exception{
 	 */
 	public NoStudentsRegisteredForCourseException() {
 		// TODO Auto-generated constructor stub
+		super();
 		System.out.println("There are no students who have registered for this course");
 	}
 

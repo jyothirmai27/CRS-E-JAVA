@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import com.signify.bean.Admin;
 import com.signify.constants.SQLConstants;
 import com.signify.exception.AdminDoesntExistException;
+import com.signify.helper.IDs;
 import com.signify.utils.DBUtils;
 
 /**
@@ -34,7 +35,7 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 	public void add(int id, Admin admin) {
 		// TODO Auto-generated method stub
 		   try{
-			   conn = DBUtils.getConnection();
+			    conn = DBUtils.getConnection();
 			   
 			      stmt = conn.prepareStatement(SQLConstants.ADD_ADMIN);
 			      String name=admin.getAdminName();
@@ -44,61 +45,36 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
-			      conn.close();
+			      //
 			      
 			   }catch(SQLException se){		//Handle errors for JDBC
-			      se.printStackTrace();
+			      //se.printStackTrace();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{  			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
-			   }//end try
-			   System.out.println("Admin Added!");
+			     //e.printStackTrace();
+			   }
 	}
 
 	@Override
 	public void remove(String adminId) throws AdminDoesntExistException {
 		// TODO Auto-generated method stub
 		 try{
-			 conn = DBUtils.getConnection();
+			  conn = DBUtils.getConnection();
 		      stmt = conn.prepareStatement(SQLConstants.DELETE_ADMIN + Integer.parseInt(adminId));
 		     
 		      if(stmt.execute())
 		    	  throw new AdminDoesntExistException();
 		     
 		      stmt.close();
-		      conn.close();
+		      //
 		   }catch(SQLException se){
 		      //Handle errors for JDBC
-		      se.printStackTrace();
+		      //se.printStackTrace();
 		   }catch(Exception e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
-		   }//end try
-		   System.out.println("Admin Removed!");
+		      //e.printStackTrace();
+
+		    	  throw new AdminDoesntExistException();
+		   }
 	}
 
 	@Override

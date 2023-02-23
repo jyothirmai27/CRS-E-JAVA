@@ -13,6 +13,7 @@ import com.signify.dao.CourseRegistrationDAOImplementation;
 import com.signify.dao.CourseRegistrationDAOInterface;
 import com.signify.exception.CourseNotAssignedToProfessorException;
 import com.signify.exception.NoCourseException;
+import com.signify.exception.NoStudentsRegisteredForCourseException;
 import com.signify.service.GradeCardInterface;
 import com.signify.service.GradeCardServices;
 import com.signify.service.ProfessorInterface;
@@ -51,19 +52,33 @@ public class CRSProfessorMenu {
 					try {
 						course = catelog.getCourse(userId);
 	    	        	coursesDataset.viewStudents(course);
+
+	    	        	System.out.println("Enter Student Id : ");
+	    	        	String stu = in.next();
+	    	        	System.out.println("Enter Grade : ");
+	    	        	String grade = in.next();
+	    	        	professorService.changeGrade(stu, grade, course);
+						
 					} catch (CourseNotAssignedToProfessorException e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+					} catch (NoStudentsRegisteredForCourseException e) {
 						// TODO Auto-generated catch block
 						//e.printStackTrace();
 					}
     	        	
-    	        	System.out.println("Enter Student Id : ");
-    	        	String stu = in.next();
-    	        	System.out.println("Enter Grade : ");
-    	        	String grade = in.next();
-    	        	professorService.changeGrade(stu, grade, course);
 
     	        break;
-    	        case "2":professorService.viewEnrolledStudents();
+    	        case "2":
+    	        	String code1;
+					try {
+						code1 = catelog.getCourse(userId);
+
+	    	        	professorService.viewEnrolledStudents(code1);
+					} catch (CourseNotAssignedToProfessorException e1) {
+						// TODO Auto-generated catch block
+						//e1.printStackTrace();
+					}
     	        break;
     	        case "3":
     	        	try {
@@ -73,7 +88,7 @@ public class CRSProfessorMenu {
 						professorService.selectCourse();
 						} catch (NoCourseException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
     	        	 //todo
     	        break;

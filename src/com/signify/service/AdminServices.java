@@ -88,47 +88,49 @@ public  class AdminServices implements AdminInterface{
 	
 	public  void generateReportCard(){
 		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
-		gradecard.generate();
+		try {
+			gradecard.generate();
+		} catch (NoCourseRegisteredException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	
 	
 	public  void approveStudent(String userId){
 		try {
 			if(isNumeric(userId)) {
-				studentDataset.approve(userId);
-				userDataset.updateStudent(Integer.parseInt(userId));}
-				else 
-					throw new UserNotFoundException(userId);
+				if(userDataset.getRole(userId)==4) 
+				{
+					studentDataset.approve(userId);
+					userDataset.updateStudent(Integer.parseInt(userId));
+					}
+				else
+					throw new StudentNotFoundForApprovalException();}
+			else 
+				throw new UserNotFoundException(userId);
+			
 			
 		}catch(UserNotFoundException e) {
 			
 
 		} catch (StudentNotFoundForApprovalException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
 	
 	public  void addProfessor(String userId, Professor prof){
 		
-		try {
 			User user = new User();
-			if(isNumeric(userId)) {
 
 				user.setName(prof.getProfessorName());
 				user.setRole("Professor");
-				user.setUserId(prof.getUserId());
 				user.setPassword(prof.getPassword());
 				int id = userDataset.add(user, 3);
 				professorDataset.insert(id, prof);
-			}
-			else
-				throw new UserNotFoundException(userId);
 			
-		}catch(UserNotFoundException e) {
-			
-		}
 		
 	}
 	
@@ -169,13 +171,18 @@ public  class AdminServices implements AdminInterface{
 	public void removeAdmin(Admin admin) {
 		// TODO Auto-generated method stub
 		try {
-			if (isNumeric(admin.getAdminId()))
-				adminDataset.remove(admin.getAdminId());
+			if (isNumeric(admin.getAdminId())) {
+				//adminDataset.remove(admin.getAdminId());
+					userDataset.delete(admin.getAdminId());
+				}
 			else
 				throw new AdminDoesntExistException();
 			
 		}catch(AdminDoesntExistException e) {
 			
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
 		}
 	}
 	
@@ -191,7 +198,12 @@ public  class AdminServices implements AdminInterface{
 	public void viewProfesssors() {
 		// TODO Auto-generated method stub
 		
-		userDataset.printProfessors();
+		try {
+			userDataset.printProfessors();
+		} catch (NoProfessorInDatasetException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	
 	
@@ -214,13 +226,18 @@ public  class AdminServices implements AdminInterface{
 	public void removeProfessor(String userId) {
 		// TODO Auto-generated method stub
 		try {
-			if(isNumeric(userId))
+			if(isNumeric(userId)) {
 				professorDataset.delete(userId);
+				userDataset.delete(userId);
+			}
 			else 
 				throw new ProfessorNotFoundException(userId);
 			
 		}catch(ProfessorNotFoundException e) {
 			
+		}catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
 		}
 		
 	}

@@ -19,6 +19,7 @@ import com.signify.dao.CourseRegistrationDAOInterface;
 import com.signify.dao.PaymentDAOImplementation;
 import com.signify.dao.PaymentDAOInterface;
 import com.signify.exception.NoCourseException;
+import com.signify.exception.NoCourseRegisteredException;
 import com.signify.exception.UserNotFoundException;
 import com.signify.service.SemesterRegistrationServices;
 import com.signify.service.StudentInterface;
@@ -66,18 +67,21 @@ public class CRSStudentMenu {
     		        	studentServices.addCourse(userId,code);
 					} catch (NoCourseException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
     				 
     	        break;
     	        case "2":
     	        	
-    	        		coursesDataset.viewCourses(userId);
+					try {
+						coursesDataset.viewCourses(userId);
+
     					System.out.println("Enter course code you want to remove.");
-    					
-    					//if(CatalogCollection.get(code)== null)
-    					//	System.out.println("Enter valid course code");
     					studentServices.dropCourse(userId, in.next());
+					} catch (NoCourseRegisteredException e) {
+						// TODO Auto-generated catch block
+						///e.printStackTrace();
+					}
     				
     	        	 //todo
     	        break;
@@ -109,6 +113,8 @@ public class CRSStudentMenu {
     	        	payment.setChequeNumber(chequeNumber);
     	        	studentServices.makePayment(userId, payment);
     	        break;
+    	        case "3": System.out.println("Exiting.");
+    	        	break;
     	        default :System.out.println("Enter valid numeric input.");
     	        }
     	        break;

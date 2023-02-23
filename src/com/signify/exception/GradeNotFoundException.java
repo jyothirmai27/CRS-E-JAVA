@@ -12,6 +12,7 @@ public class GradeNotFoundException extends Exception{
 
 	public  GradeNotFoundException ()
 	{
+		super();
 		 System.out.println("Grade Not Found ");
 	}
 

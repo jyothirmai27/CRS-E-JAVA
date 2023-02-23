@@ -2,6 +2,7 @@ package com.signify.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.signify.bean.Course;
 import com.signify.bean.Payment;
@@ -23,7 +24,11 @@ import com.signify.dao.StudentDAOImplementation;
 import com.signify.dao.StudentDAOInterface;
 import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
+import com.signify.exception.CourseAlreadyRegisteredException;
+import com.signify.exception.CourseNotInRegisteredException;
 import com.signify.exception.NoCourseException;
+import com.signify.exception.NoCourseRegisteredException;
+import com.signify.exception.PaymentDoneCourseNotAddedException;
 
 public  class StudentServices implements StudentInterface {
 	Student student = new Student();
@@ -37,7 +42,12 @@ public  class StudentServices implements StudentInterface {
     
 	public void viewGrades(String userId) {
 		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
-		gradecard.view(userId);
+		try {
+			gradecard.view(userId);
+		} catch (NoCourseRegisteredException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	public void viewCatelogs() {
 		try {
@@ -49,12 +59,28 @@ public  class StudentServices implements StudentInterface {
 	}
 	public void addCourse(String userId,String course) {
 		
-		coursesDataset.addCourse(userId, course);
+		try {
+			coursesDataset.addCourse(userId, course);
+		} catch (CourseAlreadyRegisteredException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		} catch (PaymentDoneCourseNotAddedException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 
 	}
 	public void dropCourse(String userId, String course) {
 		
-		coursesDataset.dropCourse(userId, course);
+		try {
+			coursesDataset.dropCourse(userId, course);
+		} catch (CourseNotInRegisteredException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		} catch (PaymentDoneCourseNotAddedException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 		
 	}
 	public void registerToCourse(String userId) {
@@ -96,27 +122,23 @@ public  class StudentServices implements StudentInterface {
 	}
 	public void makePayment(String userId, Payment payment) {
 		// adding student to course if payment successful
+		studentDataset.registered(userId);
 		GradeCardDAOInterface gradecard = new GradeCardDAOImplementation();
 		gradecard.update(userId);
+		String refId = UUID.randomUUID().toString();
+		payment.setReferenceId(refId);
 		paymentDataset.add(userId, payment);
 	}
 	@Override
 	public boolean addStudent(Student student, User user) {
-		// TODO Auto-generated method stub
 		
-		
-		
-		//System.out.println("Student name added = "+student.getStudentName());
-		
-		//System.out.println("Student added");
-		//studentDataset.print();
-		List<String> courses = new ArrayList<>();
-		student.setRegisteredCourses(courses);
 		student.setPaymentdone(false);
 		student.setRegistered(false);
 		student.setScholarship(false);
 		student.setSeeGrades(false);
+		//System.out.println("Entered");
 		int id = userDataset.add(user, 4);
+		//System.out.println("id =="+id);
 		studentDataset.add(id, student);
 		return true;
 	}

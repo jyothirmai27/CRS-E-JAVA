@@ -6,6 +6,7 @@ package com.signify.dao;
 import com.signify.bean.Student;
 import com.signify.exception.NoApprovedStudentsException;
 import com.signify.exception.StudentNotFoundForApprovalException;
+import com.signify.exception.UserNotFoundException;
 
 /**
  * @author BHAVISH
@@ -18,6 +19,6 @@ public interface StudentDAOInterface {
 	public void update(String query);
 	public void view() throws NoApprovedStudentsException;
 	public void approveAll()throws StudentNotFoundForApprovalException;
-	public void approve(String id)throws StudentNotFoundForApprovalException;
-
+	public void approve(String id)throws StudentNotFoundForApprovalException, UserNotFoundException;
+	public void registered(String userId);
 }

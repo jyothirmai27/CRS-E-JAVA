@@ -75,7 +75,7 @@ public class UserLoginServices implements UserLoginInterface {
 			case 4:
 				return "unapproved";
 			default:
-				return "wrongPassword1";
+				return "wrongPassword";
 			}
 		}
 		return "Invalid";

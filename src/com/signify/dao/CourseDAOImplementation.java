@@ -7,6 +7,7 @@ import com.signify.bean.Course;
 import com.signify.constants.SQLConstants;
 import com.signify.exception.CourseNotFoundException;
 import com.signify.exception.NoCourseException;
+import com.signify.helper.IDs;
 import com.signify.utils.DBUtils;
 
 import java.sql.Connection;
@@ -38,40 +39,18 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 			stmt.setString(4, course.getSemester());
 
 			if(stmt.execute())
-				System.out.println("There was some error.");
-			else
-				System.out.println("Course added.");
+				System.out.println("Course Already present.");
 			stmt.close();
-			conn.close();
+			//
 		}
-		catch(SQLException se)
+		catch(SQLException e)
 		{
-			se.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Course Already present.");
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				if(stmt!=null)
-					stmt.close();
-			}
-			catch(SQLException se2)
-			{
-				
-			}
-			try
-			{
-				if(conn!=null)
-					conn.close();
-			}
-			catch(SQLException Se)
-			{
-				Se.printStackTrace();
-			}
+			//e.printStackTrace();
 		}
 	}
 
@@ -84,34 +63,21 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 		      
 		      stmt = conn.prepareStatement(SQLConstants.DELETE_COURSE);
 		      stmt.setString(1, courseCode);
-	            // execute the delete statement
-	           if(stmt.execute())
+		      ResultSet rs = stmt.executeQuery();
+	           if(rs.next())
 	        	   throw new CourseNotFoundException(courseCode);
-	           else
-	        	   System.out.println("Course Deleted.");
 		     
 		      stmt.close();
-		      conn.close();
-		   }catch(SQLException se){
+		      //
+		   }catch(SQLException e){
 		      //Handle errors for JDBC
-		      se.printStackTrace();
+		      //e.printStackTrace();
+
+        	   throw new CourseNotFoundException(courseCode);
 		   }catch(Exception e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
-		   }//end try
+		     // e.printStackTrace();
+		   }
 	}
 
 	@Override
@@ -119,18 +85,22 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void view() throws NoCourseException{
 		// TODO Auto-generated method stub
 		 try{
 			 	  conn = DBUtils.getConnection();
+			 	   //System.out.println(SQLConstants.VIEW_COURSES);
+			 	  stmt = conn.prepareStatement(SQLConstants.VIEW_COURSES);
 			      ResultSet rs = stmt.executeQuery(SQLConstants.VIEW_COURSES);
+			    
 			      System.out.println("Course code \t Course Name \t Department \t Semester ");
-			      if(rs.next()) {
+			      boolean flag = true;
 
 				      while(rs.next()){
 					         //Retrieve by column name
+				    	  flag = false;
 					       	 String courseCode = rs.getString("courseCode");
 					         String courseName = rs.getString("courseName");
 					         String branch = rs.getString("departmentname");
@@ -138,28 +108,16 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 					         //Display values
 					         System.out.println(courseCode+"\t\t" + courseName+"\t\t" + branch+"\t\t" +sem);
 					      }
-			      }
-			      else
+				      if(flag)
 			    	  throw new NoCourseException();
 			      stmt.close();
-			      conn.close();
+			      //
 			      
-			   }catch(SQLException se){		//Handle errors for JDBC
-			      se.printStackTrace();
+			   }catch(SQLException e){		//Handle errors for JDBC
+			      ////e.printStackTrace();
+				   throw new NoCourseException();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{  			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
+			     // e.printStackTrace();
 			   }
 	}
 

@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.signify.bean.Payment;
+import com.signify.constants.SQLConstants;
+import com.signify.helper.IDs;
 import com.signify.utils.DBUtils;
 
 /**
@@ -26,32 +28,19 @@ public class PaymentDAOImplementation implements PaymentDAOInterface {
 
 		   try{
 			      conn = DBUtils.getConnection();
-			      String sql="insert into payment(student, upiId, chequeNumber) values(?,?,?)";
-			      stmt = conn.prepareStatement(sql);
+			      stmt = conn.prepareStatement(SQLConstants.ADD_PAYMENT);
 			   
 			      stmt.setInt(1, Integer.parseInt(payment.getStudentId()));
 			      stmt.setString(2, payment.getUpiId());
 			      stmt.setString(3, payment.getChequeNumber());
+			      stmt.setString(4, payment.getReferenceId());
 			      stmt.executeUpdate();
 			      stmt.close();
-			      conn.close();
 			      
-			   }catch(SQLException se){		//Handle errors for JDBC
-			      se.printStackTrace();
+			   }catch(SQLException e){		//Handle errors for JDBC
+			      //e.printStackTrace();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{  			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
+			     // e.printStackTrace();
 			   }
 	}
 

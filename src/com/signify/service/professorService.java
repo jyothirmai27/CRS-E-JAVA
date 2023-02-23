@@ -12,6 +12,8 @@ import com.signify.dao.ProfessorDAOInterface;
 import com.signify.dao.StudentDAOImplementation;
 import com.signify.dao.StudentDAOInterface;
 import com.signify.exception.NoApprovedStudentsException;
+import com.signify.exception.NoStudentsRegisteredForCourseException;
+import com.signify.exception.UserNotFoundException;
 
 public class ProfessorService implements ProfessorInterface {
 	
@@ -20,14 +22,20 @@ public class ProfessorService implements ProfessorInterface {
 	CourseRegistrationDAOInterface coursesDataset = new CourseRegistrationDAOImplementation();
 	
 	public void changeGrade(String studentId, String grade, String courseCode) {
-		coursesDataset.addGrade(studentId, courseCode, grade);
-	}
-	public void viewEnrolledStudents() {
 		try {
-			studentDataset.view();
-		} catch (NoApprovedStudentsException e) {
+			coursesDataset.addGrade(studentId, courseCode, grade);
+		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
+		}
+	}
+	public void viewEnrolledStudents(String code) {
+		try {
+				coursesDataset.viewStudents(code);
+			
+		}catch (NoStudentsRegisteredForCourseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	public void selectCourse() {

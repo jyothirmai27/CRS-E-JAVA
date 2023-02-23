@@ -11,7 +11,7 @@ public class Payment {
 
 	private String studentId;
 	private float amount;
-	private int referenceId;	
+	private String referenceId;	
 	private boolean scholarship;
 	private boolean offline;
 	private boolean cash;
@@ -103,10 +103,10 @@ public class Payment {
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
-	public int getReferenceId() {
+	public String getReferenceId() {
 		return referenceId;
 	}
-	public void setReferenceId(int referenceId) {
+	public void setReferenceId(String referenceId) {
 		this.referenceId = referenceId;
 	}
 	

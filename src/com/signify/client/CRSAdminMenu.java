@@ -16,6 +16,7 @@ import com.signify.dao.UserDAOImplementation;
 import com.signify.dao.UserDAOInterface;
 import com.signify.exception.CourseNotFoundException;
 import com.signify.exception.NoCourseException;
+import com.signify.exception.StudentNotFoundForApprovalException;
 import com.signify.service.AdminInterface;
 import com.signify.service.AdminServices;
 import com.signify.service.StudentServices;
@@ -59,7 +60,12 @@ public class CRSAdminMenu {
         	    switch(choice1) {
         	    case "1":
         			//StudentCollection.printUnapproved();
-        			userDataset.getUnapproved();
+        			try {
+						userDataset.getUnapproved();
+					} catch (StudentNotFoundForApprovalException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
         			System.out.println("\n1.TO APPROVE ALL STUDENTS\n"+"2.APPROVE ONE STUDENT\n"+"3.EXIT\n");
         			 
         			String approve=in.next();
@@ -113,7 +119,7 @@ public class CRSAdminMenu {
      	    	professor.setPhoneNumber(in.next());
      	    	//System.out.println("Enter Course code assigned :");
      	    	//professor.setAssignedCourse(in.next());
-     	    	adminServices.addProfessor(professor.getUserId(), professor); 
+     	    	adminServices.addProfessor("", professor); 
      	    break;
      	    case "2":
      	    	try {
@@ -165,9 +171,15 @@ public class CRSAdminMenu {
       	    	adminServices.addCourse(course); 
       	    break;
       	    case "2":
-      	    	System.out.println("Enter course code for course to be removed : ");
-      	    	String courseCode = in.next();
-      	    	adminServices.dropCourse(courseCode); 
+      	    	try {
+					courseDataset.view();
+	      	    	System.out.println("Enter course code for course to be removed : ");
+	      	    	String courseCode = in.next();
+	      	    	adminServices.dropCourse(courseCode); 
+				} catch (NoCourseException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
       	    break;
       	    case "3":adminServices.generateReportCard(); //todo
             break;
@@ -195,15 +207,12 @@ public class CRSAdminMenu {
       	    	Admin admin1 = new Admin();
     	    	System.out.println("Enter Name : ");
     	    	admin1.setAdminName(in.next());
-    	    	System.out.println("Enter Admin Id : ");
-    	    	admin1.setAdminId(in.next());
     	    	System.out.println("Enter Password : ");
     	    	admin1.setPassword(in.next());
-    	    	User user = new User();
-    			user.setName(admin1.getAdminName());
-    			user.setRole("Admin");
-    			user.setUserId(admin1.getAdminId());
-    			user.setPassword(admin1.getPassword());
+    			user1.setName(admin1.getAdminName());
+    			user1.setRole("Admin");
+    			user1.setUserId(admin1.getAdminId());
+    			user1.setPassword(admin1.getPassword());
     	    	if(adminServices.addAdmin(admin1, user1))
     	    		System.out.println("Admin added.");
     	    	else

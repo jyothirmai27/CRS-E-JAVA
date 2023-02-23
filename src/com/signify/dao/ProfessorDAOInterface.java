@@ -14,7 +14,7 @@ public interface ProfessorDAOInterface {
 	
 	public void update(String update, String id, String field);
 	public void insert(int id, Professor professor);
-	public void delete(String profeessorId);
+	public void delete(String profeessorId) throws ProfessorNotFoundException;
 	public void view(String query);
 	public boolean getProfessor(String userId) throws ProfessorNotFoundException;
 

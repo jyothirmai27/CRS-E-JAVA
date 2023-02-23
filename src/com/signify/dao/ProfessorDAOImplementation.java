@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.signify.bean.Professor;
+import com.signify.constants.SQLConstants;
 import com.signify.exception.ProfessorNotFoundException;
+import com.signify.helper.IDs;
 import com.signify.service.UserLoginServices;
 import com.signify.utils.DBUtils;
 
@@ -25,34 +27,22 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 	public boolean getProfessor(String userId) throws ProfessorNotFoundException {
 
 		   try{
-			   conn = DBUtils.getConnection();
-		      String sql="select * from professor where profId = "+userId;
+ conn = DBUtils.getConnection();
+		      String sql="select * from professors where profId = "+userId;
 		      stmt = conn.prepareStatement(sql);
 	          if(stmt.execute())
 	        	  throw new ProfessorNotFoundException(userId);
 		     
 		      stmt.close();
-		      conn.close();
-		   }catch(SQLException se){
+		      //
+		   }catch(SQLException e){
 		      //Handle errors for JDBC
-		      se.printStackTrace();
+
+	        	  throw new ProfessorNotFoundException(userId);
 		   }catch(Exception e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
-		   }//end try
+		     // e.printStackTrace();
+		   }
 		   
 		   return true;
 	}
@@ -61,9 +51,8 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		// TODO Auto-generated method stub
 		 
 		   try{
-			   conn = DBUtils.getConnection();
-			      String sql="insert into professor values(?,?,?,?,?)";
-			      stmt = conn.prepareStatement(sql);
+			   	conn = DBUtils.getConnection();
+			      stmt = conn.prepareStatement(SQLConstants.ADD_PROFESSOR);
 			   
 			      stmt.setInt(1, id); 
 			      stmt.setString(2,professor.getDesignation());
@@ -73,62 +62,37 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
-			      conn.close();
+			      //
 			      
-			   }catch(SQLException se){		//Handle errors for JDBC
-			      se.printStackTrace();
+			   }catch(SQLException e){		//Handle errors for JDBC
+			     // e.printStackTrace();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{  			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
-			   }//end try
-			  // System.out.println("Goodbye!");
+			     //e.printStackTrace();
+			   }
 	}
 
 	@Override
-	public void delete(String professorId) {
+	public void delete(String professorId) throws ProfessorNotFoundException {
 		// TODO Auto-generated method stub
 		
 		   try{
 			   conn = DBUtils.getConnection();
-		      String sql="delete from professor where profId = "+professorId;
-		      stmt = conn.prepareStatement(sql);
-	            // execute the delete statement
-	           stmt.executeUpdate();
+		      stmt = conn.prepareStatement(SQLConstants.DELETE_PROFESSOR);
+		      stmt.setInt(1, Integer.parseInt(professorId)); 
+	           if(stmt.execute())
+	        	   throw new ProfessorNotFoundException(professorId);
 		     
 		      stmt.close();
-		      conn.close();
-		   }catch(SQLException se){
+		      //
+		   }catch(SQLException e){
 		      //Handle errors for JDBC
-		      se.printStackTrace();
+		     //e.printStackTrace();
+
+        	   throw new ProfessorNotFoundException(professorId);
 		   }catch(Exception e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
-		   }//end try
-		   //System.out.println("Goodbye!");
+		    // e.printStackTrace();
+		   }
 		
 	}
 
@@ -144,7 +108,7 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 		try{
 
 			conn = DBUtils.getConnection();
-			      String sql="update professor set ";
+			      String sql="update professors set ";
 			      switch(field) {
 					case "1": sql+="professorName = "+update;
 					break;
@@ -163,24 +127,12 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 			      else
 			    	  System.out.println("Updated!");
 			      stmt.close();
-			      conn.close();
+			      //
 			      
-			   }catch(SQLException se){		//Handle errors for JDBC
-			      se.printStackTrace();
+			   }catch(SQLException e){		//Handle errors for JDBC
+			     // e.printStackTrace();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{  			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
+			      //e.printStackTrace();
 			   }
 	}
 

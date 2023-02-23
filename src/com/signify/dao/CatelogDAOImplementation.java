@@ -13,6 +13,7 @@ import com.signify.constants.SQLConstants;
 import com.signify.exception.CourseNotAssignedToProfessorException;
 import com.signify.exception.CourseNotFoundException;
 import com.signify.exception.NoCourseException;
+import com.signify.helper.IDs;
 import com.signify.utils.DBUtils;
 
 /**
@@ -29,43 +30,24 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 		// TODO Auto-generated method stub
 		try
 		{
-			conn = DBUtils.getConnection();
+			 conn = DBUtils.getConnection();
 			stmt=conn.prepareStatement(SQLConstants.ADD_CP_IN_CATELOG);
 			stmt.setString(1, courseCode);
 			stmt.setString(2,profid);
 			if(stmt.execute())
 				throw new CourseNotFoundException(courseCode);
 			stmt.close();
-			conn.close();
+			//
 		}
-		catch(SQLException se)
+		catch(SQLException e)
 		{
-			se.printStackTrace();
+			//e.printStackTrace();
+
+			throw new CourseNotFoundException(courseCode);
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				if(stmt!=null)
-					stmt.close();
-			}
-			catch(SQLException se2)
-			{
-				
-			}
-			try
-			{
-				if(conn!=null)
-					conn.close();
-			}
-			catch(SQLException Se)
-			{
-				Se.printStackTrace();
-			}
+			//e.printStackTrace();
 		}
 	}
 
@@ -74,7 +56,7 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 		// TODO Auto-generated method stub
 		try
 		{
-			conn = DBUtils.getConnection();
+			 conn = DBUtils.getConnection();
 		     
 		      stmt = conn.prepareStatement(SQLConstants.DELETE_CP_IN_CATELOG+courseCode);
 	           if(stmt.execute())
@@ -83,26 +65,15 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 	        	   System.out.println("Course Deleted.");
 		     
 		      stmt.close();
-		      conn.close();
-		   }catch(SQLException se){
+		      //
+		   }catch(SQLException e){
 		      //Handle errors for JDBC
-		      se.printStackTrace();
+		      //e.printStackTrace();
+
+        	   throw new CourseNotFoundException(courseCode);
 		   }catch(Exception e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
+		      //e.printStackTrace();
 		   }
 	}
 
@@ -111,8 +82,8 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 		// TODO Auto-generated method stub
 		 String course = "";
 		try{
-			conn = DBUtils.getConnection();
-			      
+			 conn = DBUtils.getConnection();
+			 stmt = conn.prepareStatement(SQLConstants.GET_COURSE+prof);
 			      ResultSet rs = stmt.executeQuery(SQLConstants.GET_COURSE+prof);
 			     
 			      if (rs.next()) 
@@ -122,26 +93,14 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 		                	 
 			      
 			      stmt.close();
-			      conn.close();
+			      //
 			      
-			   }catch(SQLException se){		//Handle errors for JDBC
-			      se.printStackTrace();
+			   }catch(SQLException e){		//Handle errors for JDBC
+			      //e.printStackTrace();
+			    	  throw new CourseNotAssignedToProfessorException();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{  			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
+			     // e.printStackTrace();
 			   }
-		
 		
 		
 		return course;
