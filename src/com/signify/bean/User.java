@@ -1,5 +1,9 @@
 package com.signify.bean;
 
+/**
+ * @author CRS_SIGNIFY_GROUP_E
+ *
+ */
 public class User {
 	private String userId;
 	private String name;
