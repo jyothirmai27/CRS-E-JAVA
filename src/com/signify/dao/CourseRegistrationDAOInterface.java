@@ -22,4 +22,6 @@ public interface CourseRegistrationDAOInterface {
 	public void viewStudents(String course) throws NoStudentsRegisteredForCourseException;
 	public void addGrade(String student, String course, String grade) throws UserNotFoundException;
 	public boolean getPaymentstatus(String studentId);
+	public int countCourseStudent(String student);
+	public boolean courseAvailableForSemester(String code, int sem);
 }

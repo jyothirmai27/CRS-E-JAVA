@@ -10,13 +10,14 @@ package com.signify.constants;
 public class SQLConstants {
 
 	// STUDENT Constnats Queries 
-	public static final String REGISTER_STUDENT="insert into students values(?,?,?,?,?,?,?,?)";
+	public static final String REGISTER_STUDENT="insert into students values(?,?,?,?,?,?,?,?,?)";
 	public static final String VIEW_ENROLLED_STUDENTS = "SELECT studentId, studentName, branchName FROM students WHERE approved = 1";
 	public static final String UPDATE_ALL_STUDENTS = "UPDATE students SET approved = 1";
 	public static final String UPDATE_STUDENT = "update students set approved = 1 where studentId = ";
 	public static final String UPDATE_STUDENT_DETAILS = "update students set ";
 	public static final String DELETE_STUDENT = "delete from students where studentId =  ";
 	public static final String REGISTRATION_AFTER_PAYMENT = "UPDATE students SET registered = 1 where studentId = ";
+	public static final String GET_SEMESTER = "select semester from students where studentId =";
 	//Admin
 	
 	public static final String ADD_ADMIN = "insert into admins values(?,?)";
@@ -26,12 +27,13 @@ public class SQLConstants {
 	
 	public static final String ADD_CP_IN_CATELOG = "insert into catalog(course, professor) values(?,?)";
 	public static final String DELETE_CP_IN_CATELOG = "delete from catalog where course=";
-	public static final String GET_COURSE = "select course_code from catalog where professo =";
+	public static final String GET_COURSE = "select course_code from catalog where professor =";
 	
 	//Course Queries
 	public static final String ADD_COURSE ="insert into course values(?,?,?,?)";
 	public static final String DELETE_COURSE = "delete from course where courseCode= ?";
 	public static final String VIEW_COURSES = "SELECT * FROM course";
+	public static final String VIEW_COURSES_FOR_SEM = "SELECT * FROM course where semester = ";
 	
 	//course registration queries
 	public static final String ADD_REGISTERED_COURSE = "insert into course_registration(studentId, courseCode) values(?,?)";

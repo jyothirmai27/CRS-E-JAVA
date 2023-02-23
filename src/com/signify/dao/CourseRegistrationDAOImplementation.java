@@ -11,6 +11,7 @@ import com.signify.exception.CourseNotInRegisteredException;
 import com.signify.exception.NoCourseRegisteredException;
 import com.signify.exception.NoStudentsRegisteredForCourseException;
 import com.signify.exception.PaymentDoneCourseNotAddedException;
+import com.signify.exception.ProfessorNotFoundException;
 import com.signify.exception.UserNotFoundException;
 import com.signify.helper.IDs;
 import com.signify.utils.DBUtils;
@@ -60,10 +61,11 @@ public class CourseRegistrationDAOImplementation implements CourseRegistrationDA
 			try
 			{
 				   conn = DBUtils.getConnection();
+				   //System.out.println(SQLConstants.DELETE_REGISTERED_COURSE);
 			      stmt = conn.prepareStatement(SQLConstants.DELETE_REGISTERED_COURSE);
 		            // execute the delete statement
 			      stmt.setString(1, course);
-			      stmt.setInt(0, Integer.parseInt(student));
+			      stmt.setInt(2, Integer.parseInt(student));
 		           if(stmt.execute())
 		        	   throw new CourseNotInRegisteredException();
 		           else
@@ -73,7 +75,7 @@ public class CourseRegistrationDAOImplementation implements CourseRegistrationDA
 			      //
 			   }catch(SQLException e){
 			      //Handle errors for JDBC
-			      //e.printStackTrace();
+			      e.printStackTrace();
 
 	        	   throw new CourseNotInRegisteredException();
 			   }catch(Exception e){
@@ -90,7 +92,7 @@ public class CourseRegistrationDAOImplementation implements CourseRegistrationDA
 		// TODO Auto-generated method stub
 		 try{
 			 	   conn = DBUtils.getConnection();
-			      String sql = "SELECT * FROM course WHERE courseCode = (SELECT courseCode FROM course_registration where studentId = \""+student +"\")";
+			      String sql = "SELECT * FROM course WHERE courseCode in (SELECT courseCode FROM course_registration where studentId = "+student +")";
 
 			      stmt = conn.prepareStatement(sql);
 			      ResultSet rs = stmt.executeQuery(sql);
@@ -106,13 +108,13 @@ public class CourseRegistrationDAOImplementation implements CourseRegistrationDA
 					         System.out.println(courseCode+"\t\t" + courseName+"\t\t" + branch+"\t\t" +sem);
 					      }
 			      
-			      if(flag)
-			    	  throw new NoCourseRegisteredException();
+			      //if(flag)
+			    	 // throw new NoCourseRegisteredException();
 			      stmt.close();
 			      //
 			      
 			   }catch(SQLException e){		//Handle errors for JDBC
-			      //e.printStackTrace();
+			      e.printStackTrace();
 
 			    	  throw new NoCourseRegisteredException();
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
@@ -202,6 +204,57 @@ public class CourseRegistrationDAOImplementation implements CourseRegistrationDA
 			     // e.printStackTrace();
 			   }
 		return status;
+	}
+	@Override
+	public int countCourseStudent(String student){
+		// TODO Auto-generated method stub
+		int count = 0;
+		 try{
+		 	   conn = DBUtils.getConnection();
+		      String sql = "SELECT COUNT(*) AS total FROM course_registration WHERE studentId ="+student ;
+
+		      stmt = conn.prepareStatement(sql);
+		      ResultSet rs = stmt.executeQuery(sql);
+		      
+		    	  if(rs.next())
+		    		  count = rs.getInt("total");
+				  else
+					  throw new NoCourseRegisteredException();
+		      stmt.close();
+		      //
+		      
+		   }catch(SQLException e){		//Handle errors for JDBC
+		      //e.printStackTrace();
+		   }catch(Exception e){ 	      //Handle errors for Class.forName
+		     // e.printStackTrace();
+		   }
+		return count;
+	}
+
+	@Override
+	public boolean courseAvailableForSemester(String code, int sem) {
+		// TODO Auto-generated method stub
+		try{
+			   conn = DBUtils.getConnection();
+		      String sql="select semester from course where courseCode = \""+code+"\"";
+		      stmt = conn.prepareStatement(sql);
+		      ResultSet rs = stmt.executeQuery(sql);
+		      
+	    	  if(rs.next())
+	    		 if(rs.getInt("semester")== sem)
+	    			 return true;
+	    		 
+		     
+		      stmt.close();
+		      //
+		   }catch(SQLException e){
+		      //Handle errors for JDBC
+		   }catch(Exception e){
+		      //Handle errors for Class.forName
+		     // e.printStackTrace();
+		   }
+		   
+		   return false;
 	}
 
 }

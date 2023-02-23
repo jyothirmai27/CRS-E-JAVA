@@ -87,9 +87,12 @@ public class CatelogDAOImplementation implements CatelogDAOInterface {
 			      ResultSet rs = stmt.executeQuery(SQLConstants.GET_COURSE+prof);
 			     
 			      if (rs.next()) 
-			    	  throw new CourseNotAssignedToProfessorException();
-		          else 
+
 		               course = rs.getString("course_code");
+			      
+		          else 
+
+			    	  throw new CourseNotAssignedToProfessorException();
 		                	 
 			      
 			      stmt.close();

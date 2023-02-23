@@ -178,7 +178,6 @@ public class UserDAOImplementation implements UserDAOInterface {
 
 		} // end try
 	}
-
 	@Override
 	public void printProfessors() throws NoProfessorInDatasetException {
 		// TODO Auto-generated method stub

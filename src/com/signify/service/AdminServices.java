@@ -64,7 +64,12 @@ public  class AdminServices implements AdminInterface{
 	
 	
 	public void addCourse(Course course) {
-		courseDataset.add(course);
+		try {
+			courseDataset.add(course);
+		} catch (CourseAlreadyRegisteredException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	
 	

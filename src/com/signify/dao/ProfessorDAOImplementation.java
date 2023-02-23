@@ -27,7 +27,7 @@ public class ProfessorDAOImplementation implements ProfessorDAOInterface{
 	public boolean getProfessor(String userId) throws ProfessorNotFoundException {
 
 		   try{
- conn = DBUtils.getConnection();
+			   conn = DBUtils.getConnection();
 		      String sql="select * from professors where profId = "+userId;
 		      stmt = conn.prepareStatement(sql);
 	          if(stmt.execute())

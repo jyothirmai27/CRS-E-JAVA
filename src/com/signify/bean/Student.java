@@ -24,9 +24,16 @@ public class Student {
 	private boolean scholarship;
 	private String phoneNumber;
 	private boolean seeGrades;
+	public String semester ;
 	
 	
 
+	public String getSemester() {
+		return semester;
+	}
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
 	public boolean isSeeGrades() {
 		return seeGrades;
 	}

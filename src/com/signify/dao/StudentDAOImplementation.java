@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import com.signify.bean.Student;
 import com.signify.constants.SQLConstants;
+import com.signify.exception.CourseNotAssignedToProfessorException;
 import com.signify.exception.NoApprovedStudentsException;
 import com.signify.exception.StudentNotApprovedException;
 import com.signify.exception.StudentNotFoundForApprovalException;
@@ -42,6 +43,7 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			      stmt.setString(6, student.getBatch());
 			      stmt.setString(7, student.getPhoneNumber());
 			      stmt.setInt(8, 0);
+			      stmt.setInt(9, Integer.parseInt(student.getSemester()));
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
@@ -186,6 +188,31 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			      //e.printStackTrace();
 			      throw new UserNotFoundException(id);
 			   }
+	}
+
+	@Override
+	public int getSem(String userId) {
+		// TODO Auto-generated method stub
+		int sem = 0;
+		try{
+			 conn = DBUtils.getConnection();
+			 stmt = conn.prepareStatement(SQLConstants.GET_SEMESTER+userId);
+			      ResultSet rs = stmt.executeQuery();
+			     
+			      if (rs.next()) 
+		               sem = rs.getInt("semester");
+		                	 
+			      
+			      stmt.close();
+			      //
+			      
+			   }catch(SQLException e){		//Handle errors for JDBC
+			      e.printStackTrace();
+			   }catch(Exception e){ 	      //Handle errors for Class.forName
+			     // e.printStackTrace();
+			   }
+		
+		return sem;
 	}
 
 }

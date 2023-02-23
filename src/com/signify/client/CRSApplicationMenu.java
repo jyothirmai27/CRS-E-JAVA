@@ -111,14 +111,18 @@ public class CRSApplicationMenu {
     	    		student.setAddress(in.next());
     	    		System.out.println("Enter Batch : (start year - end year) ");
     	    		student.setBatch(in.next());
-    	    		System.out.println(" Enter phone number");
+    	    		System.out.println(" Enter phone number : ");
     	    		student.setPhoneNumber(in.next());
+    	    		System.out.println("Enter Semester :");
+    	    		String sem = in.next();
+    	    		student.setSemester(sem);
     	    		User user2 = new User();
     				user2.setName(student.getStudentName());
     				user2.setRole("Student");
     				user2.setUserId(student.getUserId());
     				user2.setPassword(student.getPassword());
-    	    		smenu.register(student, user2);
+    				if(studentServices.validRegistration(student))
+    					smenu.register(student, user2);
     	    		//studentServices.addStudent(student, studentDataset);
     	        	//register.registration();
     	        break;

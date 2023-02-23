@@ -5,6 +5,7 @@ package com.signify.dao;
 
 import com.signify.bean.Course;
 import com.signify.constants.SQLConstants;
+import com.signify.exception.CourseAlreadyRegisteredException;
 import com.signify.exception.CourseNotFoundException;
 import com.signify.exception.NoCourseException;
 import com.signify.helper.IDs;
@@ -27,7 +28,7 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 	PreparedStatement stmt=null;
 	
 	@Override
-	public void add(Course course) {
+	public void add(Course course) throws CourseAlreadyRegisteredException {
 		// TODO Auto-generated method stub
 		try
 		{
@@ -39,14 +40,14 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 			stmt.setString(4, course.getSemester());
 
 			if(stmt.execute())
-				System.out.println("Course Already present.");
+				throw new CourseAlreadyRegisteredException();
 			stmt.close();
 			//
 		}
 		catch(SQLException e)
 		{
 			//e.printStackTrace();
-			System.out.println("Course Already present.");
+			throw new CourseAlreadyRegisteredException();
 		}
 		catch(Exception e)
 		{
@@ -119,6 +120,39 @@ public class CourseDAOImplementation implements CourseDAOInterface {
 			   }catch(Exception e){ 	      //Handle errors for Class.forName
 			     // e.printStackTrace();
 			   }
+	}
+
+	@Override
+	public void viewCoursesForSemester(int sem) throws NoCourseException {
+		// TODO Auto-generated method stub
+		try{
+		 	  conn = DBUtils.getConnection();
+		 	  stmt = conn.prepareStatement(SQLConstants.VIEW_COURSES_FOR_SEM+Integer.toString(sem));
+		      ResultSet rs = stmt.executeQuery();
+		    
+		      System.out.println("Course code \t Course Name \t Department");
+		      boolean flag = true;
+
+			      while(rs.next()){
+			    	  flag = false;
+				       	 String courseCode = rs.getString("courseCode");
+				         String courseName = rs.getString("courseName");
+				         String branch = rs.getString("departmentname");
+				         //String sem = rs.getString("semester");
+				         //Display values
+				         System.out.println(courseCode+"\t\t" + courseName+"\t\t" + branch);
+				      }
+			      if(flag)
+		    	  throw new NoCourseException();
+		      stmt.close();
+		      //
+		      
+		   }catch(SQLException e){		//Handle errors for JDBC
+		      ////e.printStackTrace();
+			   throw new NoCourseException();
+		   }catch(Exception e){ 	      //Handle errors for Class.forName
+		     // e.printStackTrace();
+		   }
 	}
 
 }

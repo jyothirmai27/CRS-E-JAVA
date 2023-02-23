@@ -21,4 +21,5 @@ public interface StudentDAOInterface {
 	public void approveAll()throws StudentNotFoundForApprovalException;
 	public void approve(String id)throws StudentNotFoundForApprovalException, UserNotFoundException;
 	public void registered(String userId);
+	public int getSem(String userId);
 }

@@ -18,6 +18,8 @@ import com.signify.dao.CourseRegistrationDAOImplementation;
 import com.signify.dao.CourseRegistrationDAOInterface;
 import com.signify.dao.PaymentDAOImplementation;
 import com.signify.dao.PaymentDAOInterface;
+import com.signify.dao.StudentDAOImplementation;
+import com.signify.dao.StudentDAOInterface;
 import com.signify.exception.NoCourseException;
 import com.signify.exception.NoCourseRegisteredException;
 import com.signify.exception.UserNotFoundException;
@@ -34,6 +36,7 @@ public class CRSStudentMenu {
 	CourseDAOInterface courseDataset = new CourseDAOImplementation();
 	CourseRegistrationDAOInterface coursesDataset = new CourseRegistrationDAOImplementation();
     StudentInterface studentServices = new StudentServices();
+    StudentDAOInterface studentDataset = new StudentDAOImplementation();
     Payment payment = new Payment();
     //StudentCollection studentDataset = new StudentCollection();
 	
@@ -42,7 +45,7 @@ public class CRSStudentMenu {
 
         Scanner in = new Scanner (System.in);
         
-        
+        int sem = studentDataset.getSem(userId);
         boolean exit = true;
      
     	   while(exit) {
@@ -60,11 +63,11 @@ public class CRSStudentMenu {
     	        case "1":
     	        	
     	        	try {
-						courseDataset.view();
+						courseDataset.viewCoursesForSemester(sem);
     					System.out.println("Enter course code you want to add.");
     					String code = in.next();
     					
-    		        	studentServices.addCourse(userId,code);
+    		        	studentServices.addCourse(userId,code,sem);
 					} catch (NoCourseException e) {
 						// TODO Auto-generated catch block
 						//e.printStackTrace();
