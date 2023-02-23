@@ -3,7 +3,11 @@
  */
 package com.signify.bean;
 
-
+/**
+ * @author CRS_SIGNIFY_GROUP_E
+ *
+ */
+//Declaration of Professor bean
 public class Professor {
 	private String designation;
 	private String professorName;
