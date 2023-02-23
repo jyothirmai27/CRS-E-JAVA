@@ -16,6 +16,20 @@ public class Course {
 	private List<String> enrolledStudents;
 	private int enrolledStudentCount;
 	
+	/**
+	 * @param courseId
+	 * @param courseName
+	 * @param departmentName
+	 * @param professorId
+	 * @param studentCount
+	 */
+	public Course (String courseCode, String courseName, String departmentName, String semester) {
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.departmentName = departmentName;
+		this.semester = semester;
+				
+	}
 	
 	//method to get Semester
 	public String getSemester() {
