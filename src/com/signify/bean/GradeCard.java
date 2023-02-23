@@ -7,7 +7,7 @@ package com.signify.bean;
 import java.util.Map;
 
 /**
- * @author BHAVISH
+ * @author CRS_SIGNIFY_GROUP_E
  *
  */
 public class GradeCard {
