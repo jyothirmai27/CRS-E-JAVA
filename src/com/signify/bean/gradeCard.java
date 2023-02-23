@@ -20,24 +20,34 @@ public class GradeCard {
 	public int getStudentId() {
 		return studentId;
 	}
+	
+	//method to set StudentId
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
+//method to get Semester
 	public int getSemester() {
 		return semester;
 	}
+	//method to set Semester
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
+	//method to get cpi
 	public float getCpi() {
 		return cpi;
 	}
+	
+	//method to set cpi
 	public void setCpi(float cpi) {
 		this.cpi = cpi;
 	}
+	
+	//method to get grades
 	public Map<String, String> getGrades() {
 		return grades;
 	}
+	//method to set grades
 	public void setGrades(Map<String, String> grades) {
 		this.grades = grades;
 	}
