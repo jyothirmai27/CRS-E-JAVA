@@ -6,7 +6,7 @@ package com.signify.bean;
 import java.util.List;
 
 /**
- * @author BHAVISH
+ * @author CRS_SIGNIFY_GROUP_E
  *
  */
 public class Catalog {
