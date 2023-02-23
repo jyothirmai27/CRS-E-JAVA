@@ -1,5 +1,9 @@
 package com.signify.bean;
 
+/**
+ * @author CRS_SIGNIFY_GROUP_E
+ *
+ */
 import java.util.List;
 
 public class Course {
