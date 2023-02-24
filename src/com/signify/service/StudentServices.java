@@ -170,9 +170,9 @@ public  class StudentServices implements StudentInterface {
 	public boolean validRegistration(Student student) {
 		try {
 			
-			if(isNumeric(student.getSemester())){
-				if(Integer.parseInt(student.getSemester())> 0) {
-						if(Integer.parseInt(student.getSemester())< 9)
+			if(isNumeric(student.getsemester())){
+				if(Integer.parseInt(student.getsemester())> 0) {
+						if(Integer.parseInt(student.getsemester())< 9)
 							return true;
 						else
 							throw new RegistrationFailedException("invalid entery in semester. Please register again.");

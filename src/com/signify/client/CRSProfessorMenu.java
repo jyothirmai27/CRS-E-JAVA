@@ -1,5 +1,9 @@
 package com.signify.client;
 
+/**
+ * @author CRS_GROUP_E_SIGNIFY
+ *
+ */
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -12,6 +16,7 @@ import com.signify.dao.CourseDAOInterface;
 import com.signify.dao.CourseRegistrationDAOImplementation;
 import com.signify.dao.CourseRegistrationDAOInterface;
 import com.signify.exception.CourseNotAssignedToProfessorException;
+import com.signify.exception.InvalidEntryException;
 import com.signify.exception.NoCourseException;
 import com.signify.exception.NoStudentsRegisteredForCourseException;
 import com.signify.service.GradeCardInterface;
@@ -21,6 +26,10 @@ import com.signify.service.ProfessorService;
 import com.signify.service.SemesterRegistrationServices;
 
 public class CRSProfessorMenu {
+	
+	/**
+	 * @param userId
+	 */
 	public void display(String userId) {
 	
         System.out.println("\tWELCOME TO PROFESSOR PANEL");         
@@ -45,76 +54,81 @@ public class CRSProfessorMenu {
     	        		+ "3. APPLY AS INSTRUCTOR FOR COURSE\r\n"
     	        		+ "4. EDIT USER DETAILS\r\n"
     	        		+ "5. EXIT PORTAL");
-    	        String choice = in.next();
-    	        switch(choice) {
-    	        case "1":
-    	        	String course = "";
-					try {
-						course = catelog.getCourse(userId);
-	    	        	coursesDataset.viewStudents(course);
+    	       try {
+    	    	   String choice = in.next();
+       	        switch(choice) {
+       	        case "1":
+       	        	String course = "";
+   					try {
+   						course = catelog.getCourse(userId);
+   	    	        	coursesDataset.viewStudents(course);
 
-	    	        	System.out.println("Enter Student Id : ");
-	    	        	String stu = in.next();
-	    	        	System.out.println("Enter Grade : ");
-	    	        	String grade = in.next();
-	    	        	professorService.changeGrade(stu, grade, course);
-						
-					} catch (CourseNotAssignedToProfessorException e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
-					} catch (NoStudentsRegisteredForCourseException e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
-					}
-    	        	
+   	    	        	System.out.println("Enter Student Id : ");
+   	    	        	String stu = in.next();
+   	    	        	System.out.println("Enter Grade : ");
+   	    	        	String grade = in.next();
+   	    	        	professorService.changeGrade(stu, grade, course);
+   						
+   					} catch (CourseNotAssignedToProfessorException e) {
+   						// TODO Auto-generated catch block
+   						//e.printStackTrace();
+   					} catch (NoStudentsRegisteredForCourseException e) {
+   						// TODO Auto-generated catch block
+   						//e.printStackTrace();
+   					}
+       	        	
 
-    	        break;
-    	        case "2":
-    	        	String code1;
-					try {
-						code1 = catelog.getCourse(userId);
+       	        break;
+       	        case "2":
+       	        	String code1;
+   					try {
+   						code1 = catelog.getCourse(userId);
 
-	    	        	professorService.viewEnrolledStudents(code1);
-					} catch (CourseNotAssignedToProfessorException e1) {
-						// TODO Auto-generated catch block
-						//e1.printStackTrace();
-					}
-    	        break;
-    	        case "3":
-    	        	try {
-						courseDataset.view();
-						System.out.println("Enter course code to be assigned");
-						String code = in.next();
-						professorService.selectCourse();
-						} catch (NoCourseException e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
-					}
-    	        	 //todo
-    	        break;
-    	        case "4":
-    	              while(true) {
-    	              System.out.println("------------------------------------------------------");
-    	         	System.out.println("Press\n"
-    	             		+ "1. EDIT NAME\r\n"
-    	             		+ "2. EDIT DESIGNATION\r\n"
-    	             		+ "3. EDIT DEPARTMRNT NAME\r\n"
-    	             		+ "4. EDIT PHONE NUMBER\r\n"
-    	             		+ "5. EXIT PORTAL");
-    	         	String field = in.next();
-    	         	if(field.equals("5")) 
-    	             	professorService.editDetails(userId, field, "");
-    	         	else{
-    	             	System.out.println("Enter correction : ");
-    	             	String correction = in.next();
-    	             	professorService.editDetails(userId, field, correction);
-    	             	}
-    	              }
-    	        case "5": exit = false;
-    	        	CRSApplicationMenu.main(null);
-    	        break;
-    	        default :System.out.println("Enter valid numeric input.");
-    	        }
+   	    	        	professorService.viewEnrolledStudents(code1);
+   					} catch (CourseNotAssignedToProfessorException e1) {
+   						// TODO Auto-generated catch block
+   						//e1.printStackTrace();
+   					}
+       	        break;
+       	        case "3":
+       	        	try {
+   						courseDataset.view();
+   						System.out.println("Enter course code to be assigned");
+   						String code = in.next();
+   						professorService.selectCourse();
+   						} catch (NoCourseException e) {
+   						// TODO Auto-generated catch block
+   						//e.printStackTrace();
+   					}
+       	        	 //todo
+       	        break;
+       	        case "4":
+       	              while(true) {
+       	              System.out.println("------------------------------------------------------");
+       	         	System.out.println("Press\n"
+       	             		+ "1. EDIT NAME\r\n"
+       	             		+ "2. EDIT DESIGNATION\r\n"
+       	             		+ "3. EDIT DEPARTMRNT NAME\r\n"
+       	             		+ "4. EDIT PHONE NUMBER\r\n"
+       	             		+ "5. EXIT PORTAL");
+       	         	String field = in.next();
+       	         	if(field.equals("5")) 
+       	             	professorService.editDetails(userId, field, "");
+       	         	else{
+       	             	System.out.println("Enter correction : ");
+       	             	String correction = in.next();
+       	             	professorService.editDetails(userId, field, correction);
+       	             	}
+       	              }
+       	        case "5": exit = false;
+       	        	CRSApplicationMenu.main(null);
+       	        break;
+       	        default :throw new InvalidEntryException();
+       	        }
+    	    	   
+    	       }catch(InvalidEntryException e) {
+    	    	   
+    	       }
     	      }
     	
 	}

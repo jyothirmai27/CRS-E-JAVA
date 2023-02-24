@@ -40,3 +40,4 @@ public class Admin {
 		Password = password;
 	}
 }
+

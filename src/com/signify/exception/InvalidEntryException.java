@@ -4,6 +4,7 @@ public class InvalidEntryException extends Exception{
 
 	public InvalidEntryException() {
 		// TODO Auto-generated constructor stub
+
 		/**
 		 * exception for invalid entry
 		 */
@@ -11,3 +12,4 @@ public class InvalidEntryException extends Exception{
 	}
 
 }
+
