@@ -4,7 +4,7 @@
 package com.signify.bean;
 
 /**
- * @author BHAVISH
+ * @author CRS_GROUP_E_SIGNIFY
  *
  */
 public class Admin {

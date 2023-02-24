@@ -12,6 +12,7 @@ import com.signify.bean.Student;
 import com.signify.bean.User;
 import com.signify.dao.CourseDAOImplementation;
 import com.signify.dao.CourseDAOInterface;
+import com.signify.exception.InvalidEntryException;
 import com.signify.exception.NoCourseException;
 import com.signify.service.AdminInterface;
 import com.signify.service.AdminServices;
@@ -24,8 +25,9 @@ import com.signify.service.StudentServices;
 import com.signify.service.UserLoginInterface;
 import com.signify.service.UserLoginServices;
 
+
 /**
- * @author BHAVISH
+ * @author CRS_GROUP_E_SIGNIFY
  *
  */
 public class CRSApplicationMenu {
@@ -68,79 +70,83 @@ public class CRSApplicationMenu {
     	        		+ "3. STUDENT REGISTRATION\r\n"
     	        		+ "4. UPDATE PASSWORD\r\n"
     	        		+ "5. EXIT PORTAL");
-    	       
-    	        String choice = in.next();
-    	        switch(choice) {
-    	        
-    	        case "1": System.out.println("Enter user Id : ");
-    					String loginId = in.next();
-    					System.out.println("Enter Password");
-    					String loginPassword = in.next();
-    					
-    					//System.out.println("Enter \n 1. FOR STUDENT\r\n 2. FOR PROFESSOR\r\n 3. FOR ADMIN\r\n ");
-    		        	//String roles = in.next();
-    					user.setUserId(loginId);
-    					user.setPassword(loginPassword);
-    					userLoginService.login(user);
-    					
-    	        break;
-    	        case "2": 
-    	        	CourseDAOInterface courseDataset = new CourseDAOImplementation();
-    	        	try {
-						courseDataset.view();
-					} catch (NoCourseException e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
-					}
-    	        	//System.out.println("Course Catalog will be displayed");
-    	        break;
-    	        case "3":
-    	        	Student student = new Student();
-    	        	//System.out.println("Enter user Id : ");
-    	    		//String userId = in.next();
-    				//student.setUserId(in.next());
-    	    		System.out.println("Enter Name : ");
-    	    		//String name = in.next();
-    	    		student.setStudentName(in.next());
-    	    		System.out.println("Enter Password : ");
-    	    		//String password = in.next();
-    	    		student.setPassword(in.next());
-    	    		System.out.println("Enter Branch Name : ");
-    	    		student.setBranchName(in.next());
-    	    		System.out.println("Enter Address : ");
-    	    		student.setAddress(in.next());
-    	    		System.out.println("Enter Batch : (start year - end year) ");
-    	    		student.setBatch(in.next());
-    	    		System.out.println(" Enter phone number : ");
-    	    		student.setPhoneNumber(in.next());
-    	    		System.out.println("Enter Semester :");
-    	    		String sem = in.next();
-    	    		student.setSemester(sem);
-    	    		User user2 = new User();
-    				user2.setName(student.getStudentName());
-    				user2.setRole("Student");
-    				user2.setUserId(student.getUserId());
-    				user2.setPassword(student.getPassword());
-    				if(studentServices.validRegistration(student))
-    					smenu.register(student, user2);
-    	    		//studentServices.addStudent(student, studentDataset);
-    	        	//register.registration();
-    	        break;
-    	        case "4": System.out.println("Enter user id : ");
-    	         	String userId = in.next();
-    	         	System.out.println("Enter old password : ");
-    	         	String old = in.next();
-    	         	System.out.println("Enter new password : ");
-    	         	String password = in.next();
-    	         	userLoginService.updatePassword(userId,old,password);
-    	    	break;
-    	        case "5": exit = false;
-    	        	System.out.println("Exiting!");
-    	        	System.exit(0);
-    	        break;
-    	        default : System.out.println("Wrong entry! Please enter valid numeric input.");
-    	        
-    	        }
+    	       try {
+
+       	        String choice = in.next();
+       	        switch(choice) {
+       	        
+       	        case "1": System.out.println("Enter user Id : ");
+       					String loginId = in.next();
+       					System.out.println("Enter Password");
+       					String loginPassword = in.next();
+       					
+       					//System.out.println("Enter \n 1. FOR STUDENT\r\n 2. FOR PROFESSOR\r\n 3. FOR ADMIN\r\n ");
+       		        	//String roles = in.next();
+       					user.setUserId(loginId);
+       					user.setPassword(loginPassword);
+       					userLoginService.login(user);
+       					
+       	        break;
+       	        case "2": 
+       	        	CourseDAOInterface courseDataset = new CourseDAOImplementation();
+       	        	try {
+   						courseDataset.view();
+   					} catch (NoCourseException e) {
+   						// TODO Auto-generated catch block
+   						//e.printStackTrace();
+   					}
+       	        	//System.out.println("Course Catalog will be displayed");
+       	        break;
+       	        case "3":
+       	        	Student student = new Student();
+       	        	//System.out.println("Enter user Id : ");
+       	    		//String userId = in.next();
+       				//student.setUserId(in.next());
+       	    		System.out.println("Enter Name : ");
+       	    		//String name = in.next();
+       	    		student.setStudentName(in.next());
+       	    		System.out.println("Enter Password : ");
+       	    		//String password = in.next();
+       	    		student.setPassword(in.next());
+       	    		System.out.println("Enter Branch Name : ");
+       	    		student.setBranchName(in.next());
+       	    		System.out.println("Enter Address : ");
+       	    		student.setAddress(in.next());
+       	    		System.out.println("Enter Batch : (start year - end year) ");
+       	    		student.setBatch(in.next());
+       	    		System.out.println(" Enter phone number : ");
+       	    		student.setPhoneNumber(in.next());
+       	    		System.out.println("Enter Semester :");
+       	    		String sem = in.next();
+       	    		student.setSemester(sem);
+       	    		User user2 = new User();
+       				user2.setName(student.getStudentName());
+       				user2.setRole("Student");
+       				user2.setUserId(student.getUserId());
+       				user2.setPassword(student.getPassword());
+       				if(studentServices.validRegistration(student))
+       					smenu.register(student, user2);
+       	    		//studentServices.addStudent(student, studentDataset);
+       	        	//register.registration();
+       	        break;
+       	        case "4": System.out.println("Enter user id : ");
+       	         	String userId = in.next();
+       	         	System.out.println("Enter old password : ");
+       	         	String old = in.next();
+       	         	System.out.println("Enter new password : ");
+       	         	String password = in.next();
+       	         	userLoginService.updatePassword(userId,old,password);
+       	    	break;
+       	        case "5": exit = false;
+       	        	System.out.println("Exiting!");
+       	        	System.exit(0);
+       	        break;
+       	        default : throw new InvalidEntryException();
+       	        }
+    	    	   
+    	       }catch(InvalidEntryException e) {
+    	    	   
+    	       }
     	        
     	        
     	      }
