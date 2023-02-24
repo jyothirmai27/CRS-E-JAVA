@@ -55,6 +55,17 @@ public interface CourseRegistrationDAOInterface {
 	  @param studentId unique id to represent the student
 	 */
 	public boolean getPaymentstatus(String studentId);
+	
+	/*
+	  method to count the number of students that are assigned to a course
+	  @param student    represents the student
+	 */
 	public int countCourseStudent(String student);
+	
+	/*
+	  method to check if the course is available for the semester or not
+	  @param code   represents the course code
+	  @param  sem   represents
+	 */ 
 	public boolean courseAvailableForSemester(String code, int sem);
 }

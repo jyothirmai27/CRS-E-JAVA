@@ -32,9 +32,6 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	// method for adding admin into database
-	// @param id unique id to represent the admin 
     
 	@Override
 	public void add(int id, Admin admin) {
@@ -58,9 +55,7 @@ public class AdminDAOImplementation implements AdminDAOInterface{
 			     //e.printStackTrace();
 			   }
 	}
-
-	// method for removing the admin
-	//@param adminId unique id to represent the admin
+    
 	@Override
 	public void remove(String adminId) throws AdminDoesntExistException {
 		// TODO Auto-generated method stub
