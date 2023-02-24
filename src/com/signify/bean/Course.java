@@ -23,7 +23,7 @@ public class Course {
 	 * @param professorId
 	 * @param studentCount
 	 */
-	?*public Course (String courseCode, String courseName, String departmentName, String semester) {
+	/*public Course (String courseCode, String courseName, String departmentName, String semester) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.departmentName = departmentName;
