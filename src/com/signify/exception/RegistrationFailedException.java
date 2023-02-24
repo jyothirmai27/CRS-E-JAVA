@@ -10,7 +10,7 @@ package com.signify.exception;
 public class RegistrationFailedException extends Exception{
 
 	/**
-	 * 
+	 *  Message returned when exception is thrown
 	 */
 	public RegistrationFailedException(String message) {
 		// TODO Auto-generated constructor stub
