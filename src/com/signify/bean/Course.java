@@ -1,7 +1,4 @@
-
 package com.signify.bean;
-
-import java.util.List;
 
 /**
  * @author CRS_SIGNIFY_GROUP_E
@@ -34,17 +31,17 @@ public class Course {
 				
 	}*/
 	
-	//method to get Semester
+	/**@return the semester **/
 	public String getSemester() {
 		return semester;
 	}
 	
-	//method to set Semester
+	
 	public void setSemester(String semester) {
 		this.semester = semester;
 	}
 	
-	//method to get courseName
+	/**@return the CourseName  **/
 	public String getCourseName() {
 		return courseName;
 	}
@@ -58,7 +55,7 @@ public class Course {
 	public String getCourseCode() {
 		return courseCode;
 	}
-	//method to set courseCode
+	/**@return the CourseName  **/
 	public void setCourseCode(String courseId) {
 		this.courseCode = courseId;
 	}
@@ -67,7 +64,7 @@ public class Course {
 		return departmentName;
 	}
 	
-	//method to set Department Name
+	/**@return the DepartmentName  **/
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
@@ -76,7 +73,7 @@ public class Course {
 		return professorName;
 	}
 	
-	//method to set ProfessorName
+	/**@return the professorName  **/
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
 	}
@@ -86,7 +83,7 @@ public class Course {
 		return enrolledStudents;
 	}
 	
-	//method to set Enrolled Students
+	/**@return the enrolledStudents  **/
 	public void setEnrolledStudents(List<String> enrolledStudents) {
 		this.enrolledStudents = enrolledStudents;
 	}
@@ -95,7 +92,7 @@ public class Course {
 		return enrolledStudentCount;
 	}
 	
-	//method to set Enrolled Students
+	/**@return the enrolled student count  **/
 	public void setEnrolledStudentCount(int enrolledStudentCount) {
 		this.enrolledStudentCount = enrolledStudentCount;
 	}

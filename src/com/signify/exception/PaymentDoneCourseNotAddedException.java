@@ -10,7 +10,7 @@ package com.signify.exception;
 public class PaymentDoneCourseNotAddedException extends Exception{
 
 	/**
-	 * 
+	 *  Message returned when exception is thrown
 	 */
 	public PaymentDoneCourseNotAddedException() {
 		// TODO Auto-generated constructor stub

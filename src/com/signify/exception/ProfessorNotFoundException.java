@@ -12,6 +12,7 @@ public class ProfessorNotFoundException extends Exception{
 	   public ProfessorNotFoundException(String professorName)
 	   {
 		   super();
+		  // Message returned when exception is thrown
 	       System.out.println("Professor Not Found : "+professorName);
 	   }
 }

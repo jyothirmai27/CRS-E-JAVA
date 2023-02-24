@@ -18,64 +18,86 @@ public class Professor {
 	private String assignedCourse;
 
 
-	//method to get AssignedCourse
+	/**@return the assigned Course **/
 	public String getAssignedCourse() {
 		return assignedCourse;
 	}
-	//method to set AssignedCourse
+	/**
+	 * 
+	 * @param assignedCourse
+	 */
 	public void setAssignedCourse(String assignedCourse) {
 		this.assignedCourse = assignedCourse;
 	}
-	//method to get PhoneNumber
+	/**@return the Phone Number **/
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	
-	//method to set PhoneNumber
+	/**
+	 * 
+	 * @param phoneNumber
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	//method to get Password
+	/**@return the password**/
 	public String getPassword() {
 		return Password;
 	}
-	//method to set Password
+	/**
+	 * 
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		Password = password;
 	}
 	
-	//method to get DepartmentName
+	/**@return the department Name **/
 	
 	public String getDepartmentName() {
 		return departmentName;
 	}
-	//method to set DepartmentName
+	/**
+	 * 
+	 * @param departmentName
+	 */
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-	//method to get Designation
+	/**@return the designation**/
 	
 	public String getDesignation() {
 		return designation;
 	}
 	
-	//method to set Designation
+	/**
+	 * 
+	 * @param designation
+	 */
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-	//method to get Professor Name
+	
+	/**@return the professor Name**/
 	public String getProfessorName() {
 		return professorName;
 	}
-	//method to set Professor Name
+	/**
+	 * 
+	 * @param professorName
+	 */
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
 	}
-	//method to get UserID
+	/**@return the userID **/
 	public String getUserId() {
 		return userId;
 	}
-	//method to set UserID
+	/**
+	 * 
+	 * @param userId
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

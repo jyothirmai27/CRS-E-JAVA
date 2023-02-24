@@ -27,11 +27,14 @@ public class Student {
 	public String semester;
 	
 	
-	//method to get semester
+	/**@return the semester **/
 	public String getsemester() {
 		return semester;
 	}
-	//method to set semester
+	/**
+	 * 
+	 * @param semester
+	 */
 	public void setSemester(String semester) {
 		this.semester = semester;
 	}	
@@ -39,7 +42,10 @@ public class Student {
 	public boolean isSeeGrades() {
 		return seeGrades;
 	}
-	//method to set see grades
+	/**
+	 * 
+	 * @param seeGrades
+	 */
 	public void setSeeGrades(boolean seeGrades) {
 		this.seeGrades = seeGrades;
 	}
@@ -47,33 +53,45 @@ public class Student {
 	public boolean isScholarship() {
 		return scholarship;
 	}
-	//method to set scholarship
+	/**
+	 * 
+	 * @param scholarship
+	 */
 	public void setScholarship(boolean scholarship) {
 		this.scholarship = scholarship;
 	}
-	//method to get scholarshipID
+	/**@return the scholarshipID **/
 	public String getScholarshipId() {
 		return scholarshipId;
 	}
-	//method to set scholarshipID
+	/**
+	 * 
+	 * @param scholarshipId
+	 */
 	public void setScholarshipId(String scholarshipId) {
 		this.scholarshipId = scholarshipId;
 	}	
-	//method to get Phone Number
+	/**@return the phone number**/
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	
-	//method to set Phone Number
+	/**
+	 * 
+	 * @param phoneNumber
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	//method to get passsword
+	/**@return the password **/
 	public String getPassword() {
 		return Password;
 	}
 	
-	//method to set passsword
+	/**
+	 * 
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		Password = password;
 	}
@@ -84,60 +102,78 @@ public class Student {
 	public void setRegistered(boolean registered) {
 		this.registered = registered;
 	}
-	// to check the  payment is done
+	/**@return the payment done **/
 	public boolean isPaymentdone() {
 		return paymentdone;
 	}
 	public void setPaymentdone(boolean paymentdone) {
 		this.paymentdone = paymentdone;
 	}
-	//method to get student Name
+	/**@return the Student name **/
 	public String getStudentName() {
 		return studentName;
 	}
-	//method to set student Name
+	/**
+	 * 
+	 * @param studentName
+	 */
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
 	
-	//method to get Address
+	/**@return the address **/
 	public String getAddress() {
 		return address;
 	}
-	//method to set Address
+	/**
+	 * 
+	 * @param address
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	//method to get userId
+	/**@return the userID **/
 	public String getUserId() {
 		return userId;
 	}
-	//method to set userId
+	/**
+	 * 
+	 * @param userId
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	//method to get Branch Name
+	/**@return the branch Name**/
 	public String getBranchName() {
 		return branchName;
 	}
 	
-	//method to set Branch Name
+	/**
+	 * 
+	 * @param branchName
+	 */
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
-	//method to get registered course
+	//**@return the Registered Courses **/
 	public List<String> getRegisteredCourses() {
 		return registeredCourses;
 	}
-	//method to set registered course
+	/**
+	 * 
+	 * @param registeredCourses
+	 */
 	public void setRegisteredCourses(List<String> registeredCourses) {
 		this.registeredCourses = registeredCourses;
 	}
-	//method to get Batch
+	//**@return the batch **/
 	public String getBatch() {
 		return batch;
 	}
-	//method to set Batch
+	/**
+	 * 
+	 * @param batch
+	 */
 	public void setBatch(String batch) {
 		this.batch = batch;
 	}

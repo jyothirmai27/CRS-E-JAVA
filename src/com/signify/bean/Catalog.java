@@ -17,46 +17,53 @@ public class Catalog {
 	private String proffesor;
 	
 	
-	//method to get Total course
+	/**@return the Total course **/
+	
 	public int getTotalCourses() {
 		return totalCourses;
 	}
-	//method to set Total course
+	
+	/** @param Total course the Total course to set **/
+	
 	public void setTotalCourses(int totalCourses) {
 		this.totalCourses = totalCourses;
 	}
-	//method to get Total departments
+	
+	/**@return the Total Departments **/
+
 	public int getTotalDepartments() {
 		return totalDepartments;
 	}
 	
-	//method to set Total departments
+	/** @param Total departments the Total departments to set **/
+	
 	public void setTotalDepartments(int totalDepartments) {
 		this.totalDepartments = totalDepartments;
 	}
 	
-	//method to get department
+	/**@return the department **/
+	
 	public String getDepartment() {
 		return department;
 	}
-	//method to set department
+	/** @param department the department to set **/
 	
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	//method to get CourseCode
+	/**@return the course code **/
 	public List<String> getCourseCodes() {
 		return courseCodes;
 	}
-	//method to set CourseCode
+	/** @param course code the course code to set **/
 	public void setCourseCodes(List<String> courseCodes) {
 		this.courseCodes = courseCodes;
 	}
-	//method to get professorName
+	/**@return the professor **/
 	public String getProffesor() {
 		return proffesor;
 	}
-	//method to set professorName
+	/** @param professor the professor to set **/
 	public void setProffesor(String proffesor) {
 		this.proffesor = proffesor;
 	}

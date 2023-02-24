@@ -24,54 +24,74 @@ public class Payment {
 	private String chequeNumber;
 	private int cvv;
 	
-	//method to get student ID
+	/**@return the StudentID **/
 
 	public String getStudentId() {
 		return studentId;
 	}
-	//method to set studentid
+	/**
+	 * 
+	 * @param studentId
+	 */
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	
-	//method to get amount
+	/**@return the amount**/
 	public float getAmount() {
 		return amount;
 	}
-	//method to set amount
+	/**
+	 * 
+	 * @param amount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 	
-
+//to check the scholarship
 	public boolean isScholarship() {
 		return scholarship;
 	}
 	
-	//method to set scholarship
+	/**
+	 * 
+	 * @param scholarship
+	 */
 	public void setScholarship(boolean scholarship) {
 		this.scholarship = scholarship;
 	}
+	
 	public boolean isOffline() {
 		return offline;
 	}
-	//method to set Offlinepayment
+	/**
+	 * 
+	 * @param offline
+	 */
 	public void setOffline(boolean offline) {
 		this.offline = offline;
 	}
 	public boolean isCash() {
 		return cash;
 	}
-	//method to set cash
+	/**
+	 * 
+	 * @param cash
+	 */
 	public void setCash(boolean cash) {
 		this.cash = cash;
 	}
-	//method to get BankNumber
+	
+	/**@return the banknumber **/
 	public int getBankNumber() {
 		return bankNumber;
 	}
 	
-	//method to set BankNumber
+	/**
+	 * 
+	 * @param bankNumber
+	 */
 	public void setBankNumber(int bankNumber) {
 		this.bankNumber = bankNumber;
 	}
@@ -79,72 +99,96 @@ public class Payment {
 	public boolean isStatus() {
 		return status;
 	}
-	//method to set status
+	/**
+	 * 
+	 * @param status
+	 */
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	//method to get UpiID
+	/**@return the upiID **/
 	public String getUpiId() {
 		return upiId;
 	}
-	//method to set UpiID
+	/**
+	 * 
+	 * @param upiId
+	 */
 	public void setUpiId(String upiId) {
 		this.upiId = upiId;
 	}
 	
-	//method to get CardNumber
+	/**@return the cardnumber **/
 	public int getCardNumber() {
 		return cardNumber;
 	}
-	//method to get CardNumber
+	/**
+	 * 
+	 * @param cardNumber
+	 */
 	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 	
-	//method to get Card Type
+	/**@return the cardtype**/
 	public String getCardType() {
 		return cardType;
 	}
-	//method to set Card Type
+	/**
+	 * 
+	 * @param cardType
+	 */
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
 	
-	//method to get BankName
+	/**@return the bank **/
 	public String getBankName() {
 		return bankName;
 	}
 	
-	//method to set BankName
+	/**
+	 * 
+	 * @param bankName
+	 */
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
 	
-	//method to get ChequeNumber
+	/**@return the chequenumber **/
 	public String getChequeNumber() {
 		return chequeNumber;
 	}
 	
-	//method to set ChequeNumber
+	/**
+	 * 
+	 * @param chequeNumber
+	 */
 	public void setChequeNumber(String chequeNumber) {
 		this.chequeNumber = chequeNumber;
 	}
 	
-	//method to get Cvv
+	/**@return the cvv **/
 	public int getCvv() {
 		return cvv;
 	}
 	
-	//method to set Cvv
+	/**
+	 * 
+	 * @param cvv
+	 */
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
-	//method to get ReferenceId
+	/**@return the reference ID **/
 	public String getReferenceId() {
 		return referenceId;
 	}
 	
-	//method to set ReferenceId
+	/**
+	 * 
+	 * @param referenceId
+	 */
 	public void setReferenceId(String referenceId) {
 		this.referenceId = referenceId;
 	}
