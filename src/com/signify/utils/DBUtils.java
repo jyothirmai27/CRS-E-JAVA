@@ -1,10 +1,10 @@
-/**
++/**
  * 
  */
 package com.signify.utils;
 
 /**
- * @author BHAVISH
+ * @author GROUP-E-CRS-SIGNIFY
  *
  */
 
@@ -17,7 +17,15 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtils {
- 
+         /**
+		 This Method Is Used to make the connection with the Database 
+		 with the help of driver and the exception are being handled .
+		 
+		 
+		 
+		 
+		 
+		 **/
 	private static Connection connection = null;
 	
 	public static Connection getConnection(){
