@@ -4,7 +4,7 @@
 package com.signify.bean;
 
 /**
- * @author BHAVISH
+ * @author CRS_SIGNIFY_GROUP_E
  *
  */
 public class Payment {
@@ -23,89 +23,172 @@ public class Payment {
 	private String bankName;
 	private String chequeNumber;
 	private int cvv;
+	
+	/**@return the StudentID **/
 
 	public String getStudentId() {
 		return studentId;
 	}
+	/**
+	 * 
+	 * @param studentId
+	 */
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
+	
+	/**@return the amount**/
 	public float getAmount() {
 		return amount;
 	}
+	/**
+	 * 
+	 * @param amount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-
+	
+//to check the scholarship
 	public boolean isScholarship() {
 		return scholarship;
 	}
+	
+	/**
+	 * 
+	 * @param scholarship
+	 */
 	public void setScholarship(boolean scholarship) {
 		this.scholarship = scholarship;
 	}
+	
 	public boolean isOffline() {
 		return offline;
 	}
+	/**
+	 * 
+	 * @param offline
+	 */
 	public void setOffline(boolean offline) {
 		this.offline = offline;
 	}
 	public boolean isCash() {
 		return cash;
 	}
+	/**
+	 * 
+	 * @param cash
+	 */
 	public void setCash(boolean cash) {
 		this.cash = cash;
 	}
+	
+	/**@return the banknumber **/
 	public int getBankNumber() {
 		return bankNumber;
 	}
+	
+	/**
+	 * 
+	 * @param bankNumber
+	 */
 	public void setBankNumber(int bankNumber) {
 		this.bankNumber = bankNumber;
 	}
+	
 	public boolean isStatus() {
 		return status;
 	}
+	/**
+	 * 
+	 * @param status
+	 */
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	/**@return the upiID **/
 	public String getUpiId() {
 		return upiId;
 	}
+	/**
+	 * 
+	 * @param upiId
+	 */
 	public void setUpiId(String upiId) {
 		this.upiId = upiId;
 	}
+	
+	/**@return the cardnumber **/
 	public int getCardNumber() {
 		return cardNumber;
 	}
+	/**
+	 * 
+	 * @param cardNumber
+	 */
 	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
+	
+	/**@return the cardtype**/
 	public String getCardType() {
 		return cardType;
 	}
+	/**
+	 * 
+	 * @param cardType
+	 */
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
+	
+	/**@return the bank **/
 	public String getBankName() {
 		return bankName;
 	}
+	
+	/**
+	 * 
+	 * @param bankName
+	 */
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
+	
+	/**@return the chequenumber **/
 	public String getChequeNumber() {
 		return chequeNumber;
 	}
+	
+	/**
+	 * 
+	 * @param chequeNumber
+	 */
 	public void setChequeNumber(String chequeNumber) {
 		this.chequeNumber = chequeNumber;
 	}
+	
+	/**@return the cvv **/
 	public int getCvv() {
 		return cvv;
 	}
+	
+	/**
+	 * 
+	 * @param cvv
+	 */
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
+	/**@return the reference ID **/
 	public String getReferenceId() {
 		return referenceId;
 	}
+	
+	/**
+	 * 
+	 * @param referenceId
+	 */
 	public void setReferenceId(String referenceId) {
 		this.referenceId = referenceId;
 	}
