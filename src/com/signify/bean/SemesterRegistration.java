@@ -13,29 +13,40 @@ public class SemesterRegistration {
 	private int StudentId;
 	private int semester;
 	private Date dateofRegistration;
-	//method to get student ID
+	
+	/**@return the StudentID **/
+	
 	public int getStudentId() {
 		return StudentId;
 	}
-	//method to set student ID
+	/**
+	 * 
+	 * @param studentId
+	 */
 	public void setStudentId(int studentId) {
 		StudentId = studentId;
 	}
-	//method to get semester
+	/**@return the semester**/
 	
 	public int getSemester() {
 		return semester;
 	}
-	//method to set semester
+	/**
+	 * 
+	 * @param semester
+	 */
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
-	//method to get tDate of Registration
+	/**@return the Date of Registration **/
 	
 	public Date getDateofRegistration() {
 		return dateofRegistration;
 	}
-	//method to set Date of Registration
+	/**
+	 * 
+	 * @param dateofRegistration
+	 */
 	public void setDateofRegistration(Date dateofRegistration) {
 
 		this.dateofRegistration = dateofRegistration;

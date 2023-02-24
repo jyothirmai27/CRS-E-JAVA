@@ -10,37 +10,49 @@ public class User {
 	private String role;
 	private String password;
 	
-	//method to get password
+	//**@return the password **/
 	
 	public String getPassword() {
 		return password;
 	}
-	//method to set password
+	/**
+	 * 
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	//method to get UserID
+	//**@return the userID **/
 	
 	public String getUserId() {
 		return userId;
 	}
-	//method to set UserID
+	/**
+	 * 
+	 * @param userId
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	//method to get Name
+	//**@return the name **/
 	public String getName() {
 		return name;
 	}
-	//method to set Name
+	/**
+	 * 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	//method to get Role
+	//**@return the role**/
 	public String getRole() {
 		return role;
 	}
-	//method to set Role
+	/**
+	 * 
+	 * @param role
+	 */
 	public void setRole(String role) {
 		this.role = role;
 	}

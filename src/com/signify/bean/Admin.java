@@ -13,33 +13,30 @@ public class Admin {
 	private String adminId;
 	private String Password;
 	
-	// method to get admin name
+	/** @return admin name**/
 	public String getAdminName() {
 		return adminName;
 	}
-	//method to set admin name
+	/**@param admin name the admin name to set**/
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
 	}
 	
-	//method to get admin Id
+	/** @return admin ID**/
 	public String getAdminId() {
 		return adminId;
 	}
-	
-	//method to set admin Id
+	/**@param admin ID the admin ID to set**/
 	public void setAdminId(String adminId) {
 		this.adminId = adminId;
 	}
-	//method to get Password
+	
+	/** @return password**/
 	public String getPassword() {
 		return Password;
 	}
-	
-	//method to set Password
+	/**@param password the password to set**/
 	public void setPassword(String password) {
 		Password = password;
 	}
-	
-
 }

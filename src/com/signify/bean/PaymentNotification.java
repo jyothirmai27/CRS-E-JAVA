@@ -12,30 +12,39 @@ public class PaymentNotification {
 	private String notificationMessage;
 	private int referenceId;
 	
-	//method to get NotificationId
+	/**@return the NotificationID **/
 
 	public int getNotificationId() {
 		return notificationId;
 	}
-	//method to set NotificationId
+	/**
+	 * 
+	 * @param notificationId
+	 */
 	public void setNotificationId(int notificationId) {
 		this.notificationId = notificationId;
 	}
-	//method to get ReferenceId
+	/**@return the referenceID**/
 	public int getReferenceId() {
 		return referenceId;
 	}
 	
-	//method to set ReferenceId
+	/**
+	 * 
+	 * @param referenceId
+	 */
 	public void setReferenceId(int referenceId) {
 		this.referenceId = referenceId;
 	}
 	
-	//method to get NotificationMessage
+	/**@return the Notification Message **/
 	public String getNotificationMessage() {
 		return notificationMessage;
 	}
-	//method to set NotificationMessage
+	/**
+	 * 
+	 * @param notificationMessage
+	 */
 	public void setNotificationMessage(String notificationMessage) {
 		this.notificationMessage = notificationMessage;
 	}

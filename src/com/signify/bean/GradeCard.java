@@ -21,33 +21,43 @@ public class GradeCard {
 		return studentId;
 	}
 	
-	//method to set StudentId
+	/**@return the StudentID **/
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
-//method to get Semester
+	/**@return the semester **/
 	public int getSemester() {
 		return semester;
 	}
-	//method to set Semester
+	
+	/**
+	 * 
+	 * @param semester
+	 */
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
-	//method to get cpi
+	/**@return the CPI **/
 	public float getCpi() {
 		return cpi;
 	}
 	
-	//method to set cpi
+	/**
+	 * 
+	 * @param cpi
+	 */
 	public void setCpi(float cpi) {
 		this.cpi = cpi;
 	}
 	
-	//method to get grades
+	/**@return the grades **/
 	public Map<String, String> getGrades() {
 		return grades;
 	}
-	//method to set grades
+	/**
+	 * 
+	 * @param grades
+	 */
 	public void setGrades(Map<String, String> grades) {
 		this.grades = grades;
 	}

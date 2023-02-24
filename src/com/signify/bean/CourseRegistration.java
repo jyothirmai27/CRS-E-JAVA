@@ -14,39 +14,40 @@ public class CourseRegistration {
 	private String grade;
 	
 	
-	//method to get course Code 
+	/**@return the courseCode **/
 	public String getCourseCode() {
 		return courseCode;
 	}
 	
-	//method to set course Code 
+	/** @param coursecode the coursecode to set **/
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
 	}
-	//method to get semester
+	/**@return the semester **/
 	public int getSemester() {
 		return semester;
 	}
-	//method to set semester
+	/** @param semester the semester to set **/
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
-	//method to get StudentId
 	
+	/**@return the studentID**/
 	public int getStudentId() {
 		return studentId;
 	}
 	
-	//method to set StudentId
+	/** @param studentID the studentID to set **/
+	
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
-	//method to get Grade
+	/**@return the grade**/
 	public String getGrade() {
 		return grade;
 	}
 	
-	//method to set Grade
+	/** @param grade the grade to set **/
 	public void setGrade(String grade) {
 		this.grade = grade;
 }
