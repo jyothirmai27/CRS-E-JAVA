@@ -43,7 +43,7 @@ public class StudentDAOImplementation implements StudentDAOInterface{
 			      stmt.setString(6, student.getBatch());
 			      stmt.setString(7, student.getPhoneNumber());
 			      stmt.setInt(8, 0);
-			      stmt.setInt(9, Integer.parseInt(student.getSemester()));
+			      stmt.setInt(9, Integer.parseInt(student.getsemester()));
 			      
 			      stmt.executeUpdate();
 			      stmt.close();
